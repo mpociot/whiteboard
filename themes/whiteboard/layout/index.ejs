@@ -1,0 +1,87 @@
+<% var language_tabs = page.language_tabs || false %>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><%= page.title || "API Documentation" %></title>
+
+    <%- css('css/style') %>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <%- js([
+      'js/lib/energize',
+      'js/lib/imagesloaded.min',
+      'js/lib/jquery_ui',
+      'js/lib/jquery.highlight',
+      'js/lib/jquery.tocify.js',
+      'js/lib/lunr'
+    ]) %>
+    <%- js('js/script') %>
+
+    <% if (language_tabs){ %>
+      <script>
+        $(function() {
+            setupLanguages(<%- JSON.stringify(language_tabs) %>);
+        });
+      </script>
+    <% } %>
+  </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <%- image_tag('images/navbar.png') %>
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <%- image_tag('images/logo.png') %>
+      <% if (language_tabs){ %>
+        <div class="lang-selector">
+          <% for( var lang in language_tabs){ %>
+              <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+          <% } %>
+        </div>
+      <% } %>
+      <% if (page.search) { %>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <% } %>
+      <div id="toc">
+      </div>
+      <% if (page.toc_footers){ %>
+        <ul class="toc-footer">
+          <% for( var link in page.toc_footers){ %>
+              <li><%- page.toc_footers[link] %></li>
+          <% } %>
+        </ul>
+      <% } %>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <%- page.content %>
+        <% if( page.includes ){ %>
+          <% for( var include in page.includes ) { %>
+              <%- markdown( read( '_' + page.includes[include] + '.md') ) %>
+          <% } %>
+        <% } %>
+      </div>
+      <div class="dark-box">
+        <% if (language_tabs){ %>
+          <div class="lang-selector">
+            <% for( var lang in language_tabs){ %>
+                <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

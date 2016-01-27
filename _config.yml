@@ -1,0 +1,35 @@
+# Whiteboard Configuration
+## Docs: https://hexo.io/docs/configuration.html
+
+# Site
+title: API Documentation
+subtitle:
+description:
+author: John Doe
+language:
+timezone:
+
+# URL (Used when deploying)
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: http://yoursite.com
+root: /
+
+# Directory
+source_dir: source
+public_dir: public
+relative_link: true
+future: true
+
+highlight:
+  enable: true
+  line_number: false
+  auto_detect: false
+  tab_replace:
+
+# Whiteboard theme
+theme: whiteboard
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type:
