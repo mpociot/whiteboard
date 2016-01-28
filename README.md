@@ -6,7 +6,7 @@
 
 This project started as a fork of the popular [Slate](https://github.com/tripit/slate) API documentation tool, which uses ruby. Since I found the initial setup of Slate quite cumbersome, I started this NodeJS based project.
 
-<img src="http://www.marcelpociot.com/git/whiteboard_responsive.jpg" style="width: 100%" alt="Whiteboard" />
+<a href="http://www.marcelpociot.com/whiteboard/"><img src="http://www.marcelpociot.com/git/whiteboard_responsive.jpg" style="width: 100%" alt="Whiteboard" /></a>
 
 Check out a Whiteboard [example API documentation](http://www.marcelpociot.com/whiteboard/).
 
