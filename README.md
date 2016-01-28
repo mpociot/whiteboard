@@ -27,8 +27,6 @@ _Yes, that's it!_
  3. Install the dependencies: `npm install`
  4. Start the test server: `npm start`
 
-> **Windows users:** You need to install the global `hexo-cli` package using `npm install -g hexo-cli`. To start the test server under windows use `hexo serve`.
-
 Now go ahead and visit <http://localhost:4000> and you will be presented with a beautiful example API documentation as a starting point.
 
 Go ahead and modify the markdown file at `source/index.md` to suit your needs.
