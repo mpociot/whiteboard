@@ -19,7 +19,7 @@
     "hexo-server": "^0.1.2"
   },
   "scripts": {
-    "start": "node_modules/hexo-cli/bin/hexo server",
-    "generate": "node_modules/hexo-cli/bin/hexo generate"
+    "start": "hexo server",
+    "generate": "hexo generate"
   }
 }
