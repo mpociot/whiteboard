@@ -2,11 +2,11 @@
   font-family: FontAwesome
   font-style: normal
   font-weight: normal
-  src: url(font-icon-path + ".eot?v=#" + font-icon-version)
-  src: url(font-icon-path + ".eot?#iefix&v=#" + font-icon-version) format("embedded-opentype"),
-       url(font-icon-path + ".woff?v=#" + font-icon-version) format("woff"),
-       url(font-icon-path + ".ttf?v=#" + font-icon-version) format("truetype"),
-       url(font-icon-path + ".svg#fontawesomeregular?v=#" + font-icon-version) format("svg")
+  src: url($font-icon-path + ".eot?v=#" + $font-icon-version)
+  src: url($font-icon-path + ".eot?#iefix&v=#" + $font-icon-version) format("embedded-opentype"),
+       url($font-icon-path + ".woff?v=#" + $font-icon-version) format("woff"),
+       url($font-icon-path + ".ttf?v=#" + $font-icon-version) format("truetype"),
+       url($font-icon-path + ".svg#fontawesomeregular?v=#" + $font-icon-version) format("svg")
 
 $icon
   font-family: 'FontAwesome'
@@ -28,7 +28,7 @@ $icon-info-sign
 $icon-ok-sign
   @extend $icon
   content: "\f058"
-  
+
 $icon-search
   @extend $icon
   content: "\f002"
