@@ -2,10 +2,9 @@
 
 var cheerio;
 
-hexo.extend.filter.register('after_post_render', function(data){
+hexo.extend.filter.register('after_render:html', function(str, data){
   if (!cheerio) cheerio = require('cheerio');
-
-  var $ = cheerio.load(data.content, {decodeEntities: false});
+  var $ = cheerio.load(str, {decodeEntities: false});
 
   $('figure.highlight').each(function(){
     var code = $(this).find('.code > pre').html();
@@ -13,5 +12,11 @@ hexo.extend.filter.register('after_post_render', function(data){
     $(this).replaceWith(html)
   });
 
-  data.content = $.html();
+  $('pre > code').each(function(){
+    if( !$(this).hasClass('highlight') ){
+      $(this).addClass('highlight');
+    }
+  });
+
+  return $.html();
 });
