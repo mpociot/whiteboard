@@ -66,7 +66,10 @@ Since both Whiteboard and Slate use regular markdown files to render the API doc
 For further documentation, read the [Slate Wiki](https://github.com/tripit/slate/wiki) or the [hexo documentation](https://hexo.io/docs/).
 
 ### Documentations built with Whiteboard
-_None yet_ - Feel free to submit a PR with a link to your documentation.
+
+* [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com) 
+
+Feel free to submit a PR with a link to your documentation.
 
 ### Contributors
 
