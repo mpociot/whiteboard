@@ -69,6 +69,7 @@ For further documentation, read the [Slate Wiki](https://github.com/tripit/slate
 
 * [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com) 
 * [CommoPrices API Documentation](https://api.commoprices.com/docs/) from [commoprices.com](https://commoprices.com/) 
+* [TradeIt JSON API](https://www.trade.it/documentation/api) from [trade.it](https://www.trade.it/) 
 
 Feel free to submit a PR with a link to your documentation.
 
