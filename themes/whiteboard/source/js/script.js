@@ -176,7 +176,7 @@ under the License.
 
   var makeToc = function() {
     global.toc = $("#toc").tocify({
-      selectors: 'h1, h2',
+      selectors: 'h1, h2 , h3 , h4 , h5 , h6 ',
       extendPage: false,
       theme: 'none',
       smoothScroll: false,
@@ -238,9 +238,9 @@ under the License.
   $(bind);
 
   function populate() {
-    $('h1, h2').each(function() {
+    $('h1, h2 , h3 , h4 , h5 , h6 ').each(function() {
       var title = $(this);
-      var body = title.nextUntil('h1, h2');
+      var body = title.nextUntil('h1, h2 , h3 , h4 , h5 , h6');
       index.add({
         id: title.prop('id'),
         title: title.text(),
@@ -251,7 +251,7 @@ under the License.
 
   function bind() {
     content = $('.content');
-    searchResults = $('.search-results');
+    searchResults = $('.search-results');   
 
     $('#input-search').on('keyup', search);
   }
