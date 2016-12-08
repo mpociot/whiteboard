@@ -1,4 +1,4 @@
-<img src="http://www.marcelpociot.com/git/whiteboard.jpg" style="width: 100%" alt="Whiteboard" />
+<img src="http://marcelpociot.de/git/whiteboard.jpg" style="width: 100%" alt="Whiteboard" />
 
 # Whiteboard
 #### Simply write beautiful API documentation.
@@ -6,9 +6,9 @@
 
 This project started as a fork of the popular [Slate](https://github.com/tripit/slate) API documentation tool, which uses ruby. Since I found the initial setup of Slate quite cumbersome, I started this NodeJS based project.
 
-<a href="http://www.marcelpociot.com/whiteboard/"><img src="http://www.marcelpociot.com/git/whiteboard_responsive.jpg" style="width: 100%" alt="Whiteboard" /></a>
+<a href="http://marcelpociot.de/whiteboard/"><img src="http://marcelpociot.de/git/whiteboard_responsive.jpg" style="width: 100%" alt="Whiteboard" /></a>
 
-Check out a Whiteboard [example API documentation](http://www.marcelpociot.com/whiteboard/).
+Check out a Whiteboard [example API documentation](http://marcelpociot.de/whiteboard/).
 
 ## Getting Started with Whiteboard
 
