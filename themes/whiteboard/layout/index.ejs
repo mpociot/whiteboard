@@ -69,7 +69,7 @@
         <%- page.content %>
         <% if( page.includes ){ %>
           <% for( var include in page.includes ) { %>
-              <%- markdown( read( '_' + page.includes[include] + '.md') ) %>
+              <%- markdown( read(page.includes[include]) ) %>
           <% } %>
         <% } %>
       </div>
