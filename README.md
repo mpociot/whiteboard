@@ -1,4 +1,4 @@
-<img src="http://marcelpociot.de/git/whiteboard.jpg" style="width: 100%" alt="Whiteboard" />
+Testing
 
 # Whiteboard
 #### Simply write beautiful API documentation.
@@ -67,9 +67,9 @@ For further documentation, read the [Slate Wiki](https://github.com/tripit/slate
 
 ### Documentations built with Whiteboard
 
-* [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com) 
-* [CommoPrices API Documentation](https://api.commoprices.com/docs/) from [commoprices.com](https://commoprices.com/) 
-* [TradeIt JSON API](https://www.trade.it/documentation/api) from [trade.it](https://www.trade.it/) 
+* [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com)
+* [CommoPrices API Documentation](https://api.commoprices.com/docs/) from [commoprices.com](https://commoprices.com/)
+* [TradeIt JSON API](https://www.trade.it/documentation/api) from [trade.it](https://www.trade.it/)
 
 Feel free to submit a PR with a link to your documentation.
 
