@@ -181,7 +181,7 @@ embossed-bg()
           embossed-bg()
           & > li:last-child
             box-shadow: none
-            // otherwise it'll overflow out of the subheader      
+            // otherwise it'll overflow out of the subheader
   .toc-footer
     padding: 1em 0
     margin-top: 1em
@@ -461,7 +461,63 @@ embossed-bg()
   .content
     h1,h2,h3,h4,h5,h6,p,table,ul,ol,aside,dl
       margin-right: 0
-      
+
     pre, blockquote
       float: none
       width: auto
+
+// Added for Mailshake
+.content h1
+  font-weight:300
+.tocify-wrapper
+  background:#f9fafd
+  & > .logo-wrapper
+    padding: 10px 25px;
+    background-color: #fff;
+    position: relative;
+    height: 47px;
+    border-right: solid 1px #ccc;
+    img
+      background-size: auto 100%;
+      height: 43px;
+      margin: 0 auto;
+      display: block;
+    label
+      position: absolute
+      display: block
+      bottom: 10px
+      left: 88px
+      font-size: 13px
+      color: #666
+      z-index: 12
+      font-weight: 400
+  ul
+    line-height: 1.6em;
+    font-size: 16px;
+  li
+    color:#005aac
+    font-weight:300;
+    & :hover
+      border-right: 3px solid rgba(45, 152, 244, 0.1);
+    &.tocify-focus
+      font-weight:500
+      background:transparent
+      color:#005aac
+      border-right: 3px solid #005aac
+      box-shadow:none
+  .tocify-subheader, .tocify-subheader .tocify-subheader
+    background:hsla(220, 50%, 96%, 1)
+  .tocify-subheader .tocify-item>a
+    font-size:15px;
+  .tocify-subheader .tocify-subheader .tocify-item>a
+    background:transparent
+    font-size:14px;
+.content aside:before
+  position:relative
+  top:-2px
+content a
+  color:#005AAC
+.search
+  input
+    background:#f9fafd
+    border-color:#d9dff2

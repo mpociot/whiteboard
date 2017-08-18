@@ -1,5 +1,3 @@
-Testing
-
 # Whiteboard
 #### Simply write beautiful API documentation.
 ========

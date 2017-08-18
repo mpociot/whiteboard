@@ -39,7 +39,10 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <%- image_tag('images/logo.png') %>
+      <div class="logo-wrapper">
+        <%- image_tag('images/logo.png') %>
+        <label>API</label>
+      </div>
       <% if (language_tabs){ %>
         <div class="lang-selector">
           <% for( var lang in language_tabs){ %>
