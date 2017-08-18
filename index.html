@@ -1,5 +1,226 @@
+
+<!doctype html>
 <html>
-<body>
-  Hello!
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="js/lib/energize.js"></script>
+<script src="js/lib/imagesloaded.min.js"></script>
+<script src="js/lib/jquery_ui.js"></script>
+<script src="js/lib/jquery.highlight.js"></script>
+<script src="js/lib/jquery.tocify.js"></script>
+<script src="js/lib/lunr.js"></script>
+    <script src="js/script.js"></script>
+
+    
+      <script>
+        $(function() {
+            setupLanguages(["bash","ruby","python"]);
+        });
+      </script>
+    
+  </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png">
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png">
+      
+        <div class="lang-selector">
+          
+              <a href="#" data-language-name="bash">bash</a>
+          
+              <a href="#" data-language-name="ruby">ruby</a>
+          
+              <a href="#" data-language-name="python">python</a>
+          
+        </div>
+      
+      
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      
+      <div id="toc">
+      </div>
+      
+        <ul class="toc-footer">
+          
+              <li><a href="#">Sign Up for a Developer Key</a></li>
+          
+              <li><a href="http://github.com/mpociot/whiteboard">Documentation Powered by Whiteboard</a></li>
+          
+        </ul>
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>This example API documentation page was created with <a href="http://github.com/mpociot/whiteboard" target="_blank" rel="external">Whiteboard</a>. Feel free to edit it and use it as a base for your own API’s documentation.</p>
+<h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
+<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
+<pre><code class="highlight bash"><div class="line"><span class="comment"># With shell, you can just pass the correct header with each request</span></div><div class="line">curl <span class="string">"api_endpoint_here"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<blockquote>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+</blockquote>
+<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank" rel="external">developer portal</a>.</p>
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p><code>Authorization: meowmeowmeow</code></p>
+<aside class="notice"><br>You must replace <code>meowmeowmeow</code> with your personal API key.<br></aside>
+
+<h1 id="Kittens"><a href="#Kittens" class="headerlink" title="Kittens"></a>Kittens</h1><h2 id="Get-All-Kittens"><a href="#Get-All-Kittens" class="headerlink" title="Get All Kittens"></a>Get All Kittens</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get</div></code></pre>
+<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get()</div></code></pre>
+<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><div class="line">[</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Fluffums"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"calico"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">6</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">7</span></div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">  &#125;</div><div class="line">]</div></code></pre>
+<p>This endpoint retrieves all kittens.</p>
+<h3 id="HTTP-Request"><a href="#HTTP-Request" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/api/kittens</code></p>
+<h3 id="Query-Parameters"><a href="#Query-Parameters" class="headerlink" title="Query Parameters"></a>Query Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include_cats</td>
+<td>false</td>
+<td>If set to true, the result will also include cats.</td>
+</tr>
+<tr>
+<td>available</td>
+<td>true</td>
+<td>If set to false, the result will include kittens that have already been adopted.</td>
+</tr>
+</tbody>
+</table>
+<aside class="success"><br>Remember — a happy kitten is an authenticated kitten!<br></aside>
+
+<h2 id="Get-a-Specific-Kitten"><a href="#Get-a-Specific-Kitten" class="headerlink" title="Get a Specific Kitten"></a>Get a Specific Kitten</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
+<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
+<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens/2"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><div class="line">&#123;</div><div class="line">  <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">  <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">  <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">  <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">&#125;</div></code></pre>
+<p>This endpoint retrieves a specific kitten.</p>
+<aside class="warning">If you’re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+
+<h3 id="HTTP-Request-1"><a href="#HTTP-Request-1" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id="URL-Parameters"><a href="#URL-Parameters" class="headerlink" title="URL Parameters"></a>URL Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody>
+</table>
+
+        
+          
+              <h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><aside class="notice">This error section is stored in a separate file in <code>includes/_errors.md</code>. Whiteboard allows you to optionally separate out your docs into many files…just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>‘s frontmatter. Files are included in the order listed.</aside>
+
+<p>The Kittn API uses the following error codes:</p>
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td>Bad Request – Your request sucks</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized – Your API key is wrong</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden – The kitten requested is hidden for administrators only</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found – The specified kitten could not be found</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed – You tried to access a kitten with an invalid method</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable – You requested a format that isn’t json</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone – The kitten requested has been removed from our servers</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I’m a teapot</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests – You’re requesting too many kittens! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error – We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable – We’re temporarially offline for maintanance. Please try again later.</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      </div>
+      <div class="dark-box">
+        
+          <div class="lang-selector">
+            
+                <a href="#" data-language-name="bash">bash</a>
+            
+                <a href="#" data-language-name="ruby">ruby</a>
+            
+                <a href="#" data-language-name="python">python</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </body>
 </html>
