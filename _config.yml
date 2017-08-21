@@ -27,7 +27,7 @@ highlight:
   tab_replace:
 
 # Whiteboard theme
-theme: jekyll-theme-minimal
+theme: whiteboard
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
