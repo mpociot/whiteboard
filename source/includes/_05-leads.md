@@ -36,14 +36,18 @@ Mailshake.leads.create({
 ```shell
 curl "https://api.mailshake.com/2017-04-01/leads/create" \
   -u "my-api-key:" \
-  -d recipientIDs=[1, 2, 3]
+  -d recipientIDs=1
+  -d recipientIDs=2
+  -d recipientIDs=3
 
 # Or
 
 curl "https://api.mailshake.com/2017-04-01/leads/create" \
   -u "my-api-key:" \
   -d campaignID=1
-  -d emailAddresses=['a@johndoe.com', 'b@johndoe.com', 'c@johndoe.com']
+  -d emailAddresses=a@johndoe.com
+  -d emailAddresses=b@johndoe.com
+  -d emailAddresses=c@johndoe.com
 ```
 
 > This endpoint returns [CreatedLeads](#CreatedLeads) model.
@@ -98,7 +102,7 @@ leadID | | No | The ID of the lead.
 ## Ignore
 
 ```javascript
-reMailshake.leads.ignore({
+Mailshake.leads.ignore({
   leadID: 1
 })
   .then(result => {
@@ -133,9 +137,15 @@ leadID | | No | The ID of the lead.
 ## Reopen
 
 ```javascript
-request('leads/reopen', {
+Mailshake.leads.reopen({
   leadID: 1
-});
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
 ```shell

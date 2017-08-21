@@ -26,11 +26,9 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 
 Simply include your API key as a querystring parameter (`apiKey`), part of your body json  (`apiKey`), or via an http `Authorization` header that looks like:
 
-`Authorization: Basic my-api-key`
+`Authorization: Basic [base-64 encoded version of your api key]`
 
 > Make sure to replace `my-api-key` with your API key.
-
-<aside class="warning">Make sure to replace <code>my-api-key</code> with your API key.</aside>
 
 ## OAuth2
 

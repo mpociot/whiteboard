@@ -6,7 +6,7 @@ language_tabs:
   - shell: curl
 
 toc_footers:
-#  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href="https://mailshake.com">Visit Mailshake</a>
 
 includes:
   - 01-welcome

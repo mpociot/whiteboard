@@ -34,13 +34,6 @@ See [authentication](#Authentication) for examples of how to make requests.
 
 Most endpoints return a single model of data. Check out our [models section](#Models) for specific examples and be sure to check out the [errors section](#Errors) section, too.
 
-### Common fields
-
-Field | Type | Description
---------- | ------- | -----------
-object | string | The type of model this data represents.
-id | integer | The unique ID of this data.
-
 ## Pagination
 
 > Paginated data will look like this:
@@ -58,14 +51,21 @@ id | integer | The unique ID of this data.
 > Get the next page of data like so:
 
 ```javascript
-request('campaigns/list', {
+Mailshake.campaigns.list({
   nextToken: '...'
-});
+})
+  .then(result => {
+    // ...
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
 ```shell
-curl "https://api.mailshake.com/2017-04-01/campaigns/list?nextToken=..." \
-  -u "my-api-key:"
+curl "https://api.mailshake.com/2017-04-01/campaigns/list" \
+  -u "my-api-key:" \
+  -d nextToken=...
 ```
 
 Endpoints that return multiple results will include a `nextToken` parameter that you can pass into another request to fetch the next results. These endpoints will also accept a `perPage` parameter to control the size of the record sets.

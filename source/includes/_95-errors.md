@@ -1,20 +1,42 @@
 # Errors
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Whiteboard allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+> A raw error response looks like this:
 
-The Kittn API uses the following error codes:
+```json
+{
+  "code": "invalid_api_key",
+  "error": "Invalid api key",
+  "time": "2017-08-21T13:23:11.814Z"
+}
+```
 
+Mailshake uses the following error codes:
 
-Error Code | Meaning
+## General errors
+
+Code | Description
 ---------- | -------
-400 | Bad Request -- Your request sucks
-401 | Unauthorized -- Your API key is wrong
-403 | Forbidden -- The kitten requested is hidden for administrators only
-404 | Not Found -- The specified kitten could not be found
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method
-406 | Not Acceptable -- You requested a format that isn't json
-410 | Gone -- The kitten requested has been removed from our servers
-418 | I'm a teapot
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
+invalid_api_key | The key you provided us was either missing or invalid.
+missing_team_admin | Your team doesn't have an active team administrator (check that your billing is up to date)
+missing_dependent_data | The object on which you're acting wasn't found or you don't have permission. An example would be trying to pause a campaign with an ID that doesn't reference a campaign.
+missing_parameter | Your request is missing a required parameter.
+invalid_parameter | One of your request's parameter is in an unsupported format.
+not_authorized | Your credentials don't allow you to execute this request.
+not_found | A more semantically permissive version of `missing_dependent_data`. We're splitting hairs a bit here, but generally speaking when this code is returned your application might want to just note the problem and carry on, whereas if you encounter the `missing_dependent_data` error it's more of a show-stopper.
+exceeds_monthly_recipients | You can't add this many recipients because you will pass your monthly quota allowance. You can contact us to request an increase.
+user_not_admin | The user on file for your application must be an administrator of your team.
+user_is_disabled | The user on file for your application must have an active account (check your billing)
+missing_subscription | Your team must have an active and paid subscription to Mailshake.
+team_blocked | Your team has been blocked while our compliance team runs a review of your usage of our platform.
+
+## Specific to OAuth2
+
+Code | Description
+--- | ---
+unauthorized_request | Your request is missing authentication.
+invalid_client | Your `client_id` or `client_secret` parameter is wrong.
+invalid_grant | Your request for authorization is malformed.
+app_not_approved | Your application is not allowed to use our API at the moment.
+invalid_token | Your token has expired. Try using your refresh token to get another access token.
+unspecified-error | Something general went wrong with authentication.
+missing_scope | Your authentication request did not specify any scopes.

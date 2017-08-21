@@ -1,5 +1,14 @@
 # Models
 
+### Common fields
+
+Most models will have these common fields:
+
+Field | Type | Description
+--------- | ------- | -----------
+object | string | The type of model this data represents.
+id | integer | The unique ID of this data.
+
 ## User
 
 ```json
