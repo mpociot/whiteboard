@@ -6,7 +6,7 @@ Most of the apps authorized to use the Mailshake API can only access their own t
 
 ## Simple
 
-```Node
+```javascript
 let Mailshake = require('mailshake-node')('my-api-key');
 Mailshake.me()
   .then(result => {
@@ -17,7 +17,9 @@ Mailshake.me()
   });
 ```
 
-```curl
+```shell
+# curl uses the -u flag to pass basic auth credentials
+# (adding a colon after your API key prevents cURL from asking for a password).
 curl "https://api.mailshake.com/2017-04-01/me" \
   -u "my-api-key:"
 ```
@@ -28,7 +30,7 @@ Simply include your API key as a querystring parameter (`apiKey`), part of your 
 
 > Make sure to replace `my-api-key` with your API key.
 
-<aside class="notice">Make sure to replace <code>my-api-key</code> with your API key.</aside>
+<aside class="warning">Make sure to replace <code>my-api-key</code> with your API key.</aside>
 
 ## OAuth2
 
@@ -36,7 +38,7 @@ TODO:
 
 ## Test connection
 
-```Node
+```javascript
 Mailshake.me()
   .then(result => {
     console.log(JSON.stringify(result, null, 2));
@@ -46,11 +48,17 @@ Mailshake.me()
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/me" \
   -u "my-api-key:"
 ```
 
-> This endpoint returns a [User](#User) model.
+> This endpoint returns a simple object with a [User](#User) model attached.
+
+```json
+{
+  "user": "[User model]"
+}
+```
 
 You can hit our `/me` endpoint to test that authentication is working. It will return information about the current user you are authenticating as.

@@ -46,7 +46,11 @@
       <% if (language_tabs){ %>
         <div class="lang-selector">
           <% for( var lang in language_tabs){ %>
+            <% if (typeof(language_tabs[lang]) === 'string') { %>
               <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+            <% } else { %>
+              <a href="#" data-language-name="<%= Object.keys(language_tabs[lang])[0] %>"><%= language_tabs[lang][Object.keys(language_tabs[lang])[0]] %></a>
+            <% } %>
           <% } %>
         </div>
       <% } %>
@@ -80,7 +84,11 @@
         <% if (language_tabs){ %>
           <div class="lang-selector">
             <% for( var lang in language_tabs){ %>
+              <% if (typeof(language_tabs[lang]) === 'string') { %>
                 <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+              <% } else { %>
+                <a href="#" data-language-name="<%= Object.keys(language_tabs[lang])[0] %>"><%= language_tabs[lang][Object.keys(language_tabs[lang])[0]] %></a>
+              <% } %>
             <% } %>
           </div>
         <% } %>

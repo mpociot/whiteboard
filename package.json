@@ -24,5 +24,8 @@
   "scripts": {
     "start": "hexo server",
     "generate": "node lib/generate.js"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1"
   }
 }

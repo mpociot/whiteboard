@@ -2,7 +2,7 @@
 
 ## List
 
-```Node
+```javascript
 Mailshake.campaigns.list({
   search: 'Venkman'
 })
@@ -16,7 +16,7 @@ Mailshake.campaigns.list({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/campaigns/list" \
   -u "my-api-key:" \
   -d search=Venkman
@@ -36,7 +36,7 @@ perPage | 100 | No | How many campaigns to get at once, up to 100.
 
 ## Pause
 
-```Node
+```javascript
 Mailshake.campaigns.pause({
   campaignID: 1
 })
@@ -45,7 +45,7 @@ Mailshake.campaigns.pause({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/campaigns/pause" \
   -u "my-api-key:" \
   -d campaignID=1
@@ -63,7 +63,7 @@ campaignID |  | Yes | The campaign to pause.
 
 ## Unpause
 
-```Node
+```javascript
 Mailshake.campaigns.unpause({
   campaignID: 1
 })
@@ -72,7 +72,7 @@ Mailshake.campaigns.unpause({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/campaigns/unpause" \
   -u "my-api-key:" \
   -d campaignID=1

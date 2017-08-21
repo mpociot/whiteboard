@@ -4,7 +4,7 @@ A lead in Mailshake is a recipient who may be interested in whatever you're pitc
 
 ## Create
 
-```Node
+```javascript
 Mailshake.leads.create({
   recipientIDs: [1, 2, 3]
 })
@@ -33,7 +33,7 @@ Mailshake.leads.create({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/leads/create" \
   -u "my-api-key:" \
   -d recipientIDs=[1, 2, 3]
@@ -62,7 +62,7 @@ recipientIDs |  | No | A list of recipient IDs to create leads from. This list w
 
 ## Close
 
-```Node
+```javascript
 Mailshake.leads.close({
   leadID: 1
 })
@@ -74,7 +74,7 @@ Mailshake.leads.close({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/leads/close" \
   -u "my-api-key:" \
   -d leadID=1
@@ -97,7 +97,7 @@ leadID | | No | The ID of the lead.
 
 ## Ignore
 
-```Node
+```javascript
 reMailshake.leads.ignore({
   leadID: 1
 })
@@ -109,7 +109,7 @@ reMailshake.leads.ignore({
   });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/leads/ignore" \
   -u "my-api-key:" \
   -d leadID=1
@@ -132,13 +132,13 @@ leadID | | No | The ID of the lead.
 
 ## Reopen
 
-```Node
+```javascript
 request('leads/reopen', {
   leadID: 1
 });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/leads/reopen" \
   -u "my-api-key:" \
   -d leadID=1

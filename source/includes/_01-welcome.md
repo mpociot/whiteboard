@@ -57,13 +57,13 @@ id | integer | The unique ID of this data.
 
 > Get the next page of data like so:
 
-```Node
+```javascript
 request('campaigns/list', {
   nextToken: '...'
 });
 ```
 
-```curl
+```shell
 curl "https://api.mailshake.com/2017-04-01/campaigns/list?nextToken=..." \
   -u "my-api-key:"
 ```

@@ -131,7 +131,7 @@ under the License.
   function setupLanguages(l) {
     var defaultLanguage = localStorage.getItem("language");
 
-    languages = l;
+    languages = l.map(row => languageDetails(row).lang);
 
     var presetLanguage = getLanguageFromQueryString();
     if (presetLanguage) {
@@ -146,6 +146,16 @@ under the License.
       // no language selected, so use the default
       activateLanguage(languages[0]);
     }
+  }
+
+  function languageDetails(lang) {
+    if (typeof(lang) === 'string') {
+      return { lang, name: lang }
+    }
+    // If it's an object, then it's [language]: [name]
+    let keys = Object.keys(lang);
+    lang = keys[0];
+    return { lang: lang, name: lang[lang] };
   }
 
   // if we click on a language tab, activate that language
