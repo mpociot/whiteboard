@@ -1182,6 +1182,12 @@ rgba(0,0,0,0.4)
   color: #333;
   text-decoration: none;
 }
+.tocify-wrapper .toc-footer {
+  border-color: #ccc;
+}
+.tocify-wrapper .toc-footer a {
+  color: #005aac;
+}
 .content aside:before {
   position: relative;
   top: -2px;
@@ -1191,6 +1197,9 @@ rgba(0,0,0,0.4)
 }
 .content a {
   color: #005aac;
+}
+.content {
+  padding-bottom: 300px;
 }
 .page-wrapper .lang-selector {
   padding: 18px 0 19px 29px;
