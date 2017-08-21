@@ -251,7 +251,7 @@ under the License.
 
   function bind() {
     content = $('.content');
-    searchResults = $('.search-results');   
+    searchResults = $('.search-results');
 
     $('#input-search').on('keyup', search);
   }

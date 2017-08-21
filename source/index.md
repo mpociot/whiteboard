@@ -2,8 +2,8 @@
 title: Mailshake API Reference
 
 language_tabs:
-  - javascript
-  - bash
+  - Node
+  - curl
 
 toc_footers:
 #  - <a href='#'>Sign Up for a Developer Key</a>

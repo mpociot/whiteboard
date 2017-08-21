@@ -2,15 +2,24 @@
 
 ## List
 
-```javascript
-request('campaigns/list', {
+```Node
+Mailshake.campaigns.list({
   search: 'Venkman'
-});
+})
+  .then(result => {
+    result.results.forEach(campaign => {
+      console.log(JSON.stringify(campaign, null, 2));
+    });
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
-curl "https://api.mailshake.com/2017-04-01/campaigns/list?search=Venkman" \
-  -H "Authorization: my-api-key"
+```curl
+curl "https://api.mailshake.com/2017-04-01/campaigns/list" \
+  -u "my-api-key:" \
+  -d search=Venkman
 ```
 
 > This endpoint returns [paginated](#Pagination) [Campaign](#Campaign) models.
@@ -27,15 +36,19 @@ perPage | 100 | No | How many campaigns to get at once, up to 100.
 
 ## Pause
 
-```javascript
-request('campaigns/pause', {
+```Node
+Mailshake.campaigns.pause({
   campaignID: 1
-});
+})
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
-curl "https://api.mailshake.com/2017-04-01/campaigns/pause?campaignID=1" \
-  -H "Authorization: my-api-key"
+```curl
+curl "https://api.mailshake.com/2017-04-01/campaigns/pause" \
+  -u "my-api-key:" \
+  -d campaignID=1
 ```
 
 > This endpoint returns an empty response.
@@ -50,15 +63,19 @@ campaignID |  | Yes | The campaign to pause.
 
 ## Unpause
 
-```javascript
-request('campaigns/unpause', {
+```Node
+Mailshake.campaigns.unpause({
   campaignID: 1
-});
+})
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
-curl "https://api.mailshake.com/2017-04-01/campaigns/unpause?campaignID=1" \
-  -H "Authorization: my-api-key"
+```curl
+curl "https://api.mailshake.com/2017-04-01/campaigns/unpause" \
+  -u "my-api-key:" \
+  -d campaignID=1
 ```
 
 > This endpoint returns an empty response.

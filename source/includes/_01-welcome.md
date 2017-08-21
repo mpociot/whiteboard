@@ -57,15 +57,15 @@ id | integer | The unique ID of this data.
 
 > Get the next page of data like so:
 
-```javascript
+```Node
 request('campaigns/list', {
   nextToken: '...'
 });
 ```
 
-```bash
+```curl
 curl "https://api.mailshake.com/2017-04-01/campaigns/list?nextToken=..." \
-  -H "Authorization: Basic my-api-key"
+  -u "my-api-key:"
 ```
 
 Endpoints that return multiple results will include a `nextToken` parameter that you can pass into another request to fetch the next results. These endpoints will also accept a `perPage` parameter to control the size of the record sets.

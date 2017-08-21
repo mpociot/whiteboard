@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Mailshake API Reference</title>
 
     <link rel="stylesheet" href="css/style.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -23,7 +23,7 @@
     
       <script>
         $(function() {
-            setupLanguages(["bash","ruby","python"]);
+            setupLanguages(["Node","curl"]);
         });
       </script>
     
@@ -37,15 +37,16 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png">
+      <div class="logo-wrapper">
+        <img src="images/logo.png">
+        <label>API</label>
+      </div>
       
         <div class="lang-selector">
           
-              <a href="#" data-language-name="bash">bash</a>
+              <a href="#" data-language-name="Node">Node</a>
           
-              <a href="#" data-language-name="ruby">ruby</a>
-          
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="curl">curl</a>
           
         </div>
       
@@ -58,94 +59,536 @@
       <div id="toc">
       </div>
       
-        <ul class="toc-footer">
-          
-              <li><a href="#">Sign Up for a Developer Key</a></li>
-          
-              <li><a href="http://github.com/mpociot/whiteboard">Documentation Powered by Whiteboard</a></li>
-          
-        </ul>
-      
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-<p>This example API documentation page was created with <a href="http://github.com/mpociot/whiteboard" target="_blank" rel="external">Whiteboard</a>. Feel free to edit it and use it as a base for your own API’s documentation.</p>
-<h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><blockquote>
-<p>To authorize, use this code:</p>
+        
+        
+          
+              <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p><strong>API Endpoint</strong><br><code>https<span></span>://api.mailshake.com/2017-04-01</code></p>
 </blockquote>
-<pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div></code></pre>
-<pre><code class="highlight bash"><div class="line"><span class="comment"># With shell, you can just pass the correct header with each request</span></div><div class="line">curl <span class="string">"api_endpoint_here"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<p>Thank you for checking out the Mailshake API! We ♥️ devs because that’s who we are, so we hope you’ll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on <a href="https://github.com/colinmathews/mailshake-api-docs">the repository that runs this site</a> and we’ll check it out.</p>
+<p>You’ll interact with the Mailshake API by making <code>GET</code> or <code>POST</code> requests (<code>POST</code> is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.</p>
+<h2 id="Making-requests"><a href="#Making-requests" class="headerlink" title="Making requests"></a>Making requests</h2><p>When making a <code>POST</code> request you can send content as a typical form payload by using the header:</p>
+<p><code>Content-Type: application/x-www-form-urlencoded</code></p>
+<p>or you can write JSON data to the request by using the header:</p>
+<p><code>Content-Type: application/json</code></p>
+<p>See <a href="#Authentication">authentication</a> for examples of how to make requests.</p>
+<h2 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h2><blockquote>
+<p>Single-item responses will be in this format:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"title"</span>: <span class="string">"My campaign"</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-08-19T02:31:22.218Z"</span>
+}
+</code></pre>
+<p>Most endpoints return a single model of data. Check out our <a href="#Models">models section</a> for specific examples and be sure to check out the <a href="#Errors">errors section</a> section, too.</p>
+<h3 id="Common-fields"><a href="#Common-fields" class="headerlink" title="Common fields"></a>Common fields</h3><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td>string</td>
+<td>The type of model this data represents.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>The unique ID of this data.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h2><blockquote>
+<p>Paginated data will look like this:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"nextToken"</span>: <span class="string">"..."</span>,
+  <span class="attr">"results"</span>: [
+    { ... },
+    { ... }
+  ]
+}
+</code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Get the next page of data like so:</p>
 </blockquote>
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank" rel="external">developer portal</a>.</p>
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-<p><code>Authorization: meowmeowmeow</code></p>
-<aside class="notice"><br>You must replace <code>meowmeowmeow</code> with your personal API key.<br></aside>
+<pre><code class="Node highlight">request(&apos;campaigns/list&apos;, {
+  nextToken: &apos;...&apos;
+});
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/list?nextToken=...&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<p>Endpoints that return multiple results will include a <code>nextToken</code> parameter that you can pass into another request to fetch the next results. These endpoints will also accept a <code>perPage</code> parameter to control the size of the record sets.</p>
 
-<h1 id="Kittens"><a href="#Kittens" class="headerlink" title="Kittens"></a>Kittens</h1><h2 id="Get-All-Kittens"><a href="#Get-All-Kittens" class="headerlink" title="Get All Kittens"></a>Get All Kittens</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get()</div></code></pre>
-<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+          
+              <h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Most of the apps authorized to use the Mailshake API can only access their own team’s data. For these apps, you can use our simple authentication. Any app can use our OAuth version 2 authentication.</p>
+<aside class="notice">If your app will access data for other teams OAuth is the only option.</aside>
+
+<h2 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h2><pre><code class="Node highlight">let Mailshake = require(&apos;mailshake-node&apos;)(&apos;my-api-key&apos;);
+Mailshake.me()
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/me&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<p>Simply include your API key as a querystring parameter (<code>apiKey</code>), part of your body json  (<code>apiKey</code>), or via an http <code>Authorization</code> header that looks like:</p>
+<p><code>Authorization: Basic my-api-key</code></p>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Make sure to replace <code>my-api-key</code> with your API key.</p>
 </blockquote>
-<pre><code class="highlight json"><div class="line">[</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Fluffums"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"calico"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">6</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">7</span></div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">    <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">    <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">    <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">  &#125;</div><div class="line">]</div></code></pre>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id="HTTP-Request"><a href="#HTTP-Request" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/api/kittens</code></p>
-<h3 id="Query-Parameters"><a href="#Query-Parameters" class="headerlink" title="Query Parameters"></a>Query Parameters</h3><table>
+<aside class="notice">Make sure to replace <code>my-api-key</code> with your API key.</aside>
+
+<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><p>TODO:</p>
+<h2 id="Test-connection"><a href="#Test-connection" class="headerlink" title="Test connection"></a>Test connection</h2><pre><code class="Node highlight">Mailshake.me()
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/me&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#User">User</a> model.</p>
+</blockquote>
+<p>You can hit our <code>/me</code> endpoint to test that authentication is working. It will return information about the current user you are authenticating as.</p>
+
+          
+              <h1 id="Campaigns"><a href="#Campaigns" class="headerlink" title="Campaigns"></a>Campaigns</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="Node highlight">Mailshake.campaigns.list({
+  search: &apos;Venkman&apos;
+})
+  .then(result =&gt; {
+    result.results.forEach(campaign =&gt; {
+      console.log(JSON.stringify(campaign, null, 2));
+    });
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d search=Venkman
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Campaign">Campaign</a> models.</p>
+</blockquote>
+<p>List all of a team’s campaigns.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
 <thead>
 <tr>
 <th>Parameter</th>
 <th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>search</td>
+<td></td>
+<td>No</td>
+<td>Filters what campaigns are returned.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many campaigns to get at once, up to 100.</td>
 </tr>
 </tbody>
 </table>
-<aside class="success"><br>Remember — a happy kitten is an authenticated kitten!<br></aside>
-
-<h2 id="Get-a-Specific-Kitten"><a href="#Get-a-Specific-Kitten" class="headerlink" title="Get a Specific Kitten"></a>Get a Specific Kitten</h2><pre><code class="highlight ruby"><div class="line"><span class="keyword">require</span> <span class="string">'kittn'</span></div><div class="line"></div><div class="line">api = Kittn::APIClient.authorize!(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
-<pre><code class="highlight python"><div class="line"><span class="keyword">import</span> kittn</div><div class="line"></div><div class="line">api = kittn.authorize(<span class="string">'meowmeowmeow'</span>)</div><div class="line">api.kittens.get(<span class="number">2</span>)</div></code></pre>
-<pre><code class="highlight bash"><div class="line">curl <span class="string">"http://example.com/api/kittens/2"</span></div><div class="line">  -H <span class="string">"Authorization: meowmeowmeow"</span></div></code></pre>
+<h2 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h2><pre><code class="Node highlight">Mailshake.campaigns.pause({
+  campaignID: 1
+})
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/pause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>This endpoint returns an empty response.</p>
 </blockquote>
-<pre><code class="highlight json"><div class="line">&#123;</div><div class="line">  <span class="attr">"id"</span>: <span class="number">2</span>,</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"Max"</span>,</div><div class="line">  <span class="attr">"breed"</span>: <span class="string">"unknown"</span>,</div><div class="line">  <span class="attr">"fluffiness"</span>: <span class="number">5</span>,</div><div class="line">  <span class="attr">"cuteness"</span>: <span class="number">10</span></div><div class="line">&#125;</div></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-<aside class="warning">If you’re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
-
-<h3 id="HTTP-Request-1"><a href="#HTTP-Request-1" class="headerlink" title="HTTP Request"></a>HTTP Request</h3><p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id="URL-Parameters"><a href="#URL-Parameters" class="headerlink" title="URL Parameters"></a>URL Parameters</h3><table>
+<p>Immediately pauses all sending for a campaign. If a batch of emails for this campaign is currently being sent they will not be stopped.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
 <thead>
 <tr>
 <th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to pause.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Unpause"><a href="#Unpause" class="headerlink" title="Unpause"></a>Unpause</h2><pre><code class="Node highlight">Mailshake.campaigns.unpause({
+  campaignID: 1
+})
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/unpause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Immediately resumes sending for a campaign. This user’s sending calendar will reschedule itself to account for this campaign’s pending emails. In rare cases it may take up to 5 minutes for the calendar to show scheduled times for this campaign.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to unpause.</td>
 </tr>
 </tbody>
 </table>
 
-        
+          
+              <h1 id="Leads"><a href="#Leads" class="headerlink" title="Leads"></a>Leads</h1><p>A lead in Mailshake is a recipient who may be interested in whatever you’re pitching in your campaigns. <a href="https://mailshake.com/lead-catcher/">Lead Catcher</a> will automatically find leads based on criteria you set up, but you can also create and manage leads via the API.</p>
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="Node highlight">Mailshake.leads.create({
+  recipientIDs: [1, 2, 3]
+})
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+
+// Or
+
+Mailshake.leads.create({
+  campaignID: 1,
+  emailAddresses: [
+    &apos;a@johndoe.com&apos;,
+    &apos;c@johndoe.com&apos;,
+    &apos;d@johndoe.com&apos;
+  ]
+})
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/create&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d recipientIDs=[1, 2, 3]
+
+# Or
+
+curl &quot;https://api.mailshake.com/2017-04-01/leads/create&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+  -d emailAddresses=[&apos;a@johndoe.com&apos;, &apos;b@johndoe.com&apos;, &apos;c@johndoe.com&apos;]
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#CreatedLeads">CreatedLeads</a> model.</p>
+</blockquote>
+<p>Creates one or more leads from recipients of a campaign. You can either pass in the IDs of recipients or if it’s easier, you can pass their email addresses instead. If a recipient was already a lead and was closed, this will reopen them as a lead.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><p>You can specify <code>recipientIDs</code> or <code>emailAddresses</code> or both.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the campaign from which to create a lead. <aside class="warning">Required if <code>emailAddresses</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddresses</td>
+<td></td>
+<td>No</td>
+<td>A list of email addresses to find recipients from for creating leads. This list will be added to the <code>recipientIDs</code> parameter if both are passed.</td>
+</tr>
+<tr>
+<td>recipientIDs</td>
+<td></td>
+<td>No</td>
+<td>A list of recipient IDs to create leads from. This list will be added to the <code>recipientIDs</code> parameter if both are passed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><pre><code class="Node highlight">Mailshake.leads.close({
+  leadID: 1
+})
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/close&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Marks a lead as “closed” which means you completed a successful interaction. The opposite of closing a lead is ignoring a lead.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Ignore"><a href="#Ignore" class="headerlink" title="Ignore"></a>Ignore</h2><pre><code class="Node highlight">reMailshake.leads.ignore({
+  leadID: 1
+})
+  .then(result =&gt; {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err =&gt; {
+    console.error(`${err.code}: ${err.message}`);
+  });
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/ignore&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#LeadStatus">LeadStatus</a> model.</p>
+</blockquote>
+<p>Marks a lead as “ignored” when means the conversation didn’t go anywhere. This is the opposite of “closing” a lead.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Reopen"><a href="#Reopen" class="headerlink" title="Reopen"></a>Reopen</h2><pre><code class="Node highlight">request(&apos;leads/reopen&apos;, {
+  leadID: 1
+});
+</code></pre>
+<pre><code class="curl highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/reopen&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#LeadStatus">LeadStatus</a> model.</p>
+</blockquote>
+<p>Takes a closed or ignored lead and makes it open again and available for review.</p>
+<h3 id="Parameters-3"><a href="#Parameters-3" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h1><h2 id="User"><a href="#User" class="headerlink" title="User"></a>User</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"user"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"teamID"</span>: <span class="number">1</span>,
+  <span class="attr">"teamName"</span>: <span class="string">"My Team"</span>,
+  <span class="attr">"isTeamAdmin"</span>: <span class="literal">true</span>,
+  <span class="attr">"isDisabled"</span>: <span class="literal">false</span>,
+  <span class="attr">"emailAddress"</span>: <span class="string">"me@example.com"</span>,
+  <span class="attr">"fullName"</span>: <span class="string">"Jane Doe"</span>,
+  <span class="attr">"first"</span>: <span class="string">"Jane"</span>,
+  <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+  <span class="attr">"teamBlockedDate"</span>: <span class="literal">null</span>
+}
+</code></pre>
+<p>A Mailshake user and the team that they are on.</p>
+<h2 id="Campaign"><a href="#Campaign" class="headerlink" title="Campaign"></a>Campaign</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"title"</span>: <span class="string">"My campaign"</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-08-19T02:31:22.218Z"</span>
+}
+</code></pre>
+<p>A Mailshake campaign is the container for a sequence of messages and the recipients to whom they’ll be sent.</p>
+<h2 id="CreatedLeads"><a href="#CreatedLeads" class="headerlink" title="CreatedLeads"></a>CreatedLeads</h2><pre><code class="json highlight">{
+  <span class="attr">"leads"</span>: [
+    <span class="string">"recipientID"</span>: <span class="number">1</span>,
+    <span class="string">"leadID"</span>: <span class="number">1</span>
+  ],
+  <span class="attr">"emailsNotFound"</span>: [
+    <span class="string">"me@example.com"</span>
+  ],
+  <span class="attr">"recipientIDsNotFound"</span>: [<span class="number">2</span>, <span class="number">3</span>]
+}
+</code></pre>
+<p>The results of an attempt to create leads.</p>
+<h2 id="LeadStatus"><a href="#LeadStatus" class="headerlink" title="LeadStatus"></a>LeadStatus</h2><pre><code class="json highlight">{
+  <span class="attr">"status"</span>: <span class="string">"ignored"</span>,
+  <span class="attr">"leadID"</span>: <span class="number">1</span>
+}
+</code></pre>
+<p>The result of a status change of a lead.</p>
+<h3 id="Statuses"><a href="#Statuses" class="headerlink" title="Statuses"></a>Statuses</h3><table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opened</td>
+<td>The lead is available for review.</td>
+</tr>
+<tr>
+<td>ignored</td>
+<td>The lead was classified as not going anywhere.</td>
+</tr>
+<tr>
+<td>closed</td>
+<td>The lead was considered a successful interaction.</td>
+</tr>
+</tbody>
+</table>
+
           
               <h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><aside class="notice">This error section is stored in a separate file in <code>includes/_errors.md</code>. Whiteboard allows you to optionally separate out your docs into many files…just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>‘s frontmatter. Files are included in the order listed.</aside>
 
@@ -206,17 +649,17 @@
 </table>
 
           
+              
+          
         
       </div>
       <div class="dark-box">
         
           <div class="lang-selector">
             
-                <a href="#" data-language-name="bash">bash</a>
+                <a href="#" data-language-name="Node">Node</a>
             
-                <a href="#" data-language-name="ruby">ruby</a>
-            
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="curl">curl</a>
             
           </div>
         

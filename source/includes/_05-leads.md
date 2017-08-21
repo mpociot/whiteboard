@@ -4,28 +4,44 @@ A lead in Mailshake is a recipient who may be interested in whatever you're pitc
 
 ## Create
 
-```javascript
-request('leads/create', {
+```Node
+Mailshake.leads.create({
   recipientIDs: [1, 2, 3]
-});
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 
-request('leads/create', {
+// Or
+
+Mailshake.leads.create({
   campaignID: 1,
   emailAddresses: [
     'a@johndoe.com',
     'c@johndoe.com',
     'd@johndoe.com'
   ]
-});
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
+```curl
 curl "https://api.mailshake.com/2017-04-01/leads/create" \
-  -H "Authorization: my-api-key" \
+  -u "my-api-key:" \
   -d recipientIDs=[1, 2, 3]
 
+# Or
+
 curl "https://api.mailshake.com/2017-04-01/leads/create" \
-  -H "Authorization: my-api-key" \
+  -u "my-api-key:" \
   -d campaignID=1
   -d emailAddresses=['a@johndoe.com', 'b@johndoe.com', 'c@johndoe.com']
 ```
@@ -46,15 +62,21 @@ recipientIDs |  | No | A list of recipient IDs to create leads from. This list w
 
 ## Close
 
-```javascript
-request('leads/close', {
+```Node
+Mailshake.leads.close({
   leadID: 1
-});
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
+```curl
 curl "https://api.mailshake.com/2017-04-01/leads/close" \
-  -H "Authorization: my-api-key" \
+  -u "my-api-key:" \
   -d leadID=1
 ```
 
@@ -75,15 +97,21 @@ leadID | | No | The ID of the lead.
 
 ## Ignore
 
-```javascript
-request('leads/ignore', {
+```Node
+reMailshake.leads.ignore({
   leadID: 1
-});
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
 ```
 
-```bash
+```curl
 curl "https://api.mailshake.com/2017-04-01/leads/ignore" \
-  -H "Authorization: my-api-key" \
+  -u "my-api-key:" \
   -d leadID=1
 ```
 
@@ -104,15 +132,15 @@ leadID | | No | The ID of the lead.
 
 ## Reopen
 
-```javascript
+```Node
 request('leads/reopen', {
   leadID: 1
 });
 ```
 
-```bash
+```curl
 curl "https://api.mailshake.com/2017-04-01/leads/reopen" \
-  -H "Authorization: my-api-key" \
+  -u "my-api-key:" \
   -d leadID=1
 ```
 

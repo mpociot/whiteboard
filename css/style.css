@@ -496,7 +496,7 @@ body,
 }
 .highlight,
 .highlight .w {
-  background-color: #292929;
+  background-color: #393939;
 }
 /*
 
@@ -625,7 +625,7 @@ body {
   left: 0;
   bottom: 0;
   width: 230px;
-  background-color: #393939;
+  background-color: #494949;
   font-size: 13px;
   font-weight: bold;
 }
@@ -643,7 +643,7 @@ body {
   position: relative;
 }
 .tocify-wrapper > .search input {
-  background: #393939;
+  background: #494949;
   border-width: 0 0 1px 0;
   border-color: #666;
   padding: 6px 0 6px 20px;
@@ -713,7 +713,7 @@ body {
 }
 .tocify-wrapper .tocify-focus {
   box-shadow: 0px 1px 0px #000;
-  background-color: #2467af;
+  background-color: #005aac;
   color: #fff;
 }
 .tocify-wrapper .tocify-subheader {
@@ -815,7 +815,7 @@ body {
 }
 .page-wrapper .dark-box {
   width: 50%;
-  background-color: #393939;
+  background-color: #494949;
   position: absolute;
   right: 0;
   top: 0;
@@ -824,7 +824,7 @@ body {
 .page-wrapper .lang-selector {
   position: fixed;
   z-index: 50;
-  border-bottom: 5px solid #393939;
+  border-bottom: 5px solid #494949;
 }
 .lang-selector {
   background-color: #222;
@@ -846,7 +846,7 @@ body {
   color: #fff;
 }
 .lang-selector a.active {
-  background-color: #393939;
+  background-color: #494949;
   color: #fff;
 }
 .lang-selector:after {
@@ -933,7 +933,7 @@ body {
 }
 .content hr {
   margin: 2em 0;
-  border-top: 2px solid #393939;
+  border-top: 2px solid #494949;
   border-bottom: 2px solid #eaf2f6;
 }
 .content table {
@@ -991,19 +991,19 @@ body {
 .content aside {
   padding-top: 1em;
   padding-bottom: 1em;
-#a0c6da
+#c6e4f3
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-  background: #8fbcd4;
+  background: #bcdff1;
   line-height: 1.6;
 }
 .content aside.warning {
-  background-color: #c97a7e;
-#d18e91
+  background-color: #ffab40;
+#ffb85d
 }
 .content aside.success {
-  background-color: #6ac174;
-#80ca89
+  background-color: #dff0d8;
+#e4f2de
 }
 .content aside:before {
   vertical-align: middle;
@@ -1019,7 +1019,7 @@ body {
 }
 .content pre,
 .content blockquote {
-  background-color: #292929;
+  background-color: #393939;
   color: #fff;
   padding: 2em 28px;
   margin: 0;
@@ -1094,4 +1094,108 @@ rgba(0,0,0,0.4)
     float: none;
     width: auto;
   }
+}
+.content h1 {
+  font-weight: 300;
+}
+.content blockquote strong {
+  color: #fff;
+}
+.content p {
+  font-size: 15px;
+}
+.tocify-wrapper {
+  border-right: solid 1px #ccc;
+  background: #f9fafd;
+}
+.tocify-wrapper > .logo-wrapper {
+  padding: 10px 25px;
+  position: relative;
+  height: 47px;
+}
+.tocify-wrapper > .logo-wrapper img {
+  background-size: auto 100%;
+  height: 43px;
+  margin: 0 auto;
+  display: block;
+}
+.tocify-wrapper > .logo-wrapper label {
+  position: absolute;
+  display: block;
+  bottom: 10px;
+  left: 88px;
+  font-size: 13px;
+  color: #666;
+  z-index: 12;
+  font-weight: 400;
+}
+.tocify-wrapper ul {
+  line-height: 1.6em;
+  font-size: 16px;
+}
+.tocify-wrapper li {
+  color: #005aac;
+  font-weight: 300;
+}
+.tocify-wrapper li :hover {
+  border-right: 3px solid rgba(45,152,244,0.1);
+  color: #003f7a;
+}
+.tocify-wrapper li.tocify-focus {
+  font-weight: 500;
+  background: transparent;
+  color: #005aac;
+  border-right: 3px solid #005aac;
+  box-shadow: none;
+}
+.tocify-wrapper .tocify-subheader,
+.tocify-wrapper .tocify-subheader .tocify-subheader {
+  background: #f0f3fa;
+}
+.tocify-wrapper .tocify-subheader .tocify-item>a {
+  font-size: 15px;
+}
+.tocify-wrapper .tocify-subheader .tocify-subheader .tocify-item>a {
+  background: transparent;
+  font-size: 14px;
+  padding-left: 35px;
+}
+.tocify-wrapper .search:before {
+  color: #333;
+}
+.tocify-wrapper .search input {
+  background: transparent;
+  border-color: #ccc;
+  color: #333;
+  font-size: 15px;
+}
+.tocify-wrapper .search-results {
+  background: #eee;
+  padding-left: 20px;
+  font-size: 14px;
+}
+.tocify-wrapper .search-results a {
+  color: #666;
+  border-right: none;
+}
+.tocify-wrapper .search-results a:hover {
+  color: #333;
+  text-decoration: none;
+}
+.content aside:before {
+  position: relative;
+  top: -2px;
+}
+.content td aside {
+  padding: 0.5em;
+}
+.content a {
+  color: #005aac;
+}
+.page-wrapper .lang-selector {
+  padding: 18px 0 19px 29px;
+}
+.page-wrapper .lang-selector a.active {
+  background: #ff4081;
+  border-radius: 3px;
 }
