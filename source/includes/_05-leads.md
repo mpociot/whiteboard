@@ -5,7 +5,7 @@ A lead in Mailshake is a recipient who may be interested in whatever you're pitc
 ## Create
 
 ```javascript
-Mailshake.leads.create({
+mailshake.leads.create({
   recipientIDs: [1, 2, 3]
 })
   .then(result => {
@@ -17,7 +17,7 @@ Mailshake.leads.create({
 
 // Or
 
-Mailshake.leads.create({
+mailshake.leads.create({
   campaignID: 1,
   emailAddresses: [
     'a@johndoe.com',
@@ -67,7 +67,7 @@ recipientIDs |  | No | A list of recipient IDs to create leads from. This list w
 ## Close
 
 ```javascript
-Mailshake.leads.close({
+mailshake.leads.close({
   leadID: 1
 })
   .then(result => {
@@ -102,7 +102,7 @@ leadID | | No | The ID of the lead.
 ## Ignore
 
 ```javascript
-Mailshake.leads.ignore({
+mailshake.leads.ignore({
   leadID: 1
 })
   .then(result => {
@@ -137,7 +137,7 @@ leadID | | No | The ID of the lead.
 ## Reopen
 
 ```javascript
-Mailshake.leads.reopen({
+mailshake.leads.reopen({
   leadID: 1
 })
   .then(result => {

@@ -3,6 +3,11 @@
 > **API Endpoint**
 > <code>https<span></span>://api.mailshake.com/2017-04-01</code>
 
+```javascript
+// Install our node package
+npm install mailshake-node --save
+```
+
 Thank you for checking out the Mailshake API! We ♥️ devs because that's who we are, so we hope you'll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on [the repository that runs this site](https://github.com/colinmathews/mailshake-api-docs) and we'll check it out.
 
 You'll interact with the Mailshake API by making `GET` or `POST` requests (`POST` is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.
@@ -51,7 +56,7 @@ Most endpoints return a single model of data. Check out our [models section](#Mo
 > Get the next page of data like so:
 
 ```javascript
-Mailshake.campaigns.list({
+mailshake.campaigns.list({
   nextToken: '...'
 })
   .then(result => {

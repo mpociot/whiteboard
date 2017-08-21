@@ -3,7 +3,7 @@
 ## List
 
 ```javascript
-Mailshake.campaigns.list({
+mailshake.campaigns.list({
   search: 'Venkman'
 })
   .then(result => {
@@ -37,7 +37,7 @@ perPage | 100 | No | How many campaigns to get at once, up to 100.
 ## Pause
 
 ```javascript
-Mailshake.campaigns.pause({
+mailshake.campaigns.pause({
   campaignID: 1
 })
   .catch(err => {
@@ -64,7 +64,7 @@ campaignID |  | Yes | The campaign to pause.
 ## Unpause
 
 ```javascript
-Mailshake.campaigns.unpause({
+mailshake.campaigns.unpause({
   campaignID: 1
 })
   .catch(err => {

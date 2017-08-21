@@ -1208,3 +1208,7 @@ rgba(0,0,0,0.4)
   background: #ff4081;
   border-radius: 3px;
 }
+.content pre > code {
+  background: #292929;
+  padding: 13px;
+}

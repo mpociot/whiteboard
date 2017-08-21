@@ -97,6 +97,9 @@
               <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
 <p><strong>API Endpoint</strong><br><code>https<span></span>://api.mailshake.com/2017-04-01</code></p>
 </blockquote>
+<pre><code class="javascript highlight"><span class="comment">// Install our node package</span>
+npm install mailshake-node --save
+</code></pre>
 <p>Thank you for checking out the Mailshake API! We ♥️ devs because that’s who we are, so we hope you’ll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on <a href="https://github.com/colinmathews/mailshake-api-docs">the repository that runs this site</a> and we’ll check it out.</p>
 <p>You’ll interact with the Mailshake API by making <code>GET</code> or <code>POST</code> requests (<code>POST</code> is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.</p>
 <h2 id="Making-requests"><a href="#Making-requests" class="headerlink" title="Making requests"></a>Making requests</h2><p>When making a <code>POST</code> request you can send content as a typical form payload by using the header:</p>
@@ -129,7 +132,7 @@
 <blockquote>
 <p>Get the next page of data like so:</p>
 </blockquote>
-<pre><code class="javascript highlight">Mailshake.campaigns.list({
+<pre><code class="javascript highlight">mailshake.campaigns.list({
   nextToken: <span class="string">'...'</span>
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
@@ -149,8 +152,8 @@
               <h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Most of the apps authorized to use the Mailshake API can only access their own team’s data. For these apps, you can use our simple authentication. Any app can use our OAuth version 2 authentication.</p>
 <aside class="notice">If your app will access data for other teams OAuth is the only option.</aside>
 
-<h2 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h2><pre><code class="javascript highlight"><span class="keyword">let</span> Mailshake = <span class="built_in">require</span>(<span class="string">'mailshake-node'</span>)(<span class="string">'my-api-key'</span>);
-Mailshake.me()
+<h2 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h2><pre><code class="javascript highlight"><span class="keyword">var</span> mailshake = <span class="built_in">require</span>(<span class="string">'mailshake-node'</span>)(<span class="string">'my-api-key'</span>);
+mailshake.me()
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
     <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
   })
@@ -169,7 +172,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 <p>Make sure to replace <code>my-api-key</code> with your API key.</p>
 </blockquote>
 <h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><p>TODO:</p>
-<h2 id="Test-connection"><a href="#Test-connection" class="headerlink" title="Test connection"></a>Test connection</h2><pre><code class="javascript highlight">Mailshake.me()
+<h2 id="Test-connection"><a href="#Test-connection" class="headerlink" title="Test connection"></a>Test connection</h2><pre><code class="javascript highlight">mailshake.me()
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
     <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
   })
@@ -190,7 +193,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 <p>You can hit our <code>/me</code> endpoint to test that authentication is working. It will return information about the current user you are authenticating as.</p>
 
           
-              <h1 id="Campaigns"><a href="#Campaigns" class="headerlink" title="Campaigns"></a>Campaigns</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">Mailshake.campaigns.list({
+              <h1 id="Campaigns"><a href="#Campaigns" class="headerlink" title="Campaigns"></a>Campaigns</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">mailshake.campaigns.list({
   search: <span class="string">'Venkman'</span>
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
@@ -240,7 +243,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 </tr>
 </tbody>
 </table>
-<h2 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h2><pre><code class="javascript highlight">Mailshake.campaigns.pause({
+<h2 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h2><pre><code class="javascript highlight">mailshake.campaigns.pause({
   campaignID: <span class="number">1</span>
 })
   .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
@@ -273,7 +276,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 </tr>
 </tbody>
 </table>
-<h2 id="Unpause"><a href="#Unpause" class="headerlink" title="Unpause"></a>Unpause</h2><pre><code class="javascript highlight">Mailshake.campaigns.unpause({
+<h2 id="Unpause"><a href="#Unpause" class="headerlink" title="Unpause"></a>Unpause</h2><pre><code class="javascript highlight">mailshake.campaigns.unpause({
   campaignID: <span class="number">1</span>
 })
   .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
@@ -309,7 +312,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 
           
               <h1 id="Leads"><a href="#Leads" class="headerlink" title="Leads"></a>Leads</h1><p>A lead in Mailshake is a recipient who may be interested in whatever you’re pitching in your campaigns. <a href="https://mailshake.com/lead-catcher/">Lead Catcher</a> will automatically find leads based on criteria you set up, but you can also create and manage leads via the API.</p>
-<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="javascript highlight">Mailshake.leads.create({
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="javascript highlight">mailshake.leads.create({
   recipientIDs: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
@@ -321,7 +324,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 
 <span class="comment">// Or</span>
 
-Mailshake.leads.create({
+mailshake.leads.create({
   campaignID: <span class="number">1</span>,
   emailAddresses: [
     <span class="string">'a@johndoe.com'</span>,
@@ -386,7 +389,7 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </tr>
 </tbody>
 </table>
-<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><pre><code class="javascript highlight">Mailshake.leads.close({
+<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><pre><code class="javascript highlight">mailshake.leads.close({
   leadID: <span class="number">1</span>
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
@@ -441,7 +444,7 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </tr>
 </tbody>
 </table>
-<h2 id="Ignore"><a href="#Ignore" class="headerlink" title="Ignore"></a>Ignore</h2><pre><code class="javascript highlight">Mailshake.leads.ignore({
+<h2 id="Ignore"><a href="#Ignore" class="headerlink" title="Ignore"></a>Ignore</h2><pre><code class="javascript highlight">mailshake.leads.ignore({
   leadID: <span class="number">1</span>
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
@@ -496,7 +499,7 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </tr>
 </tbody>
 </table>
-<h2 id="Reopen"><a href="#Reopen" class="headerlink" title="Reopen"></a>Reopen</h2><pre><code class="javascript highlight">Mailshake.leads.reopen({
+<h2 id="Reopen"><a href="#Reopen" class="headerlink" title="Reopen"></a>Reopen</h2><pre><code class="javascript highlight">mailshake.leads.reopen({
   leadID: <span class="number">1</span>
 })
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {

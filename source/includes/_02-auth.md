@@ -7,8 +7,8 @@ Most of the apps authorized to use the Mailshake API can only access their own t
 ## Simple
 
 ```javascript
-let Mailshake = require('mailshake-node')('my-api-key');
-Mailshake.me()
+var mailshake = require('mailshake-node')('my-api-key');
+mailshake.me()
   .then(result => {
     console.log(JSON.stringify(result, null, 2));
   })
@@ -37,7 +37,7 @@ TODO:
 ## Test connection
 
 ```javascript
-Mailshake.me()
+mailshake.me()
   .then(result => {
     console.log(JSON.stringify(result, null, 2));
   })
