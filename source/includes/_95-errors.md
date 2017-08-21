@@ -28,6 +28,7 @@ user_not_admin | The user on file for your application must be an administrator 
 user_is_disabled | The user on file for your application must have an active account (check your billing)
 missing_subscription | Your team must have an active and paid subscription to Mailshake.
 team_blocked | Your team has been blocked while our compliance team runs a review of your usage of our platform.
+limit_reached | Your application has exceeded it's quota and must wait to make more requests, or you can contact us to request an increased quota. The message will indicate the next time you can try a request: `Please wait and try again after: 2017-08-21T15:16:15.207Z`
 
 ## Specific to OAuth2
 
