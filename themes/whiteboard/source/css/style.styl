@@ -469,14 +469,17 @@ embossed-bg()
 // Added for Mailshake
 .content h1
   font-weight:300
+.content blockquote strong
+  color:#fff
+.content p
+  font-size:15px
 .tocify-wrapper
+  border-right: solid 1px #ccc;
   background:#f9fafd
   & > .logo-wrapper
     padding: 10px 25px;
-    background-color: #fff;
     position: relative;
     height: 47px;
-    border-right: solid 1px #ccc;
     img
       background-size: auto 100%;
       height: 43px;
@@ -499,6 +502,7 @@ embossed-bg()
     font-weight:300;
     & :hover
       border-right: 3px solid rgba(45, 152, 244, 0.1);
+      color:hsla(209, 100%, 24%, 1)
     &.tocify-focus
       font-weight:500
       background:transparent
@@ -512,12 +516,34 @@ embossed-bg()
   .tocify-subheader .tocify-subheader .tocify-item>a
     background:transparent
     font-size:14px;
+    padding-left:35px
+  .search
+    &:before
+      color:#333
+    input
+      background: transparent
+      border-color: #ccc;
+      color: #333;
+      font-size:15px
+  .search-results
+    background: #eee;
+    padding-left: 20px;
+    font-size: 14px;
+    a
+      color:#666
+      border-right:none
+    a:hover
+      color:#333
+      text-decoration:none
 .content aside:before
   position:relative
   top:-2px
-content a
+.content td aside
+  padding: .5em
+.content a
   color:#005AAC
-.search
-  input
-    background:#f9fafd
-    border-color:#d9dff2
+.page-wrapper .lang-selector
+  padding:18px 0 19px 29px
+  a.active
+    background:#FF4081
+    border-radius:3px
