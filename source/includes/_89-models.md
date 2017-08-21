@@ -1,7 +1,5 @@
 # Models
 
-### Common fields
-
 Most models will have these common fields:
 
 Field | Type | Description

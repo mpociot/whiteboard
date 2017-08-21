@@ -99,14 +99,18 @@
 </blockquote>
 <pre><code class="javascript highlight"><span class="comment">// Install our node package</span>
 npm install mailshake-node --save
+
+<span class="comment">// See source here</span>
+https:<span class="comment">//github.com/colinmathews/mailshake-node</span>
 </code></pre>
 <p>Thank you for checking out the Mailshake API! We ♥️ devs because that’s who we are, so we hope you’ll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on <a href="https://github.com/colinmathews/mailshake-api-docs">the repository that runs this site</a> and we’ll check it out.</p>
 <p>You’ll interact with the Mailshake API by making <code>GET</code> or <code>POST</code> requests (<code>POST</code> is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.</p>
+<h2 id="Getting-your-API-key"><a href="#Getting-your-API-key" class="headerlink" title="Getting your API key"></a>Getting your API key</h2><p>API access is currently only available to our enterprise customers. If your team is ready for an upgrade, click the “Contact Us” button under <a href="https://mailshake.com/#pricing">Enterprise plan</a>.</p>
 <h2 id="Making-requests"><a href="#Making-requests" class="headerlink" title="Making requests"></a>Making requests</h2><p>When making a <code>POST</code> request you can send content as a typical form payload by using the header:</p>
 <p><code>Content-Type: application/x-www-form-urlencoded</code></p>
 <p>or you can write JSON data to the request by using the header:</p>
 <p><code>Content-Type: application/json</code></p>
-<p>See <a href="#Authentication">authentication</a> for examples of how to make requests.</p>
+<p>See <a href="#Authentication">authentication</a> for examples of how to make requests and <a href="#Limits">limits</a> to understand your app’s constraints.</p>
 <h2 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h2><blockquote>
 <p>Single-item responses will be in this format:</p>
 </blockquote>
@@ -147,6 +151,9 @@ npm install mailshake-node --save
   -d nextToken=...
 </code></pre>
 <p>Endpoints that return multiple results will include a <code>nextToken</code> parameter that you can pass into another request to fetch the next results. These endpoints will also accept a <code>perPage</code> parameter to control the size of the record sets.</p>
+<h2 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h2><p>As we develop future versions of our API that are backwards-incompatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.</p>
+<p>Current version:<br><code>https://api.mailshake.com/2017-04-01</code></p>
+<p>Future version format:<br><code>https://api.mailshake.com/XXXX-YY-ZZ</code></p>
 
           
               <h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Most of the apps authorized to use the Mailshake API can only access their own team’s data. For these apps, you can use our simple authentication. Any app can use our OAuth version 2 authentication.</p>
@@ -171,7 +178,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 <blockquote>
 <p>Make sure to replace <code>my-api-key</code> with your API key.</p>
 </blockquote>
-<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><p>TODO:</p>
+<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><p>We’re currently in the process of reviewing whether to support OAuth2 for public use.</p>
 <h2 id="Test-connection"><a href="#Test-connection" class="headerlink" title="Test connection"></a>Test connection</h2><pre><code class="javascript highlight">mailshake.me()
   .then(<span class="function"><span class="params">result</span> =&gt;</span> {
     <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
@@ -556,7 +563,7 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </table>
 
           
-              <h1 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h1><h3 id="Common-fields"><a href="#Common-fields" class="headerlink" title="Common fields"></a>Common fields</h3><p>Most models will have these common fields:</p>
+              <h1 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h1><p>Most models will have these common fields:</p>
 <table>
 <thead>
 <tr>
@@ -687,7 +694,7 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </tr>
 <tr>
 <td>not_found</td>
-<td>A more semantically permissive version of <code>missing_dependent_data</code>. We’re splitting hairs a bit here, but generally speaking when this code is returned your application might want to just note the problem and carry on, whereas if you encounter the <code>missing_dependent_data</code> error it’s more of a show-stopper.</td>
+<td>A more semantically permissive version of <code>missing_dependent_data</code>. We’re splitting hairs a bit here, but generally speaking when this code is returned your application might just want to note the problem and carry on. Whereas if you encounter the <code>missing_dependent_data</code> error it’s more of a show-stopper.</td>
 </tr>
 <tr>
 <td>exceeds_monthly_recipients</td>
@@ -713,6 +720,14 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 <td>limit_reached</td>
 <td>Your application has exceeded it’s quota and must wait to make more requests, or you can contact us to request an increased quota. The message will indicate the next time you can try a request: <code>Please wait and try again after: 2017-08-21T15:16:15.207Z</code></td>
 </tr>
+<tr>
+<td>internal_error</td>
+<td>Something general went wrong with Mailshake. This may be a temporary issue or we may have a bug (if so <a href="mailto:support@mailshake.com">notify us</a>).</td>
+</tr>
+<tr>
+<td>unspecified_error</td>
+<td>Your request was probably rejected by some kind of validation.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="Specific-to-OAuth2"><a href="#Specific-to-OAuth2" class="headerlink" title="Specific to OAuth2"></a>Specific to OAuth2</h2><table>
@@ -737,15 +752,11 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </tr>
 <tr>
 <td>app_not_approved</td>
-<td>Your application is not allowed to use our API at the moment.</td>
+<td>Your application is not allowed to be used by other teams.</td>
 </tr>
 <tr>
 <td>invalid_token</td>
 <td>Your token has expired. Try using your refresh token to get another access token.</td>
-</tr>
-<tr>
-<td>unspecified-error</td>
-<td>Something general went wrong with authentication.</td>
 </tr>
 <tr>
 <td>missing_scope</td>
@@ -755,7 +766,77 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </table>
 
           
-              
+              <h1 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h1><p>Based on your plan with us, you app will have a few limitations on your usage. Just <a href="mailto:support@mailshake.com">reach out to us</a> if you’re interested in increasing your limits.</p>
+<h2 id="New-recipients-month"><a href="#New-recipients-month" class="headerlink" title="New recipients / month"></a>New recipients / month</h2><p>Each Mailshake campaign can hold up to 5k recipients. However, adding recipients through the Mailshake API is limited to a certain number per month. This isn’t a per-campaign limit, it’s accumulative across all campaigns. If your app attempts to exceed this limit, you’ll get the <code>limit_reached</code> error back.</p>
+<p>The monthly window is aligned with your Mailshake subscription. So if you first purchased your Subscription on August 21st, then your monthly recipient limit will reset on the 21st of each month.</p>
+<h2 id="Rate-limits"><a href="#Rate-limits" class="headerlink" title="Rate limits"></a>Rate limits</h2><blockquote>
+<p>As an example of quota units work, check this out:</p>
+</blockquote>
+<pre><code class="highlight">// Quota units: 300
+mailshake.campaigns.pause(1)
+// Quota units: 275
+mailshake.campaigns.pause(2)
+mailshake.campaigns.pause(3)
+// Quota units: 225
+mailshake.recipients.add([ /* 32 recipients */ ])
+// This ^^ costs 10 + 32, or 42
+// Quota units: 183
+// ...an hour passes by ...
+// Quota units: 300
+</code></pre><p>Each call to our API costs a varying number of “quota units,” and you’re allowed X quota units per hour to limit how frequently you can make requests. If you hit a limit, you’ll get the error code <code>limit_reached</code>. The error message will indicate when you can try again (see <a href="#General-errors">our error codes</a>).</p>
+<p>We’re still experimenting with these numbers, so they may change from time to time:</p>
+<table>
+<thead>
+<tr>
+<th>Units</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25</td>
+<td>Campaigns &gt; Pause</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Campaigns &gt; Unpause</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Create</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Close</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Ignore</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Reopen</td>
+</tr>
+<tr>
+<td><div>10 + N</div></td>
+<td>Recipients &gt; Add <aside class="notice">10 units for this call plus one for each recipient being added</aside></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Recipients &gt; Pause</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Recipients &gt; Unpause</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Recipients &gt; Unsubscribe</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">Any operation not listed above costs 1 unit</aside>
+
           
         
       </div>

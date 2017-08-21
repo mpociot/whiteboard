@@ -32,7 +32,7 @@ Simply include your API key as a querystring parameter (`apiKey`), part of your 
 
 ## OAuth2
 
-TODO:
+We're currently in the process of reviewing whether to support OAuth2 for public use.
 
 ## Test connection
 

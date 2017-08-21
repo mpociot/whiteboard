@@ -542,8 +542,18 @@ embossed-bg()
 .content aside:before
   position:relative
   top:-2px
-.content td aside
-  padding: .5em
+.content td
+  div
+    white-space:nowrap
+  aside
+    padding: .5em
+    display: block
+    margin: 5px 0 0 0
+    border-radius:3px
+    &.notice
+      background:transparent
+      padding:0
+      color:#666
 .content a
   color:#005AAC
 .content

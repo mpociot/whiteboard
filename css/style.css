@@ -1192,8 +1192,19 @@ rgba(0,0,0,0.4)
   position: relative;
   top: -2px;
 }
+.content td div {
+  white-space: nowrap;
+}
 .content td aside {
   padding: 0.5em;
+  display: block;
+  margin: 5px 0 0 0;
+  border-radius: 3px;
+}
+.content td aside.notice {
+  background: transparent;
+  padding: 0;
+  color: #666;
 }
 .content a {
   color: #005aac;
