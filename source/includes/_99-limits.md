@@ -4,7 +4,7 @@ Based on your plan with us, you app will have a few limitations on your usage. J
 
 ## New recipients / month
 
-Each Mailshake campaign can hold up to 5k recipients. However, adding recipients through the Mailshake API is limited to a certain number per month. This isn't a per-campaign limit, it's accumulative across all campaigns. If your app attempts to exceed this limit, you'll get the `limit_reached` error back.
+Each Mailshake campaign can hold up to 5,000 recipients. However, adding recipients through the Mailshake API is limited to a certain number per month. This isn't a per-campaign limit, it's accumulative across all campaigns. If your app attempts to exceed this limit, you'll get the `exceeds_monthly_recipients` error back.
 
 The monthly window is aligned with your Mailshake subscription. So if you first purchased your Subscription on August 21st, then your monthly recipient limit will reset on the 21st of each month.
 
@@ -32,8 +32,8 @@ We're still experimenting with these numbers, so they may change from time to ti
 
 Units | Operation
 ---| ---
-25 | Campaigns > Pause
-25 | Campaigns > Unpause
+5 | Campaigns > Pause
+15 | Campaigns > Unpause
 5 | Leads > Create
 5 | Leads > Close
 5 | Leads > Ignore

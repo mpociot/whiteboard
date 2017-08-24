@@ -1222,4 +1222,18 @@ rgba(0,0,0,0.4)
 .content pre > code {
   background: #292929;
   padding: 13px;
+  display: block;
+}
+.quoted-content {
+  display: block;
+  line-height: 1.3em;
+  padding: 10px;
+  background: #fff;
+  font-size: 14px;
+  border-radius: 3px;
+  border: solid 1px #ddd;
+}
+.tocify-item[data-unique="Campaigns"],
+.tocify-item[data-unique="Push"] {
+  margin-top: 15px;
 }

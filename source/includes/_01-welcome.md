@@ -82,6 +82,8 @@ curl "https://api.mailshake.com/2017-04-01/campaigns/list" \
 
 Endpoints that return multiple results will include a `nextToken` parameter that you can pass into another request to fetch the next results. These endpoints will also accept a `perPage` parameter to control the size of the record sets.
 
+If `nextToken` is not supplied or if the number of results returned is less than the `perPage` setting, you are looking at the last page of data.
+
 ## Versioning
 
 As we develop future versions of our API that are backwards-incompatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.

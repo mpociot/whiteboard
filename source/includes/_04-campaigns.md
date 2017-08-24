@@ -32,7 +32,7 @@ Parameter | Default | Required | Description
 --------- | ------- | -----------
 search |  | No | Filters what campaigns are returned.
 nextToken |  | No | Fetches the next page from a previous request.
-perPage | 100 | No | How many campaigns to get at once, up to 100.
+perPage | 100 | No | How many results to get at once, up to 100.
 
 ## Pause
 
@@ -80,7 +80,7 @@ curl "https://api.mailshake.com/2017-04-01/campaigns/unpause" \
 
 > This endpoint returns an empty response.
 
-Immediately resumes sending for a campaign. This user's sending calendar will reschedule itself to account for this campaign's pending emails. In rare cases it may take up to 5 minutes for the calendar to show scheduled times for this campaign.
+Resumes sending for a campaign. This team's sending calendar will reschedule itself to account for this campaign's pending emails. In rare cases it may take up to 5 minutes for the calendar to show scheduled times for this campaign.
 
 ### Parameters
 
