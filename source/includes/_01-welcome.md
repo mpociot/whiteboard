@@ -86,7 +86,7 @@ If `nextToken` is not supplied or if the number of results returned is less than
 
 ## Versioning
 
-As we develop future versions of our API that are backwards-incompatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.
+As we develop future versions of our API that are not backwards-compatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.
 
 Current version:
 `https://api.mailshake.com/2017-04-01`

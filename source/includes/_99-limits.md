@@ -15,13 +15,13 @@ The monthly window is aligned with your Mailshake subscription. So if you first 
 ```
 // Quota units: 300
 mailshake.campaigns.pause(1)
-// Quota units: 275
+// Quota units: 295
 mailshake.campaigns.pause(2)
 mailshake.campaigns.pause(3)
-// Quota units: 225
+// Quota units: 285
 mailshake.recipients.add([ /* 32 recipients */ ])
 // This ^^ costs 10 + 32, or 42
-// Quota units: 183
+// Quota units: 243
 // ...an hour passes by ...
 // Quota units: 300
 ```

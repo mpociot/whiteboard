@@ -1234,6 +1234,6 @@ rgba(0,0,0,0.4)
   border: solid 1px #ddd;
 }
 .tocify-item[data-unique="Campaigns"],
-.tocify-item[data-unique="Push"] {
+.tocify-item[data-unique="Pushes"] {
   margin-top: 15px;
 }

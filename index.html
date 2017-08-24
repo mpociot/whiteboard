@@ -152,7 +152,7 @@ https:<span class="comment">//github.com/colinmathews/mailshake-node</span>
 </code></pre>
 <p>Endpoints that return multiple results will include a <code>nextToken</code> parameter that you can pass into another request to fetch the next results. These endpoints will also accept a <code>perPage</code> parameter to control the size of the record sets.</p>
 <p>If <code>nextToken</code> is not supplied or if the number of results returned is less than the <code>perPage</code> setting, you are looking at the last page of data.</p>
-<h2 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h2><p>As we develop future versions of our API that are backwards-incompatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.</p>
+<h2 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h2><p>As we develop future versions of our API that are not backwards-compatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.</p>
 <p>Current version:<br><code>https://api.mailshake.com/2017-04-01</code></p>
 <p>Future version format:<br><code>https://api.mailshake.com/XXXX-YY-ZZ</code></p>
 
@@ -1315,7 +1315,145 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </table>
 
           
-              <h1 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h1><p>Coming soon…</p>
+              <h1 id="Pushes"><a href="#Pushes" class="headerlink" title="Pushes"></a>Pushes</h1><blockquote>
+<p>The type of request we’ll send to your servers:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"resource_url"</span>: <span class="string">"https://api.mailshake.com/2017-04-01/..."</span>
+}
+</code></pre>
+<pre><code class="javascript highlight"><span class="comment">// Set up a web server. When your target url is hit by Mailshake,</span>
+<span class="comment">// call a function like this to handle the push:</span>
+<span class="function"><span class="keyword">function</span> <span class="title">onPushReceivedFromMailshake</span>(<span class="params">response, receivedPush</span>) </span>{
+  mailshake.push.fetch(receivedPush.resource_url)
+    .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+      <span class="comment">// Do something with this data (a click, an open, etc)</span>
+      <span class="comment">// Then tell Mailshake you're good!</span>
+      response.status(<span class="number">200</span>).send(<span class="string">'ok!'</span>);
+    })
+    .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+      <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+      response.status(<span class="number">500</span>).send(<span class="string">'oops!'</span>);
+    });
+}
+</code></pre>
+<p>One of the cooler things you can do with the Mailshake API is subscribe to pushes. Whenever an action occurs that you’ve subscribed to, Mailshake will immediately make a HTTP request to your servers so you can react in real time.</p>
+<p>Your servers need to accept <code>POST</code> requests from us using the <code>application/json</code> content type. We’ll include a simple object with <code>resource_url</code> as its only key. Send an HTTP request to this url and be sure to include the same authentication as with our other API operations.</p>
+<p>Your server should respond to us with a <code>200</code> status indicating that you’ve handled the request (otherwise we’ll wait and try a few more times in case your server is under maintenance). If you no longer need the push subscription, send back a status of <code>410</code>.</p>
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="javascript highlight">mailshake.push.create({
+  event: <span class="string">'clicked'</span>,
+  targetUrl: <span class="string">'https://mysite.com/some-secret/some-unique-id'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/push/create&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d event=clicked \
+  -d targetUrl=https://mysite.com/some-secret/some-unique-id
+</code></pre>
+<p>Starts a subscription for a type of push.</p>
+<aside class="warning"><code>targetUrl</code> must be unique for every subscription.</aside>
+
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targetUrl</td>
+<td></td>
+<td>Yes</td>
+<td>The publicly accessible url to your servers that we should send a <code>POST</code> request to. We <em>highly</em> recommend using <code>https</code> and including a secret key so that other actors can’t send requests as if they were Mailshake. <aside class="notice">To make sure your url is unique for each subscription, you might append a unique querystring</aside></td>
+</tr>
+<tr>
+<td>event</td>
+<td></td>
+<td>Yes</td>
+<td>The type of event you’re subscribing to.</td>
+</tr>
+<tr>
+<td>filter</td>
+<td></td>
+<td>No</td>
+<td>If you only want subscriptions when certain criteria are met, specify them as a JSON object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h3><p>You can apply a filter to some events so that you only get pushes that meet certain criteria.</p>
+<p><strong>Filter fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td>To only get events for a specific campaign.</td>
+</tr>
+<tr>
+<td>campaignMessageID</td>
+<td>For events based on message, only get events for a specific message.</td>
+</tr>
+<tr>
+<td>excludeDuplicates</td>
+<td><code>true</code> if you don’t want to get pushes for duplicate opens or clicks.</td>
+</tr>
+<tr>
+<td>matchUrl</td>
+<td>For clicks you can only be notified when this exact url is clicked.</td>
+</tr>
+<tr>
+<td>messageType</td>
+<td>For sent messages you can be notified only when certain <a href="#Message-Types">types of messages</a> are sent.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><pre><code class="javascript highlight">mailshake.push.delete({
+  targetUrl: <span class="string">'https://mysite.com/some-secret/some-unique-id'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/push/delete&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d targetUrl=https://mysite.com/some-secret/some-unique-id
+</code></pre>
+<p>Unsubscribes a push you previously created. Since all subscribed pushes require a unique <code>targetUrl</code>, that’s all you need to send in to delete your push.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targetUrl</td>
+<td></td>
+<td>Yes</td>
+<td>The unique target url of a push.</td>
+</tr>
+</tbody>
+</table>
 
           
               <h1 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h1><p>Most models will have these common fields:</p>
@@ -2009,13 +2147,13 @@ curl "https://api.mailshake.com/2017-04-01/leads/create" \
 </blockquote>
 <pre><code class="highlight">// Quota units: 300
 mailshake.campaigns.pause(1)
-// Quota units: 275
+// Quota units: 295
 mailshake.campaigns.pause(2)
 mailshake.campaigns.pause(3)
-// Quota units: 225
+// Quota units: 285
 mailshake.recipients.add([ /* 32 recipients */ ])
 // This ^^ costs 10 + 32, or 42
-// Quota units: 183
+// Quota units: 243
 // ...an hour passes by ...
 // Quota units: 300
 </code></pre><p>Each call to our API costs a varying number of “quota units,” and you’re allowed X quota units per hour to limit how frequently you can make requests. If you hit a limit, you’ll get the error code <code>limit_reached</code>. The error message will indicate when you can try again (see <a href="#General-errors">our error codes</a>).</p>
