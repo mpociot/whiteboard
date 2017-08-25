@@ -63,14 +63,14 @@ Most endpoints return a single model of data. Check out our [models section](#Mo
 > Get the next page of data like so:
 
 ```javascript
-mailshake.campaigns.list({
-  nextToken: '...'
-})
+mailshake.campaigns.list()
   .then(result => {
-    // ...
+    console.log(`Page 1: ${JSON.stringify(result.results, null, 2)}`);
+    // Just call `next` on the result to fetch the next page.
+    return result.next();
   })
-  .catch(err => {
-    console.error(`${err.code}: ${err.message}`);
+  .then(result => {
+    console.log(`Page 2: ${JSON.stringify(result.results, null, 2)}`);
   });
 ```
 
@@ -82,7 +82,7 @@ curl "https://api.mailshake.com/2017-04-01/campaigns/list" \
 
 Endpoints that return multiple results will include a `nextToken` parameter that you can pass into another request to fetch the next results. These endpoints will also accept a `perPage` parameter to control the size of the record sets.
 
-If `nextToken` is not supplied or if the number of results returned is less than the `perPage` setting, you are looking at the last page of data.
+If `nextToken` is null then you're looking at the last page of data.
 
 ## Versioning
 

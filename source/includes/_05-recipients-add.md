@@ -75,10 +75,9 @@ mailshake.recipients.add({
 
 ```shell
 curl "https://api.mailshake.com/2017-04-01/recipients/add" \
-  -u "my-api-key:" \
-  -d campaignID=1 \
-  -d addAsNewList=true \
-  -d addresses="[{\"emailAddress\":\"john@doe.com\",\"fullName\":\"John Doe\",\"fields\":{\"favorite_color\":\"Red\"}}]"
+    -u "my-api-key:" \
+    -H "Content-Type: application/json" \
+    -X POST -d '{"campaignID":1,"addAsNewList":true,"addresses":[{"emailAddress":"john@doe.com","fullName":"John Doe","fields":{"favorite_color":"Red"}}]}'
 ```
 
 This option lets you pass in an array of structured data. Each array item should be listed in this format;
@@ -112,9 +111,8 @@ mailshake.recipients.add({
 ```shell
 curl "https://api.mailshake.com/2017-04-01/recipients/add" \
   -u "my-api-key:" \
-  -d campaignID=1 \
-  -d addAsNewList=true \
-  -d csvData="{\"csvRawData\":\"email,name,favorite_color\njohn@doe.com,John Doe,Red\",\"emailColumnName\":\"email\",\"fullNameColumnName\":\"name\"}"
+  -H "Content-Type: application/json" \
+  -X POST -d '{"campaignID":1,"addAsNewList":true,"csvData":{"csvRawData":"email,name,favorite_color\njohn@doe.com,John Doe,Red","emailColumnName":"email","fullNameColumnName":"name"}}'
 ```
 
 Pass in spreadsheet data in comma-separated-values format. You must have a column (of any name) that represents an email address, and optionally a column to represent a full name. All other columns will be translated into fields that can be used for text replacements.

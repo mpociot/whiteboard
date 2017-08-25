@@ -34,6 +34,38 @@ search |  | No | Filters what campaigns are returned.
 nextToken |  | No | Fetches the next page from a previous request.
 perPage | 100 | No | How many results to get at once, up to 100.
 
+## Get
+
+```javascript
+mailshake.campaigns.get({
+  campaignID: 1
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
+```
+
+```shell
+curl "https://api.mailshake.com/2017-04-01/campaigns/get" \
+  -u "my-api-key:" \
+  -d campaignID=1
+```
+
+> This endpoint returns a [Campaign](#Campaign) model.
+
+Retrieves a single campaign and its message sequence. A `not_found` error will be returned if the campaign could not be found.
+
+### Parameters
+
+Parameter | Default | Required | Description
+--------- | ------- | -----------
+search |  | No | Filters what campaigns are returned.
+nextToken |  | No | Fetches the next page from a previous request.
+perPage | 100 | No | How many results to get at once, up to 100.
+
 ## Pause
 
 ```javascript

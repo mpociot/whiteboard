@@ -2,6 +2,77 @@
 
 A lead in Mailshake is a recipient who may be interested in whatever you're pitching in your campaigns. [Lead Catcher](https://mailshake.com/lead-catcher/) will automatically find leads based on criteria you set up, but you can also create and manage leads via the API.
 
+## List
+
+```javascript
+mailshake.leads.list({
+  campaignID: 1,
+  status: 'open'
+})
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
+```
+
+```shell
+curl "https://api.mailshake.com/2017-04-01/leads/list" \
+  -u "my-api-key:" \
+  -d campaignID=1 \
+  -d status=open
+```
+
+> This endpoint returns [paginated](#Pagination) [Lead](#Lead) models.
+
+Lists your leads. You can use this endpoint to search leads, filter by status, or find leads assigned to one of your teammates.
+
+### Parameters
+
+Parameter | Default | Required | Description
+--------- | ------- | -----------
+campaignID | | No | Filter leads to the ones from this campaign.
+status | | No | Filter to leads in a [particular status](#Lead-Statuses).
+assignedToEmailAddress | | No | Leads assigned to this teammate.
+search |  | No | Filters what leads are returned.
+nextToken |  | No | Fetches the next page from a previous request.
+perPage | 100 | No | How many results to get at once, up to 100.
+
+## Get
+
+```javascript
+mailshake.leads.get({
+  campaignID: 1,
+  emailAddress: 'john@doe.com'
+})
+  .catch(err => {
+    console.error(`${err.code}: ${err.message}`);
+  });
+```
+
+```shell
+curl "https://api.mailshake.com/2017-04-01/leads/get" \
+  -u "my-api-key:" \
+  -d campaignID=1 \
+  -d emailAddress=john@doe.com
+```
+
+> This endpoint returns a [Lead](#Lead) model.
+
+Gets a single lead. A `not_found` error will be returned if the lead could not be found.
+
+### Parameters
+
+Parameter | Default | Required | Description
+--------- | ------- | -----------
+leadID | | Maybe | The ID of a lead.
+recipientID | | Maybe | The ID of the recipient that this lead is for.
+campaignID |  | Maybe | The campaign that this recipient belongs to. Required if `emailAddress` is specified.
+emailAddress |  | Maybe | The address of the recipient.
+
+<aside class="notice">Either `leadID`, `recipientID` or `emailAddress` is required.</aside>
+
 ## Create
 
 ```javascript

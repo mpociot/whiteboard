@@ -34,11 +34,52 @@ A Mailshake user and the team that they are on.
   "object": "campaign",
   "id": 1,
   "title": "My campaign",
-  "created": "2017-08-19T02:31:22.218Z"
+  "created": "2017-08-19T02:31:22.218Z",
+  "messages": [
+    {
+      "object": "message",
+      "id": 1,
+      "type": "initial",
+      "subject": "My subject"
+    },
+    {
+      "object": "message",
+      "id": 2,
+      "type": "follow-up",
+      "subject": "null"
+    },
+    {
+      "object": "message",
+      "id": 3,
+      "type": "follow-up",
+      "subject": "null"
+    },
+    {
+      "object": "message",
+      "id": 4,
+      "type": "drip",
+      "subject": "Here's a drip email"
+    },
+    {
+      "object": "message",
+      "id": 5,
+      "type": "on-click",
+      "subject": "You clicked my link"
+    }
+  ]
 }
 ```
 
 A Mailshake campaign is the container for a sequence of messages and the recipients to whom they'll be sent.
+
+### MessageTypes
+
+Type | Description
+--------- | -------
+initial | The first email in a campaign.
+<div>follow-up</div> | Replies to the initial message sent only if the recipient doesn't reply.
+drip | Secondary emails that are not stopped by a recipient's reply.
+<div>on-click</div> | Email fired whenever the recipient clicks a specific link in any of the emails.
 
 ## CreatedLeads
 
@@ -84,6 +125,7 @@ The result of a status change of a lead. See [Lead Statuses](#Lead-Statuses).
     "fullName": "John Doe",
     "first": "John",
     "last": "Doe",
+    "created": "2017-04-06T17:45:07.188Z",
     "fields": {
       "favorite_color": "Red"
     }
@@ -98,7 +140,8 @@ The result of a status change of a lead. See [Lead Statuses](#Lead-Statuses).
   "message": {
     "object": "message",
     "id": 423,
-    "type": "initial"
+    "type": "initial",
+    "subject": "My subject"
   },
   "from": {
     "object": "email-address",
@@ -136,7 +179,7 @@ message | For `campaign` sent messages, this is the message inside your campaign
 externalID | The ID of the email on the mail account's platform.
 externalRawMessageID | The actual ID of the email message from the emails' headers.
 externalConversationID | The ID of the email thread on the mail account's platform.
-rawBody | The raw HTML. <aside class="warning">Usually this is not the field you want to use because it may have open tracking, link tracking, etc in it.</aside>
+rawBody | The raw HTML. <aside class="warning">Usually this is not the field you want to use because it may have open tracking, link tracking, replies, etc in it.</aside>
 body | This is is the HTML with tracking and replies stripped out.
 plainTextBody | A display-friendly version of the email body.
 
@@ -163,6 +206,7 @@ campaign | An email sent as part of a campaign sequence.
     "fullName": "John Doe",
     "first": "John",
     "last": "Doe",
+    "created": "2017-04-06T17:45:07.188Z",
     "fields": {
       "favorite_color": "Red"
     }
@@ -180,7 +224,8 @@ campaign | An email sent as part of a campaign sequence.
     "message": {
       "object": "message",
       "id": 1,
-      "type": "initial"
+      "type": "initial",
+      "subject": "My subject"
     }
   }
 }
@@ -211,6 +256,7 @@ isDuplicate | `true` if this recipient is opening the email for the second or nt
     "fullName": "John Doe",
     "first": "John",
     "last": "Doe",
+    "created": "2017-04-06T17:45:07.188Z",
     "fields": {
       "favorite_color": "Red"
     }
@@ -228,7 +274,8 @@ isDuplicate | `true` if this recipient is opening the email for the second or nt
     "message": {
       "object": "message",
       "id": 1,
-      "type": "initial"
+      "type": "initial",
+      "subject": "My subject"
     }
   }
 }
@@ -258,6 +305,7 @@ isDuplicate | `true` if this recipient is clicking the link for the second or nt
     "fullName": "John Doe",
     "first": "John",
     "last": "Doe",
+    "created": "2017-04-06T17:45:07.188Z",
     "fields": {
       "favorite_color": "Red"
     }
@@ -276,7 +324,8 @@ isDuplicate | `true` if this recipient is clicking the link for the second or nt
     "message": {
       "object": "message",
       "id": 1,
-      "type": "initial"
+      "type": "initial",
+      "subject": "My subject"
     }
   },
   "subject": "Re: This is my subject",
@@ -330,6 +379,7 @@ delay-notification | Your mail account indicated that your original message is s
     "fullName": "John Doe",
     "first": "John",
     "last": "Doe",
+    "created": "2017-04-06T17:45:07.188Z",
     "fields": {
       "favorite_color": "Red"
     }
@@ -364,7 +414,7 @@ status | The [current status of this lead](#Lead-Statuses).
 
 Status | Description
 --------- | ---------
-opened | The lead is available for review.
+open | The lead is available for review.
 ignored | The lead was classified as not going anywhere.
 closed | The lead was considered a successful interaction.
 
@@ -420,6 +470,7 @@ passedAccountLimitEmails | A list of email addresses that could not be imported 
   "fullName": "John Doe",
   "first": "John",
   "last": "Doe",
+  "created": "2017-04-06T17:45:07.188Z",
   "fields": {
     "favorite_color": "Red"
   }
