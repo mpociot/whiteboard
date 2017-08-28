@@ -1710,7 +1710,7 @@ handler.on(<span class="string">'push'</span>, push =&gt; {
 handler.on(<span class="string">'pushError'</span>, err =&gt; {
   <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.stack}</span>`</span>);
 });
-handler.expressHook(app);
+handler.hookExpress(app);
 
 <span class="comment">// Start your server</span>
 app.listen(<span class="number">80</span>);

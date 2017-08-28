@@ -29,7 +29,7 @@ handler.on('push', push => {
 handler.on('pushError', err => {
   console.error(`${err.code}: ${err.stack}`);
 });
-handler.expressHook(app);
+handler.hookExpress(app);
 
 // Start your server
 app.listen(80);
