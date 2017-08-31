@@ -1237,3 +1237,9 @@ rgba(0,0,0,0.4)
 .tocify-item[data-unique="Pushes"] {
   margin-top: 15px;
 }
+.api-menu-cont img {
+  height: 400px;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.3);
+}

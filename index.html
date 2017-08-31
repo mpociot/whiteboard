@@ -105,7 +105,8 @@ https:<span class="comment">//github.com/colinmathews/mailshake-node</span>
 </code></pre>
 <p>Thank you for checking out the Mailshake API! We ♥️ devs because that’s who we are, so we hope you’ll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on <a href="https://github.com/colinmathews/mailshake-api-docs">the repository that runs this site</a> and we’ll check it out.</p>
 <p>You’ll interact with the Mailshake API by making <code>GET</code> or <code>POST</code> requests (<code>POST</code> is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.</p>
-<h2 id="Getting-your-API-key"><a href="#Getting-your-API-key" class="headerlink" title="Getting your API key"></a>Getting your API key</h2><p>API access is currently only available to our enterprise customers. If your team is ready for an upgrade, click the “Contact Us” button under <a href="https://mailshake.com/#pricing">Enterprise plan</a>.</p>
+<h2 id="Getting-your-API-key"><a href="#Getting-your-API-key" class="headerlink" title="Getting your API key"></a>Getting your API key</h2><p>To get your API key, go to the <a href="https://mailshake.com/app/#/redirect/extensions/api" target="_blank">Extensions &gt; API page</a> in Mailshake and create your key. If your team is looking for higher limits, click the “Contact Us” on that page.</p>
+<p><span class="api-menu-cont"><img src="images/api-menu.png" alt="API Menu Item"></span></p>
 <h2 id="Making-requests"><a href="#Making-requests" class="headerlink" title="Making requests"></a>Making requests</h2><p>When making a <code>POST</code> request you can send content as a typical form payload by using the header:</p>
 <p><code>Content-Type: application/x-www-form-urlencoded</code></p>
 <p>or you can write JSON data to the request by using the header:</p>
@@ -2620,25 +2621,26 @@ handler.unsubscribe(targetUrl)
 </table>
 
           
-              <h1 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h1><p>Based on your plan with us, you app will have a few limitations on your usage. Just <a href="mailto:support@mailshake.com">reach out to us</a> if you’re interested in increasing your limits.</p>
+              <h1 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h1><p>Based on your plan with us, you app will have a few limitations on your usage. If you’re interested in increasing your limits, use the “Contact Us” button on the <a href="https://mailshake.com/app/#/redirect/extensions/api" target="_blank">Extensions &gt; API page</a> inside Mailshake.</p>
 <h2 id="New-recipients-month"><a href="#New-recipients-month" class="headerlink" title="New recipients / month"></a>New recipients / month</h2><p>Each Mailshake campaign can hold up to 5,000 recipients. However, adding recipients through the Mailshake API is limited to a certain number per month. This isn’t a per-campaign limit, it’s accumulative across all campaigns. If your app attempts to exceed this limit, you’ll get the <code>exceeds_monthly_recipients</code> error back.</p>
-<p>The monthly window is aligned with your Mailshake subscription. So if you first purchased your Subscription on August 21st, then your monthly recipient limit will reset on the 21st of each month.</p>
+<p>The monthly window is aligned with the calendar year. Ergo on the 1st of each month your recipient limit will reset.</p>
 <h2 id="Rate-limits"><a href="#Rate-limits" class="headerlink" title="Rate limits"></a>Rate limits</h2><blockquote>
 <p>As an example of quota units work, check this out:</p>
 </blockquote>
-<pre><code class="highlight">// Quota units: 300
+<pre><code class="highlight">// Quota units: 400
 mailshake.campaigns.pause(1)
-// Quota units: 295
+// Quota units: 395
 mailshake.campaigns.pause(2)
 mailshake.campaigns.pause(3)
-// Quota units: 285
+// Quota units: 385
 mailshake.recipients.add([ /* 32 recipients */ ])
-// This ^^ costs 10 + 32, or 42
-// Quota units: 243
+// This ^^ costs 20 + 32, or 52
+// Quota units: 343
 // ...an hour passes by ...
-// Quota units: 300
+// Quota units: 400
 </code></pre><p>Each call to our API costs a varying number of “quota units,” and you’re allowed X quota units per hour to limit how frequently you can make requests. If you hit a limit, you’ll get the error code <code>limit_reached</code>. The error message will indicate when you can try again (see <a href="#General-errors">our error codes</a>).</p>
-<p>We’re still experimenting with these numbers, so they may change from time to time:</p>
+<aside class="notice">We’re still experimenting with these numbers, so they may change from time to time:</aside>
+
 <table>
 <thead>
 <tr>
@@ -2648,15 +2650,19 @@ mailshake.recipients.add([ /* 32 recipients */ ])
 </thead>
 <tbody>
 <tr>
+<td>10</td>
+<td>Campaigns &gt; List</td>
+</tr>
+<tr>
 <td>5</td>
 <td>Campaigns &gt; Pause</td>
 </tr>
 <tr>
-<td>15</td>
+<td>25</td>
 <td>Campaigns &gt; Unpause</td>
 </tr>
 <tr>
-<td>5</td>
+<td>25</td>
 <td>Leads &gt; Create</td>
 </tr>
 <tr>
@@ -2672,20 +2678,52 @@ mailshake.recipients.add([ /* 32 recipients */ ])
 <td>Leads &gt; Reopen</td>
 </tr>
 <tr>
-<td><div>10 + N</div></td>
-<td>Recipients &gt; Add <aside class="notice">10 units for this call plus one for each recipient being added</aside></td>
+<td><div>20 + N</div></td>
+<td>Recipients &gt; Add <aside class="notice">20 units for this call plus one for each recipient being added</aside></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Recipients &gt; List</td>
 </tr>
 <tr>
 <td>5</td>
 <td>Recipients &gt; Pause</td>
 </tr>
 <tr>
-<td>5</td>
+<td>10</td>
 <td>Recipients &gt; Unpause</td>
 </tr>
 <tr>
 <td>2</td>
 <td>Recipients &gt; Unsubscribe</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Push &gt; Create</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; Clicks</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; Opens</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; Sent</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; Replies</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; CreatedLeads</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; LeadStatusChanges</td>
 </tr>
 </tbody>
 </table>

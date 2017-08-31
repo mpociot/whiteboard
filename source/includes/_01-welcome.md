@@ -17,7 +17,9 @@ You'll interact with the Mailshake API by making `GET` or `POST` requests (`POST
 
 ## Getting your API key
 
-API access is currently only available to our enterprise customers. If your team is ready for an upgrade, click the "Contact Us" button under [Enterprise plan](https://mailshake.com/#pricing).
+To get your API key, go to the <a href="https://mailshake.com/app/#/redirect/extensions/api" target="_blank">Extensions &gt; API page</a> in Mailshake and create your key. If your team is looking for higher limits, click the "Contact Us" on that page.
+
+<span class="api-menu-cont">![API Menu Item](images/api-menu.png)</span>
 
 ## Making requests
 
