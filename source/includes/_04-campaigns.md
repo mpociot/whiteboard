@@ -62,9 +62,7 @@ Retrieves a single campaign and its message sequence. A `not_found` error will b
 
 Parameter | Default | Required | Description
 --------- | ------- | -----------
-search |  | No | Filters what campaigns are returned.
-nextToken |  | No | Fetches the next page from a previous request.
-perPage | 100 | No | How many results to get at once, up to 100.
+campaignID |  | Yes | The ID of the campaign.
 
 ## Pause
 
