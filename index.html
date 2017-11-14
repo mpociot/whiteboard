@@ -1905,36 +1905,72 @@ handler.unsubscribe(targetUrl)
       <span class="attr">"object"</span>: <span class="string">"message"</span>,
       <span class="attr">"id"</span>: <span class="number">1</span>,
       <span class="attr">"type"</span>: <span class="string">"initial"</span>,
-      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>
+      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
     },
     {
       <span class="attr">"object"</span>: <span class="string">"message"</span>,
       <span class="attr">"id"</span>: <span class="number">2</span>,
       <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
-      <span class="attr">"subject"</span>: <span class="string">"null"</span>
+      <span class="attr">"subject"</span>: <span class="string">"null"</span>,
+      <span class="attr">"replyToID"</span>: <span class="number">1</span>
     },
     {
       <span class="attr">"object"</span>: <span class="string">"message"</span>,
       <span class="attr">"id"</span>: <span class="number">3</span>,
       <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
-      <span class="attr">"subject"</span>: <span class="string">"null"</span>
+      <span class="attr">"subject"</span>: <span class="string">"null"</span>,
+      <span class="attr">"replyToID"</span>: <span class="number">1</span>
     },
     {
       <span class="attr">"object"</span>: <span class="string">"message"</span>,
       <span class="attr">"id"</span>: <span class="number">4</span>,
       <span class="attr">"type"</span>: <span class="string">"drip"</span>,
-      <span class="attr">"subject"</span>: <span class="string">"Here's a drip email"</span>
+      <span class="attr">"subject"</span>: <span class="string">"Here's a drip email"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
     },
     {
       <span class="attr">"object"</span>: <span class="string">"message"</span>,
       <span class="attr">"id"</span>: <span class="number">5</span>,
       <span class="attr">"type"</span>: <span class="string">"on-click"</span>,
-      <span class="attr">"subject"</span>: <span class="string">"You clicked my link"</span>
+      <span class="attr">"subject"</span>: <span class="string">"You clicked my link"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
     }
   ]
 }
 </code></pre>
 <p>A Mailshake campaign is the container for a sequence of messages and the recipients to whom they’ll be sent.</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"message"</span>,
+  <span class="attr">"id"</span>: <span class="number">423</span>,
+  <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+  <span class="attr">"subject"</span>: <span class="string">"My subject"</span>,
+  <span class="attr">"replyToID"</span>: <span class="literal">null</span>
+}
+{
+  <span class="attr">"object"</span>: <span class="string">"message"</span>,
+  <span class="attr">"id"</span>: <span class="number">424</span>,
+  <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
+  <span class="attr">"subject"</span>: <span class="literal">null</span>,
+  <span class="attr">"replyToID"</span>: <span class="number">423</span>
+}
+</code></pre>
+<p>A message in your campaign such as a follow-up or a drip message.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replyToID</td>
+<td>Only for <code>follow-up</code> messages, this is the message that indicates the root of the reply chain. If 4 messages will be sent in one reply chain, they’ll all have the same <code>replyToID</code> value.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="MessageTypes"><a href="#MessageTypes" class="headerlink" title="MessageTypes"></a>MessageTypes</h3><table>
 <thead>
 <tr>

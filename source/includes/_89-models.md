@@ -40,37 +40,70 @@ A Mailshake user and the team that they are on.
       "object": "message",
       "id": 1,
       "type": "initial",
-      "subject": "My subject"
+      "subject": "My subject",
+      "replyToID": null
     },
     {
       "object": "message",
       "id": 2,
       "type": "follow-up",
-      "subject": "null"
+      "subject": "null",
+      "replyToID": 1
     },
     {
       "object": "message",
       "id": 3,
       "type": "follow-up",
-      "subject": "null"
+      "subject": "null",
+      "replyToID": 1
     },
     {
       "object": "message",
       "id": 4,
       "type": "drip",
-      "subject": "Here's a drip email"
+      "subject": "Here's a drip email",
+      "replyToID": null
     },
     {
       "object": "message",
       "id": 5,
       "type": "on-click",
-      "subject": "You clicked my link"
+      "subject": "You clicked my link",
+      "replyToID": null
     }
   ]
 }
 ```
 
 A Mailshake campaign is the container for a sequence of messages and the recipients to whom they'll be sent.
+
+## Message
+
+```json
+{
+  "object": "message",
+  "id": 423,
+  "type": "initial",
+  "subject": "My subject",
+  "replyToID": null
+}
+{
+  "object": "message",
+  "id": 424,
+  "type": "follow-up",
+  "subject": null,
+  "replyToID": 423
+}
+```
+
+A message in your campaign such as a follow-up or a drip message.
+
+**Notable fields:**
+
+Field | Description
+--- | ---
+replyToID | Only for `follow-up` messages, this is the message that indicates the root of the reply chain. If 4 messages will be sent in one reply chain, they'll all have the same `replyToID` value.
+
 
 ### MessageTypes
 

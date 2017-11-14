@@ -5,3 +5,7 @@ Welcome to the official documentation for [Mailshake's](https://mailshake.com) A
 ## Contribute
 
 If you notice a typo or have a suggestion on making this documentation better, just open up a pull request and we’ll check it out.
+
+## Running
+
+To run the help docs locally, just do `npm start`. 
