@@ -45,11 +45,11 @@ Units | Operation
 10 | Recipients > Unpause
 2 | Recipients > Unsubscribe
 100 | Push > Create
-10 | Activity > Clicks
-10 | Activity > Opens
-10 | Activity > Sent
+3 | Activity > Clicks
+2 | Activity > Opens
+1 | Activity > Sent
 10 | Activity > Replies
-10 | Activity > CreatedLeads
-10 | Activity > LeadStatusChanges
+5 | Activity > CreatedLeads
+5 | Activity > LeadStatusChanges
 
 <aside class="notice">Any operation not listed above costs 1 unit</aside>
