@@ -451,7 +451,7 @@ open | The lead is available for review.
 ignored | The lead was classified as not going anywhere.
 closed | The lead was considered a successful interaction.
 
-## Added Recipients
+## AddRecipientsRequest
 
 ```json
 {
@@ -469,7 +469,7 @@ invalidEmails | A list of email addresses that were not imported because they di
 isEmpty | `true` if no email addresses were actually imported.
 checkStatusID | An ID you can use to monitor the import.
 
-## Add Status Response
+## AddedRecipients
 
 ```json
 {
@@ -515,3 +515,35 @@ passedAccountLimitEmails | A list of email addresses that could not be imported 
 Key | Description
 --- | ---
 fields | A simple JSON hash (not an array) of keys to values. Each field can be used as a text replacement.
+
+## CampaignExportRequest
+
+```json
+{
+  "isEmpty": false,
+  "checkStatusID": 1
+}
+```
+
+**Notable fields:**
+
+Key | Description
+--- | ---
+isEmpty | `true` if no campaigns were actually exported.
+checkStatusID | An ID you can use to monitor the export.
+
+## CampaignExport
+
+```json
+{
+  "isFinished": true,
+  "csvDownloadUrl": "https://.../something-unique.csv"
+}
+```
+
+**Notable fields:**
+
+Key | Description
+--- | ---
+isFinished | `true` when the export is done, `false` to wait a bit and check again.
+csvDownloadUrl | When finished, this is the url of the CSV file you can download containing your export.

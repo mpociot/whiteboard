@@ -354,6 +354,74 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 </tr>
 </tbody>
 </table>
+<h2 id="Export"><a href="#Export" class="headerlink" title="Export"></a>Export</h2><pre><code class="javascript highlight">mailshake.campaigns.export({
+  campaignIDs: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+  exportType: <span class="string">'simple'</span>,
+  timezone: <span class="string">'America/Indianapolis'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/export&quot; \
+  -u &quot;my-api-key:&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -X POST -d &#39;{&quot;campaignIDs&quot;:[1, 2, 3], &quot;exportType&quot;: &quot;simple&quot;, &quot;timezone&quot;: &quot;America/Indianapolis&quot;}&#39;
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#CampaignExportRequest">CampaignExportRequest</a> model.</p>
+</blockquote>
+<p>Asynchronously starts an export of one or more campaigns to CSV format. All campaign data will be included in a single csv file you can download.</p>
+<aside class="notice">At most 20 campaigns can be exported in a single request.</aside>
+
+<h3 id="Parameters-4"><a href="#Parameters-4" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignIDs</td>
+<td></td>
+<td>Yes</td>
+<td>An array of campaign IDs to export.</td>
+</tr>
+<tr>
+<td>exportType</td>
+<td></td>
+<td>Yes</td>
+<td>The type of export to perform. <code>simple</code> creates a recipient-based export listing each recipient (per campaign) in a single row. <code>show-each-message</code> creates an export based on sent messages where every sent email is listed in a single row.</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>UTC</td>
+<td>No</td>
+<td>The timezone that dates in the export should be based in.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ExportStatus"><a href="#ExportStatus" class="headerlink" title="ExportStatus"></a>ExportStatus</h2><pre><code class="javascript highlight">mailshake.recipients.exportStatus({
+  statusID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/export-status&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d statusID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#CampaignExport">CampaignExport</a> model.</p>
+</blockquote>
+<p>Exporting campaigns is an asynchronous process, so this endpoint lets you check on how things are going. If <code>isFinished</code> is true, then the export has completed. The <code>csvDownloadUrl</code> field provides the csv file you can download.</p>
 
           
               <h1 id="Recipients"><a href="#Recipients" class="headerlink" title="Recipients"></a>Recipients</h1><h2 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h2><pre><code class="javascript highlight">mailshake.recipients.add({
@@ -538,7 +606,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
 <aside class="notice">Either <code>csvRawData</code> or <code>link</code> is required</aside>
 
 <h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><blockquote>
-<p>This endpoint returns a <a href="#Added-Recipients">AddedRecipients</a> model.</p>
+<p>This endpoint returns a <a href="#AddRecipientsRequest">AddRecipientsRequest</a> model.</p>
 </blockquote>
 <p>Adding recipients is an asynchronous process and may take a few minutes to fully process, but you’ll receive an immediate response to indicate how things are going. Email addresses that are on your unsubscribe list or ones that are already in your campaign will be ignored.</p>
 
@@ -558,7 +626,7 @@ curl "https://api.mailshake.com/2017-04-01/me" \
   -d statusID=1
 </code></pre>
 <blockquote>
-<p>This endpoint returns a <a href="#Add-Status-Response">AddStatusResponse</a> model.</p>
+<p>This endpoint returns a <a href="#AddedRecipients">AddedRecipients</a> model.</p>
 </blockquote>
 <p>Adding recipients is an asynchronous process, so this endpoint lets you check on how things are going. If <code>isFinished</code> is true, then the import has completed. The <code>problems</code> field will let you determine the exact success or failure of the import.</p>
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">mailshake.recipients.list({
@@ -774,7 +842,7 @@ mailshake.recipients.list({
   -d emailAddress=john@doe.com
 </code></pre>
 <blockquote>
-<p>This endpoint returns a <a href="#AddStatusResponse">Recipient</a> model.</p>
+<p>This endpoint returns a <a href="#Recipient">Recipient</a> model.</p>
 </blockquote>
 <p>Immediately pauses all sending for a single recipient. If any emails for recipient are currently being sent they will not be stopped.</p>
 <p>A <code>not_found</code> error will be returned if the recipient could not be found.</p>
@@ -2436,7 +2504,7 @@ handler.unsubscribe(targetUrl)
 </tr>
 </tbody>
 </table>
-<h2 id="Added-Recipients"><a href="#Added-Recipients" class="headerlink" title="Added Recipients"></a>Added Recipients</h2><pre><code class="json highlight">{
+<h2 id="AddRecipientsRequest"><a href="#AddRecipientsRequest" class="headerlink" title="AddRecipientsRequest"></a>AddRecipientsRequest</h2><pre><code class="json highlight">{
   <span class="attr">"invalidEmails"</span>: [<span class="string">"one@example.com"</span>, <span class="string">"two@example.com"</span>],
   <span class="attr">"isEmpty"</span>: <span class="literal">false</span>,
   <span class="attr">"checkStatusID"</span>: <span class="number">1</span>
@@ -2465,7 +2533,7 @@ handler.unsubscribe(targetUrl)
 </tr>
 </tbody>
 </table>
-<h2 id="Add-Status-Response"><a href="#Add-Status-Response" class="headerlink" title="Add Status Response"></a>Add Status Response</h2><pre><code class="json highlight">{
+<h2 id="AddedRecipients"><a href="#AddedRecipients" class="headerlink" title="AddedRecipients"></a>AddedRecipients</h2><pre><code class="json highlight">{
   <span class="attr">"isFinished"</span>: <span class="literal">true</span>,
   <span class="attr">"problems"</span>: {
     <span class="attr">"unsubscribedEmails"</span>: [<span class="string">"one@example.com"</span>],
@@ -2524,6 +2592,54 @@ handler.unsubscribe(targetUrl)
 <tr>
 <td>fields</td>
 <td>A simple JSON hash (not an array) of keys to values. Each field can be used as a text replacement.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="CampaignExportRequest"><a href="#CampaignExportRequest" class="headerlink" title="CampaignExportRequest"></a>CampaignExportRequest</h2><pre><code class="json highlight">{
+  <span class="attr">"isEmpty"</span>: <span class="literal">false</span>,
+  <span class="attr">"checkStatusID"</span>: <span class="number">1</span>
+}
+</code></pre>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isEmpty</td>
+<td><code>true</code> if no campaigns were actually exported.</td>
+</tr>
+<tr>
+<td>checkStatusID</td>
+<td>An ID you can use to monitor the export.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="CampaignExport"><a href="#CampaignExport" class="headerlink" title="CampaignExport"></a>CampaignExport</h2><pre><code class="json highlight">{
+  <span class="attr">"isFinished"</span>: <span class="literal">true</span>,
+  <span class="attr">"csvDownloadUrl"</span>: <span class="string">"https://.../something-unique.csv"</span>
+}
+</code></pre>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isFinished</td>
+<td><code>true</code> when the export is done, <code>false</code> to wait a bit and check again.</td>
+</tr>
+<tr>
+<td>csvDownloadUrl</td>
+<td>When finished, this is the url of the CSV file you can download containing your export.</td>
 </tr>
 </tbody>
 </table>
@@ -2684,6 +2800,10 @@ mailshake.recipients.add([ /* 32 recipients */ ])
 <tr>
 <td>25</td>
 <td>Campaigns &gt; Unpause</td>
+</tr>
+<tr>
+<td><div>20 + N</div></td>
+<td>Campaigns &gt; Export <aside class="notice">20 units for this call plus five for each recipient being added</aside></td>
 </tr>
 <tr>
 <td>25</td>

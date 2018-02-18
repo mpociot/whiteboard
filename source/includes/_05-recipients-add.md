@@ -132,6 +132,6 @@ fullNameColumnName | No | The name of the column that should represent recipient
 
 ### Response
 
-> This endpoint returns a [AddedRecipients](#Added-Recipients) model.
+> This endpoint returns a [AddRecipientsRequest](#AddRecipientsRequest) model.
 
 Adding recipients is an asynchronous process and may take a few minutes to fully process, but you'll receive an immediate response to indicate how things are going. Email addresses that are on your unsubscribe list or ones that are already in your campaign will be ignored.

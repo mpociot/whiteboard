@@ -35,6 +35,7 @@ Units | Operation
 10 | Campaigns > List
 5 | Campaigns > Pause
 25 | Campaigns > Unpause
+<div>20 + N</div> | Campaigns > Export <aside class="notice">20 units for this call plus five for each recipient being added</aside>
 25 | Leads > Create
 5 | Leads > Close
 5 | Leads > Ignore

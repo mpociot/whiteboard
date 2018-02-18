@@ -18,7 +18,7 @@ curl "https://api.mailshake.com/2017-04-01/recipients/add-status" \
   -d statusID=1
 ```
 
-> This endpoint returns a [AddStatusResponse](#Add-Status-Response) model.
+> This endpoint returns a [AddedRecipients](#AddedRecipients) model.
 
 Adding recipients is an asynchronous process, so this endpoint lets you check on how things are going. If `isFinished` is true, then the import has completed. The `problems` field will let you determine the exact success or failure of the import.
 
@@ -154,7 +154,7 @@ curl "https://api.mailshake.com/2017-04-01/recipients/pause" \
   -d emailAddress=john@doe.com
 ```
 
-> This endpoint returns a [Recipient](#AddStatusResponse) model.
+> This endpoint returns a [Recipient](#Recipient) model.
 
 Immediately pauses all sending for a single recipient. If any emails for recipient are currently being sent they will not be stopped.
 
