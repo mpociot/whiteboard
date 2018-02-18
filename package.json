@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "main": "lib/whiteboard",
   "hexo": {
-    "version": "3.1.1"
+    "version": "3.3.8"
   },
   "dependencies": {
     "bluebird": "^2.9.8",
@@ -18,10 +18,14 @@
     "hexo-renderer-ejs": "^0.1.0",
     "hexo-renderer-marked": "^0.2.6",
     "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2"
+    "hexo-server": "^0.1.2",
+    "mv": "^2.1.1"
   },
   "scripts": {
     "start": "hexo server",
-    "generate": "hexo generate"
+    "generate": "node lib/generate.js"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1"
   }
 }
