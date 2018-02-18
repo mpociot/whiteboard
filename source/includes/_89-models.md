@@ -35,6 +35,7 @@ A Mailshake user and the team that they are on.
   "id": 1,
   "title": "My campaign",
   "created": "2017-08-19T02:31:22.218Z",
+  "archived": null,
   "messages": [
     {
       "object": "message",
@@ -76,6 +77,12 @@ A Mailshake user and the team that they are on.
 ```
 
 A Mailshake campaign is the container for a sequence of messages and the recipients to whom they'll be sent.
+
+**Notable fields:**
+
+Field | Description
+--- | ---
+archived | Will be set to a date if this campaign is archived. Archived campaigns must be unarchived via the web interface before they can be fully interacted with.
 
 ## Message
 
