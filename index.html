@@ -1,0 +1,2776 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Mailshake API Reference</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="https://mailshake.com/assets/icon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://mailshake.com/assets/icon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://mailshake.com/assets/icon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://mailshake.com/assets/icon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://mailshake.com/assets/icon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://mailshake.com/assets/icon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://mailshake.com/assets/icon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://mailshake.com/assets/icon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mailshake.com/assets/icon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://mailshake.com/assets/icon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mailshake.com/assets/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://mailshake.com/assets/icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://mailshake.com/assets/icon/favicon-16x16.png">
+    <link rel="manifest" href="https://mailshake.com/assets/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://mailshake.com/assets/icon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="js/lib/energize.js"></script>
+<script src="js/lib/imagesloaded.min.js"></script>
+<script src="js/lib/jquery_ui.js"></script>
+<script src="js/lib/jquery.highlight.js"></script>
+<script src="js/lib/jquery.tocify.js"></script>
+<script src="js/lib/lunr.js"></script>
+    <script src="js/script.js"></script>
+
+    
+      <script>
+        $(function() {
+            setupLanguages([{"javascript":"Node"},{"shell":"curl"}]);
+        });
+      </script>
+    
+  </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png">
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <div class="logo-wrapper">
+        <img src="images/logo.png">
+        <label>API</label>
+      </div>
+      
+        <div class="lang-selector">
+          
+            
+              <a href="#" data-language-name="javascript">Node</a>
+            
+          
+            
+              <a href="#" data-language-name="shell">curl</a>
+            
+          
+        </div>
+      
+      
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      
+      <div id="toc">
+      </div>
+      
+        <ul class="toc-footer">
+          
+              <li><a href="https://mailshake.com">Visit Mailshake</a></li>
+          
+        </ul>
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        
+        
+          
+              <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p><strong>API Endpoint</strong><br><code>https<span></span>://api.mailshake.com/2017-04-01</code></p>
+</blockquote>
+<pre><code class="javascript highlight"><span class="comment">// Install our node package</span>
+npm install mailshake-node --save
+
+<span class="comment">// See source here</span>
+https:<span class="comment">//github.com/colinmathews/mailshake-node</span>
+</code></pre>
+<p>Thank you for checking out the Mailshake API! We ♥️ devs because that’s who we are, so we hope you’ll find our API enjoyable. If you notice a typo or have a suggestion on making this documentation better, just open up a pull request on <a href="https://github.com/colinmathews/mailshake-api-docs">the repository that runs this site</a> and we’ll check it out.</p>
+<p>You’ll interact with the Mailshake API by making <code>GET</code> or <code>POST</code> requests (<code>POST</code> is recommended when sending larger payloads). All responses are JSON-formatted, and each application has its own quota limits based on your Mailshake subscription.</p>
+<h2 id="Getting-your-API-key"><a href="#Getting-your-API-key" class="headerlink" title="Getting your API key"></a>Getting your API key</h2><p>To get your API key, go to the <a href="https://mailshake.com/app/#/redirect/extensions/api" target="_blank">Extensions &gt; API page</a> in Mailshake and create your key. If your team is looking for higher limits, click the “Contact Us” on that page.</p>
+<p><span class="api-menu-cont"><img src="images/api-menu.png" alt="API Menu Item"></span></p>
+<h2 id="Making-requests"><a href="#Making-requests" class="headerlink" title="Making requests"></a>Making requests</h2><p>When making a <code>POST</code> request you can send content as a typical form payload by using the header:</p>
+<p><code>Content-Type: application/x-www-form-urlencoded</code></p>
+<p>or you can write JSON data to the request by using the header:</p>
+<p><code>Content-Type: application/json</code></p>
+<p>See <a href="#Authentication">authentication</a> for examples of how to make requests and <a href="#Limits">limits</a> to understand your app’s constraints.</p>
+<h2 id="Responses"><a href="#Responses" class="headerlink" title="Responses"></a>Responses</h2><blockquote>
+<p>Single-item responses will be in this format:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"title"</span>: <span class="string">"My campaign"</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-08-19T02:31:22.218Z"</span>
+}
+</code></pre>
+<p>Most endpoints return a single model of data. Check out our <a href="#Models">models section</a> for specific examples and be sure to check out the <a href="#Errors">errors section</a> section, too.</p>
+<h2 id="Pagination"><a href="#Pagination" class="headerlink" title="Pagination"></a>Pagination</h2><blockquote>
+<p>Paginated data will look like this:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"nextToken"</span>: <span class="string">"..."</span>,
+  <span class="attr">"results"</span>: [
+    { ... },
+    { ... }
+  ]
+}
+</code></pre>
+<blockquote>
+<p>Get the next page of data like so:</p>
+</blockquote>
+<pre><code class="javascript highlight">mailshake.campaigns.list()
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="string">`Page 1: <span class="subst">${<span class="built_in">JSON</span>.stringify(result.results, <span class="literal">null</span>, <span class="number">2</span>)}</span>`</span>);
+    <span class="comment">// Just call `next` on the result to fetch the next page.</span>
+    <span class="keyword">return</span> result.next();
+  })
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="string">`Page 2: <span class="subst">${<span class="built_in">JSON</span>.stringify(result.results, <span class="literal">null</span>, <span class="number">2</span>)}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d nextToken=...
+</code></pre>
+<p>Endpoints that return multiple results will include a <code>nextToken</code> parameter that you can pass into another request to fetch the next results. These endpoints will also accept a <code>perPage</code> parameter to control the size of the record sets.</p>
+<p>If <code>nextToken</code> is null then you’re looking at the last page of data.</p>
+<h2 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h2><p>As we develop future versions of our API that are not backwards-compatible, we will leave the old version running and create a new url for the latest version. We will retain support for obsolete versions for a generous period of time and will send email notifications of any changes.</p>
+<p>Current version:<br><code>https://api.mailshake.com/2017-04-01</code></p>
+<p>Future version format:<br><code>https://api.mailshake.com/XXXX-YY-ZZ</code></p>
+
+          
+              <h1 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h1><p>Most of the apps authorized to use the Mailshake API can only access their own team’s data. For these apps, you can use our simple authentication. Any app can use our OAuth version 2 authentication.</p>
+<aside class="notice">If your app will access data for other teams OAuth is the only option.</aside>
+
+<h2 id="Simple"><a href="#Simple" class="headerlink" title="Simple"></a>Simple</h2><pre><code class="javascript highlight"><span class="keyword">var</span> mailshake = <span class="built_in">require</span>(<span class="string">'mailshake-node'</span>)(<span class="string">'my-api-key'</span>);
+mailshake.me()
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight"><span class="meta">#</span> curl uses the -u flag to pass basic auth credentials
+<span class="meta">#</span> (adding a colon after your API key prevents cURL from asking for a password).
+curl "https://api.mailshake.com/2017-04-01/me" \
+  -u "my-api-key:"
+</code></pre>
+<p>Simply include your API key as a querystring parameter (<code>apiKey</code>), part of your body json  (<code>apiKey</code>), or via an http <code>Authorization</code> header that looks like:</p>
+<p><code>Authorization: Basic [base-64 encoded version of your api key]</code></p>
+<blockquote>
+<p>Make sure to replace <code>my-api-key</code> with your API key.</p>
+</blockquote>
+<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><p>We’re currently in the process of reviewing whether to support OAuth2 for public use.</p>
+<h2 id="Test-connection"><a href="#Test-connection" class="headerlink" title="Test connection"></a>Test connection</h2><pre><code class="javascript highlight">mailshake.me()
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/me&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<blockquote>
+<p>This endpoint returns a simple object with a <a href="#User">User</a> model attached.</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"user"</span>: <span class="string">"[User model]"</span>
+}
+</code></pre>
+<p>You can hit our <code>/me</code> endpoint to test that authentication is working. It will return information about the current user you are authenticating as.</p>
+
+          
+              <h1 id="Campaigns"><a href="#Campaigns" class="headerlink" title="Campaigns"></a>Campaigns</h1><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">mailshake.campaigns.list({
+  search: <span class="string">'Venkman'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    result.results.forEach(<span class="function"><span class="params">campaign</span> =&gt;</span> {
+      <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(campaign, <span class="literal">null</span>, <span class="number">2</span>));
+    });
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d search=Venkman
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Campaign">Campaign</a> models.</p>
+</blockquote>
+<p>List all of a team’s campaigns.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>search</td>
+<td></td>
+<td>No</td>
+<td>Filters what campaigns are returned.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h2><pre><code class="javascript highlight">mailshake.campaigns.get({
+  campaignID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/get&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#Campaign">Campaign</a> model.</p>
+</blockquote>
+<p>Retrieves a single campaign and its message sequence. A <code>not_found</code> error will be returned if the campaign could not be found.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The ID of the campaign.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h2><pre><code class="javascript highlight">mailshake.campaigns.pause({
+  campaignID: <span class="number">1</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/pause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Immediately pauses all sending for a campaign. If a batch of emails for this campaign is currently being sent they will not be stopped.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to pause.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Unpause"><a href="#Unpause" class="headerlink" title="Unpause"></a>Unpause</h2><pre><code class="javascript highlight">mailshake.campaigns.unpause({
+  campaignID: <span class="number">1</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/campaigns/unpause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Resumes sending for a campaign. This team’s sending calendar will reschedule itself to account for this campaign’s pending emails. In rare cases it may take up to 5 minutes for the calendar to show scheduled times for this campaign.</p>
+<h3 id="Parameters-3"><a href="#Parameters-3" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to unpause.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Recipients"><a href="#Recipients" class="headerlink" title="Recipients"></a>Recipients</h1><h2 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h2><pre><code class="javascript highlight">mailshake.recipients.add({
+  campaignID: <span class="number">1</span>,
+  addAsNewList: <span class="literal">true</span>,
+  listOfEmails: <span class="string">'"John Doe" &lt;john@doe.com&gt;, "Jane Doe" &lt;jane@doe.com&gt;'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl "https://api.mailshake.com/2017-04-01/recipients/add" \
+  -u "my-api-key:" \
+  -d campaignID=1 \
+  -d addAsNewList=true \
+  -d listOfEmails="\"John Doe\" &lt;john@doe.com&gt;, \"Jane Doe\" &lt;jane@doe.com&gt;"
+</code></pre>
+<p>Adds new recipients to a campaign. Each campaign can hold up to 5,000 recipients.</p>
+<p>If you pass along a full name for your recipients, Mailshake will automatically prepare <code>first</code>, <code>last</code>, and <code>name</code> (full name) as text replacements. If you only have a first name, use that value as their full name.</p>
+<p>Any other fields you provide (like <code>favorite_color</code>) can be used as text replacements within your campaign. If a text replacement isn’t found, that recipient’s emails will not be scheduled until you make corrections.</p>
+<p>Here’s an example message:</p>
+<p><span class="quoted-content">Hi {{first}},<br><br>Thanks for adding your name to my email list on {{topic}}. I think you’re really going to like it!</span></p>
+<aside class="warning">Unless your campaign is paused, these recipients will immediately be scheduled to receive campaign emails. In rare cases it may take up to 5 minutes for your sending calendar to show scheduled times for these recipients.</aside>
+
+<aside class="notice">In addition to rate limits, this operation limits you to adding X recipients per month. <a href="#Limits">Learn more</a></aside>
+
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to add these recipients to.</td>
+</tr>
+<tr>
+<td>addAsNewList</td>
+<td>false</td>
+<td>No</td>
+<td>Pass true to keep these recipients grouped together. Otherwise they’ll be added to the last list you uploaded to your campaign.</td>
+</tr>
+<tr>
+<td>listOfEmails</td>
+<td></td>
+<td>Maybe</td>
+<td>A comma or newline separated list of email addresses to add. You can include recipient names by using the format: <code>&quot;John Doe &lt;john@doe.com&gt;&quot;</code></td>
+</tr>
+<tr>
+<td>addresses</td>
+<td></td>
+<td>Maybe</td>
+<td>A structured list of recipient data that can include custom fields.</td>
+</tr>
+<tr>
+<td>csvData</td>
+<td></td>
+<td>Maybe</td>
+<td>A structured object representing a spreadsheet of comma-separated recipient data that can include custom columns as fields.</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">One is required: <code>listOfEmails</code>, <code>addresses</code>, <code>csvData</code>. See below.</aside>
+
+<h3 id="Using-addresses"><a href="#Using-addresses" class="headerlink" title="Using addresses"></a>Using <code>addresses</code></h3><pre><code class="javascript highlight">mailshake.recipients.add({
+  campaignID: <span class="number">1</span>,
+  addAsNewList: <span class="literal">true</span>,
+  addresses: [
+    {
+      emailAddress: <span class="string">'john@doe.com'</span>,
+      fullName: <span class="string">'John Doe'</span>,
+      fields: {
+        favorite_color: <span class="string">'Red'</span>
+      }
+    }
+  ]
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/add&quot; \
+    -u &quot;my-api-key:&quot; \
+    -H &quot;Content-Type: application/json&quot; \
+    -X POST -d &#39;{&quot;campaignID&quot;:1,&quot;addAsNewList&quot;:true,&quot;addresses&quot;:[{&quot;emailAddress&quot;:&quot;john@doe.com&quot;,&quot;fullName&quot;:&quot;John Doe&quot;,&quot;fields&quot;:{&quot;favorite_color&quot;:&quot;Red&quot;}}]}&#39;
+</code></pre>
+<p>This option lets you pass in an array of structured data. Each array item should be listed in this format;</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>emailAddress</td>
+<td>Yes</td>
+<td>The recipient’s email address.</td>
+</tr>
+<tr>
+<td>fullName</td>
+<td>No</td>
+<td>The recipients full name, or first name if that’s all you have.</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>No</td>
+<td>A simple JSON hash (not an array) of keys to values. Each field can be used as a text replacement.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Using-csvData"><a href="#Using-csvData" class="headerlink" title="Using csvData"></a>Using <code>csvData</code></h3><pre><code class="javascript highlight">mailshake.recipients.add({
+  campaignID: <span class="number">1</span>,
+  addAsNewList: <span class="literal">true</span>,
+  csvData: {
+    csvRawData: <span class="string">'email,name,favorite_color\njohn@doe.com,John Doe,Red'</span>,
+    emailColumnName: <span class="string">'email'</span>,
+    fullNameColumnName: <span class="string">'name'</span>
+  }
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/add&quot; \
+  -u &quot;my-api-key:&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -X POST -d &#39;{&quot;campaignID&quot;:1,&quot;addAsNewList&quot;:true,&quot;csvData&quot;:{&quot;csvRawData&quot;:&quot;email,name,favorite_color\njohn@doe.com,John Doe,Red&quot;,&quot;emailColumnName&quot;:&quot;email&quot;,&quot;fullNameColumnName&quot;:&quot;name&quot;}}&#39;
+</code></pre>
+<p>Pass in spreadsheet data in comma-separated-values format. You must have a column (of any name) that represents an email address, and optionally a column to represent a full name. All other columns will be translated into fields that can be used for text replacements.</p>
+<aside class="notice">Be sure you’re not using semi-colon-values and that you’re properly escaping content that may have commas in it.</aside>
+
+<p>Here is the format of the JSON object to be passed as the <code>csvData</code> parameter:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>csvRawData</td>
+<td>Maybe</td>
+<td>Raw csv-formatted data.</td>
+</tr>
+<tr>
+<td>link</td>
+<td>Maybe</td>
+<td>A publicly accessible link that hosts csv-formatted data.</td>
+</tr>
+<tr>
+<td>emailColumnName</td>
+<td>Yes</td>
+<td>The name of the column that represents recipients’ email addresses.</td>
+</tr>
+<tr>
+<td>fullNameColumnName</td>
+<td>No</td>
+<td>The name of the column that should represent recipients’ full names (or first names if that’s all you have).</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">Either <code>csvRawData</code> or <code>link</code> is required</aside>
+
+<h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><blockquote>
+<p>This endpoint returns a <a href="#Added-Recipients">AddedRecipients</a> model.</p>
+</blockquote>
+<p>Adding recipients is an asynchronous process and may take a few minutes to fully process, but you’ll receive an immediate response to indicate how things are going. Email addresses that are on your unsubscribe list or ones that are already in your campaign will be ignored.</p>
+
+          
+              <h2 id="AddStatus"><a href="#AddStatus" class="headerlink" title="AddStatus"></a>AddStatus</h2><pre><code class="javascript highlight">mailshake.recipients.addStatus({
+  statusID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/add-status&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d statusID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#Add-Status-Response">AddStatusResponse</a> model.</p>
+</blockquote>
+<p>Adding recipients is an asynchronous process, so this endpoint lets you check on how things are going. If <code>isFinished</code> is true, then the import has completed. The <code>problems</code> field will let you determine the exact success or failure of the import.</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">mailshake.recipients.list({
+  campaignID: <span class="number">1</span>,
+  search: <span class="string">'Egon'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d search=Egon
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Recipient">Recipient</a> models.</p>
+</blockquote>
+<p>Lists all of the recipients in a campaign. You can use this endpoint to search recipients, filter by activity, or find recipients who have some of kind of problem (like a missing text replacement or an email that failed to send).</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to look in.</td>
+</tr>
+<tr>
+<td>filter</td>
+<td></td>
+<td>No</td>
+<td><a href="#Filter-options">Criteria</a> to filter recipients with.</td>
+</tr>
+<tr>
+<td>search</td>
+<td></td>
+<td>No</td>
+<td>Filters what recipients are returned.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Filter-options"><a href="#Filter-options" class="headerlink" title="Filter options"></a>Filter options</h3><pre><code class="javascript highlight"><span class="comment">// Find recipients who have not opened any messages</span>
+mailshake.recipients.list({
+  campaignID: <span class="number">1</span>,
+  filter: {
+    action: <span class="string">'opened'</span>,
+    negateAction: <span class="literal">true</span>
+  }
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -X POST -d &#39;{&quot;campaignID&quot;:&quot;1&quot;,&quot;filter&quot;:{&quot;action&quot;:&quot;opened&quot;,&quot;negateAction&quot;:true}}&#39;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td></td>
+<td>Yes</td>
+<td>The kind of recipient activity to look for.</td>
+</tr>
+<tr>
+<td>negateAction</td>
+<td>false</td>
+<td>No</td>
+<td><code>true</code> to find recipients who have NOT taken the given action.</td>
+</tr>
+<tr>
+<td>campaignMessageID</td>
+<td></td>
+<td>No</td>
+<td>If <code>action</code> is based on a message, you can limit it to only look at this message.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Filter-actions"><a href="#Filter-actions" class="headerlink" title="Filter actions"></a>Filter actions</h3><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opened</td>
+<td>Recipients who have opened a message.</td>
+</tr>
+<tr>
+<td>clicked</td>
+<td>Recipients who have clicked a link.</td>
+</tr>
+<tr>
+<td>replied</td>
+<td>Recipients who have replied.</td>
+</tr>
+<tr>
+<td>wasSent</td>
+<td>Recipients who were sent a message.</td>
+</tr>
+<tr>
+<td>bounced</td>
+<td>Recipients who bounced.</td>
+</tr>
+<tr>
+<td>paused</td>
+<td>Recipients who are paused.</td>
+</tr>
+<tr>
+<td>hasProblems</td>
+<td>Recipients who have a missing text replacement or a failed sent email.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h2><pre><code class="javascript highlight">mailshake.recipients.get({
+  campaignID: <span class="number">1</span>,
+  emailAddress: <span class="string">'john@doe.com'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/get&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d emailAddress=john@doe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#Recipient">Recipient</a> model.</p>
+</blockquote>
+<p>Gets a single recipient’s basic information. A <code>not_found</code> error will be returned if the recipient could not be found.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>Maybe</td>
+<td>The ID of a recipient.</td>
+</tr>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Maybe</td>
+<td>The campaign that this recipient belongs to. Required if <code>emailAddress</code> is specified.</td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>Maybe</td>
+<td>The address of the recipient.</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">Either <code>recipientID</code> or <code>emailAddress</code> is required.</aside>
+
+<h2 id="Pause"><a href="#Pause" class="headerlink" title="Pause"></a>Pause</h2><pre><code class="javascript highlight">mailshake.recipients.pause({
+  campaignID: <span class="number">1</span>,
+  emailAddress: <span class="string">'john@doe.com'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/pause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d emailAddress=john@doe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#AddStatusResponse">Recipient</a> model.</p>
+</blockquote>
+<p>Immediately pauses all sending for a single recipient. If any emails for recipient are currently being sent they will not be stopped.</p>
+<p>A <code>not_found</code> error will be returned if the recipient could not be found.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign that this recipient belongs to.</td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>Yes</td>
+<td>The address of the recipient.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Unpause"><a href="#Unpause" class="headerlink" title="Unpause"></a>Unpause</h2><pre><code class="javascript highlight">mailshake.recipients.unpause({
+  campaignID: <span class="number">1</span>,
+  emailAddress: <span class="string">'john@doe.com'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/unpause&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d emailAddress=john@doe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#Recipient">Recipient</a> model.</p>
+</blockquote>
+<p>Resumes sending for a recipient. This team’s sending calendar will reschedule itself to account for this recipient’s pending emails. In rare cases it may take up to 5 minutes for the calendar to show updated scheduled times.</p>
+<p>A <code>not_found</code> error will be returned if the recipient could not be found.</p>
+<h3 id="Parameters-3"><a href="#Parameters-3" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Yes</td>
+<td>The campaign to unpause.</td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>Yes</td>
+<td>The address of the recipient.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Unsubscribe"><a href="#Unsubscribe" class="headerlink" title="Unsubscribe"></a>Unsubscribe</h2><pre><code class="javascript highlight">mailshake.recipients.unsubscribe({
+  emailAddresses: <span class="string">'john@doe.com,jane@doe.com'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/recipients/unsubscribe&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d emailAddresses=john@doe.com,jane@doe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Adds a list of email addresses to your unsubscribe list.</p>
+<h3 id="Parameters-4"><a href="#Parameters-4" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>emailAddresses</td>
+<td></td>
+<td>Yes</td>
+<td>A comma-separated list of email addresses to unsubscribe.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><p>These endpoints let you see what’s been going on with your campaigns.</p>
+<h2 id="Sent"><a href="#Sent" class="headerlink" title="Sent"></a>Sent</h2><pre><code class="javascript highlight">mailshake.activity.sent({
+  campaignMessageType: <span class="string">'initial'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/sent&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignMessageType=initial
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#SentMessage">SentMessage</a> models.</p>
+</blockquote>
+<p>Obtains the most recent emails you have sent. In most cases you’ll want to look at campaign-based emails, but this endpoint also lets you get one-off replies you’ve sent within Mailshake via Lead Catcher.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>messageType</td>
+<td>any</td>
+<td>No</td>
+<td>If specified, you can filter to only <code>one-off</code> or <code>campaign</code> messages. <code>one-off</code> messages are replies you send manually within Mailshake, so in most cases you’ll want to omit this parameter or use <code>campaign</code>.</td>
+</tr>
+<tr>
+<td>campaignMessageType</td>
+<td>any</td>
+<td>No</td>
+<td>Filter to a specific type of message within a campaign (see <a href="#CampaignMessageTypes">CampaignMessageTypes</a>).</td>
+</tr>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>campaignMessageID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single message within a campaign.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Opens"><a href="#Opens" class="headerlink" title="Opens"></a>Opens</h2><pre><code class="javascript highlight">mailshake.activity.opens()
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/opens&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Open">Open</a> models.</p>
+</blockquote>
+<p>Obtains the most recent emails opened.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>campaignMessageID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single message within a campaign.</td>
+</tr>
+<tr>
+<td>excludeDuplicates</td>
+<td>false</td>
+<td>No</td>
+<td>If true this will only not return data when recipients open the same email more than once.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Clicks"><a href="#Clicks" class="headerlink" title="Clicks"></a>Clicks</h2><pre><code class="javascript highlight">mailshake.activity.clicks()
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/clicks&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Click">Click</a> models.</p>
+</blockquote>
+<p>Obtains the most recent links clicked.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>excludeDuplicates</td>
+<td>false</td>
+<td>No</td>
+<td>If true this will only not return data when recipients click the same link more than once.</td>
+</tr>
+<tr>
+<td>matchUrl</td>
+<td></td>
+<td>No</td>
+<td>An exact matching of a specific link you’re tracking.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Replies"><a href="#Replies" class="headerlink" title="Replies"></a>Replies</h2><pre><code class="javascript highlight">mailshake.activity.replies({
+  replyType: <span class="string">'reply'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/replies&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d replyType=reply
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Reply">Reply</a> models.</p>
+</blockquote>
+<p>Obtains the most recent replies to your sent emails. Pay special attention to <code>replyType</code> because you can use this endpoint to look at bounces, out-of-office replies, etc.</p>
+<h3 id="Parameters-3"><a href="#Parameters-3" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replyType</td>
+<td>any</td>
+<td>No</td>
+<td>The type of replies to filter to. <aside class="notice">To just get actual replies pass in <code>reply</code></aside></td>
+</tr>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Created-Leads"><a href="#Created-Leads" class="headerlink" title="Created Leads"></a>Created Leads</h2><pre><code class="javascript highlight">mailshake.activity.createdLeads({
+  campaignID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/created-leads&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Lead">Lead</a> models.</p>
+</blockquote>
+<p>Obtains the most recently created leads. Usually leads are automatically created from the rules you’ve set up in Lead Catcher, but Mailshake users can also manually turn recipients into leads.</p>
+<h3 id="Parameters-4"><a href="#Parameters-4" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>assignedToEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Only get leads that are assigned to this person on your team.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Lead-Status-Changes"><a href="#Lead-Status-Changes" class="headerlink" title="Lead Status Changes"></a>Lead Status Changes</h2><pre><code class="javascript highlight">mailshake.activity.leadStatusChanges({
+  campaignID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/activity/lead-status-changes&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Lead">Lead</a> models.</p>
+</blockquote>
+<p>Obtains the most recently updated leads. A lead can be closed, ignored, opened, or reopened. A reopened lead has <code>open</code> as its status, it’s just that at one point that lead had been ignored or closed.</p>
+<h3 id="Parameters-5"><a href="#Parameters-5" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Restrict to a single campaign.</td>
+</tr>
+<tr>
+<td>recipientEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Limit to specific recipients. If the value passed is not in the format of an email address, a fuzzy search will be done. Ergo, sending in <code>firmxyz.com</code> will match anyone on that domain.</td>
+</tr>
+<tr>
+<td>assignedToEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Only get leads that are assigned to this person on your team.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Leads"><a href="#Leads" class="headerlink" title="Leads"></a>Leads</h1><p>A lead in Mailshake is a recipient who may be interested in whatever you’re pitching in your campaigns. <a href="https://mailshake.com/lead-catcher/">Lead Catcher</a> will automatically find leads based on criteria you set up, but you can also create and manage leads via the API.</p>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><pre><code class="javascript highlight">mailshake.leads.list({
+  campaignID: <span class="number">1</span>,
+  status: <span class="string">'open'</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/list&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d status=open
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#Lead">Lead</a> models.</p>
+</blockquote>
+<p>Lists your leads. You can use this endpoint to search leads, filter by status, or find leads assigned to one of your teammates.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>Filter leads to the ones from this campaign.</td>
+</tr>
+<tr>
+<td>status</td>
+<td></td>
+<td>No</td>
+<td>Filter to leads in a <a href="#Lead-Statuses">particular status</a>.</td>
+</tr>
+<tr>
+<td>assignedToEmailAddress</td>
+<td></td>
+<td>No</td>
+<td>Leads assigned to this teammate.</td>
+</tr>
+<tr>
+<td>search</td>
+<td></td>
+<td>No</td>
+<td>Filters what leads are returned.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h2><pre><code class="javascript highlight">mailshake.leads.get({
+  campaignID: <span class="number">1</span>,
+  emailAddress: <span class="string">'john@doe.com'</span>
+})
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/get&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d campaignID=1 \
+  -d emailAddress=john@doe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#Lead">Lead</a> model.</p>
+</blockquote>
+<p>Gets a single lead. A <code>not_found</code> error will be returned if the lead could not be found.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>Maybe</td>
+<td>The ID of a lead.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>Maybe</td>
+<td>The ID of the recipient that this lead is for.</td>
+</tr>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>Maybe</td>
+<td>The campaign that this recipient belongs to. Required if <code>emailAddress</code> is specified.</td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>Maybe</td>
+<td>The address of the recipient.</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">Either <code>leadID</code>, <code>recipientID</code> or <code>emailAddress</code> is required.</aside>
+
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="javascript highlight">mailshake.leads.create({
+  recipientIDs: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+
+<span class="comment">// Or</span>
+
+mailshake.leads.create({
+  campaignID: <span class="number">1</span>,
+  emailAddresses: [
+    <span class="string">'a@johndoe.com'</span>,
+    <span class="string">'c@johndoe.com'</span>,
+    <span class="string">'d@johndoe.com'</span>
+  ]
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl "https://api.mailshake.com/2017-04-01/leads/create" \
+  -u "my-api-key:" \
+  -d recipientIDs=1
+  -d recipientIDs=2
+  -d recipientIDs=3
+
+<span class="meta">#</span> Or
+
+curl "https://api.mailshake.com/2017-04-01/leads/create" \
+  -u "my-api-key:" \
+  -d campaignID=1
+  -d emailAddresses=a@johndoe.com
+  -d emailAddresses=b@johndoe.com
+  -d emailAddresses=c@johndoe.com
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#CreatedLeads">CreatedLeads</a> model.</p>
+</blockquote>
+<p>Creates one or more leads from recipients of a campaign. You can either pass in the IDs of recipients or if it’s easier, you can pass their email addresses instead. If a recipient was already a lead and was closed, this will reopen them as a lead.</p>
+<h3 id="Parameters-2"><a href="#Parameters-2" class="headerlink" title="Parameters"></a>Parameters</h3><p>You can specify <code>recipientIDs</code> or <code>emailAddresses</code> or both.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the campaign from which to create a lead. <aside class="warning">Required if <code>emailAddresses</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddresses</td>
+<td></td>
+<td>No</td>
+<td>A list of email addresses to find recipients from for creating leads. This list will be added to the <code>recipientIDs</code> parameter if both are passed.</td>
+</tr>
+<tr>
+<td>recipientIDs</td>
+<td></td>
+<td>No</td>
+<td>A list of recipient IDs to create leads from. This list will be added to the <code>recipientIDs</code> parameter if both are passed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><pre><code class="javascript highlight">mailshake.leads.close({
+  leadID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/close&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns an empty response.</p>
+</blockquote>
+<p>Marks a lead as “closed” which means you completed a successful interaction. The opposite of closing a lead is ignoring a lead.</p>
+<h3 id="Parameters-3"><a href="#Parameters-3" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Ignore"><a href="#Ignore" class="headerlink" title="Ignore"></a>Ignore</h2><pre><code class="javascript highlight">mailshake.leads.ignore({
+  leadID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/ignore&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#LeadStatus">LeadStatus</a> model.</p>
+</blockquote>
+<p>Marks a lead as “ignored” when means the conversation didn’t go anywhere. This is the opposite of “closing” a lead.</p>
+<h3 id="Parameters-4"><a href="#Parameters-4" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Reopen"><a href="#Reopen" class="headerlink" title="Reopen"></a>Reopen</h2><pre><code class="javascript highlight">mailshake.leads.reopen({
+  leadID: <span class="number">1</span>
+})
+  .then(<span class="function"><span class="params">result</span> =&gt;</span> {
+    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(result, <span class="literal">null</span>, <span class="number">2</span>));
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/leads/reopen&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d leadID=1
+</code></pre>
+<blockquote>
+<p>This endpoint returns a <a href="#LeadStatus">LeadStatus</a> model.</p>
+</blockquote>
+<p>Takes a closed or ignored lead and makes it open again and available for review.</p>
+<h3 id="Parameters-5"><a href="#Parameters-5" class="headerlink" title="Parameters"></a>Parameters</h3><p>Other than <code>campaignID</code>, only one identifier is required – just use what’s most convenient to you.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td></td>
+<td>No</td>
+<td><aside class="warning">Required if <code>emailAddress</code> is passed.</aside></td>
+</tr>
+<tr>
+<td>emailAddress</td>
+<td></td>
+<td>No</td>
+<td>The email address of a recipient in this campaign.</td>
+</tr>
+<tr>
+<td>recipientID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the recipient that this lead refers  to.</td>
+</tr>
+<tr>
+<td>leadID</td>
+<td></td>
+<td>No</td>
+<td>The ID of the lead.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Team"><a href="#Team" class="headerlink" title="Team"></a>Team</h1><h2 id="List-Members"><a href="#List-Members" class="headerlink" title="List Members"></a>List Members</h2><pre><code class="javascript highlight">mailshake.team.listMembers()
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/team/list-members&quot; \
+  -u &quot;my-api-key:&quot;
+</code></pre>
+<blockquote>
+<p>This endpoint returns <a href="#Pagination">paginated</a> <a href="#User">User</a> models.</p>
+</blockquote>
+<p>Lists the users belonging to this team.</p>
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>search</td>
+<td></td>
+<td>No</td>
+<td>Filters the returned users.</td>
+</tr>
+<tr>
+<td>nextToken</td>
+<td></td>
+<td>No</td>
+<td>Fetches the next page from a previous request.</td>
+</tr>
+<tr>
+<td>perPage</td>
+<td>100</td>
+<td>No</td>
+<td>How many results to get at once, up to 100.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Pushes"><a href="#Pushes" class="headerlink" title="Pushes"></a>Pushes</h1><blockquote>
+<p>The type of request we’ll send to your servers:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"resource_url"</span>: <span class="string">"https://api.mailshake.com/2017-04-01/..."</span>
+}
+</code></pre>
+<pre><code class="javascript highlight"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);
+<span class="keyword">let</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);
+<span class="keyword">let</span> PushHandler = <span class="built_in">require</span>(<span class="string">'mailshake-node'</span>).PushHandler;
+
+<span class="comment">// Start your web server</span>
+<span class="keyword">let</span> app = express();
+app.use(bodyParser.json({}));
+
+<span class="comment">// Hook up the Mailshake push handler</span>
+<span class="keyword">let</span> handler = <span class="keyword">new</span> PushHandler(mailshake, {
+  baseUrl: <span class="string">'https://yourwebsite.com'</span>,
+  rootPath: <span class="string">'path/to/your/handler'</span>,
+  secret: <span class="string">'my-secret'</span>
+});
+handler.on(<span class="string">'push'</span>, push =&gt; {
+  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(push, <span class="literal">null</span>, <span class="number">2</span>));
+});
+handler.on(<span class="string">'pushError'</span>, err =&gt; {
+  <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.stack}</span>`</span>);
+});
+handler.hookExpress(app);
+
+<span class="comment">// Start your server</span>
+app.listen(<span class="number">80</span>);
+
+<span class="comment">// Verify that it's hooked up properly by visiting your site, something like:</span>
+<span class="comment">// https://yourwebsite.com/path/to/your/handler/my-secret/some-unique-id</span>
+</code></pre>
+<p>One of the cooler things you can do with the Mailshake API is subscribe to pushes. Whenever an action occurs that you’ve subscribed to, Mailshake will make a HTTP request to your servers so you can react in real time.</p>
+<p>Your servers need to accept <code>POST</code> requests from us using the <code>application/json</code> content type. We’ll include a simple object with <code>resource_url</code> as its only key. Send an HTTP request to this url and be sure to include the same authentication as with our other API operations.</p>
+<p>Your server should respond to us with a <code>200</code> status indicating that you’ve handled the request (otherwise we’ll wait and try a few more times in case your server is under maintenance).</p>
+<aside class="notice">If you no longer need a subscription, you can send back a status of <code>410</code>.</aside>
+
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><pre><code class="javascript highlight">handler.subscribe(<span class="string">'Clicked'</span>)
+  .then(<span class="function"><span class="params">targetUrl</span> =&gt;</span> {
+    <span class="comment">// Save your targetUrl somewhere so you can unsubscribe later</span>
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.stack}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/push/create&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d event=Clicked \
+  -d targetUrl=https://mysite.com/some-secret/some-unique-id
+</code></pre>
+<p>Starts a subscription for a type of push.</p>
+<aside class="warning"><code>targetUrl</code> must be unique for every subscription.</aside>
+
+<h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targetUrl</td>
+<td></td>
+<td>Yes</td>
+<td>The publicly accessible url to your servers that we should send a <code>POST</code> request to. We <em>highly</em> recommend using <code>https</code> and including a secret key so that other actors can’t send requests as if they were Mailshake. <aside class="notice">To make sure your url is unique for each subscription, you might append a unique querystring</aside></td>
+</tr>
+<tr>
+<td>event</td>
+<td></td>
+<td>Yes</td>
+<td>The <a href="#Events">type of event</a> you’re subscribing to.</td>
+</tr>
+<tr>
+<td>filter</td>
+<td></td>
+<td>No</td>
+<td>If you only want subscriptions when certain criteria are met, specify them as a JSON object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h3><p>You can apply a filter to some events so that you only get pushes that meet certain criteria.</p>
+<p><strong>Filter fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>campaignID</td>
+<td>To only get events for a specific campaign.</td>
+</tr>
+<tr>
+<td>campaignMessageID</td>
+<td>For events based on message, only get events for a specific message.</td>
+</tr>
+<tr>
+<td>excludeDuplicates</td>
+<td><code>true</code> if you don’t want to get pushes for duplicate opens or clicks.</td>
+</tr>
+<tr>
+<td>matchUrl</td>
+<td>For clicks you can only be notified when this exact url is clicked.</td>
+</tr>
+<tr>
+<td>messageType</td>
+<td>For sent messages you can be notified only when certain <a href="#Message-Types">types of messages</a> are sent.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h3><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clicked</td>
+<td>Someone clicked a link.</td>
+</tr>
+<tr>
+<td>Opened</td>
+<td>Someone opened an email.</td>
+</tr>
+<tr>
+<td>Replied</td>
+<td>Someone replied to one of your emails.</td>
+</tr>
+<tr>
+<td>MessageSent</td>
+<td>Mailshake sent an email on your behalf.</td>
+</tr>
+<tr>
+<td>LeadCreated</td>
+<td>A lead was created.</td>
+</tr>
+<tr>
+<td>LeadStatusChanged</td>
+<td>A lead’s status was changed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><pre><code class="javascript highlight"><span class="keyword">let</span> targetUrl; <span class="comment">// Look this up from when you subscribed</span>
+handler.unsubscribe(targetUrl)
+  .then(<span class="function"><span class="params">()</span> =&gt;</span> {
+    <span class="comment">// Done</span>
+  })
+  .catch(<span class="function"><span class="params">err</span> =&gt;</span> {
+    <span class="built_in">console</span>.error(<span class="string">`<span class="subst">${err.code}</span>: <span class="subst">${err.message}</span>`</span>);
+  });
+</code></pre>
+<pre><code class="shell highlight">curl &quot;https://api.mailshake.com/2017-04-01/push/delete&quot; \
+  -u &quot;my-api-key:&quot; \
+  -d targetUrl=https://mysite.com/some-secret/some-unique-id
+</code></pre>
+<p>Unsubscribes a push you previously created. Since all subscribed pushes require a unique <code>targetUrl</code>, that’s all you need to send in to delete your push.</p>
+<h3 id="Parameters-1"><a href="#Parameters-1" class="headerlink" title="Parameters"></a>Parameters</h3><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targetUrl</td>
+<td></td>
+<td>Yes</td>
+<td>The unique target url of a push.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h1><p>Most models will have these common fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td>string</td>
+<td>The type of model this data represents.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>The unique ID of this data.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="User"><a href="#User" class="headerlink" title="User"></a>User</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"user"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"teamID"</span>: <span class="number">1</span>,
+  <span class="attr">"teamName"</span>: <span class="string">"My Team"</span>,
+  <span class="attr">"isTeamAdmin"</span>: <span class="literal">true</span>,
+  <span class="attr">"isDisabled"</span>: <span class="literal">false</span>,
+  <span class="attr">"emailAddress"</span>: <span class="string">"me@example.com"</span>,
+  <span class="attr">"fullName"</span>: <span class="string">"Jane Doe"</span>,
+  <span class="attr">"first"</span>: <span class="string">"Jane"</span>,
+  <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+  <span class="attr">"teamBlockedDate"</span>: <span class="literal">null</span>
+}
+</code></pre>
+<p>A Mailshake user and the team that they are on.</p>
+<h2 id="Campaign"><a href="#Campaign" class="headerlink" title="Campaign"></a>Campaign</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"title"</span>: <span class="string">"My campaign"</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-08-19T02:31:22.218Z"</span>,
+  <span class="attr">"messages"</span>: [
+    {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">1</span>,
+      <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
+    },
+    {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">2</span>,
+      <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"null"</span>,
+      <span class="attr">"replyToID"</span>: <span class="number">1</span>
+    },
+    {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">3</span>,
+      <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"null"</span>,
+      <span class="attr">"replyToID"</span>: <span class="number">1</span>
+    },
+    {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">4</span>,
+      <span class="attr">"type"</span>: <span class="string">"drip"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"Here's a drip email"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
+    },
+    {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">5</span>,
+      <span class="attr">"type"</span>: <span class="string">"on-click"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"You clicked my link"</span>,
+      <span class="attr">"replyToID"</span>: <span class="literal">null</span>
+    }
+  ]
+}
+</code></pre>
+<p>A Mailshake campaign is the container for a sequence of messages and the recipients to whom they’ll be sent.</p>
+<h2 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"message"</span>,
+  <span class="attr">"id"</span>: <span class="number">423</span>,
+  <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+  <span class="attr">"subject"</span>: <span class="string">"My subject"</span>,
+  <span class="attr">"replyToID"</span>: <span class="literal">null</span>
+}
+{
+  <span class="attr">"object"</span>: <span class="string">"message"</span>,
+  <span class="attr">"id"</span>: <span class="number">424</span>,
+  <span class="attr">"type"</span>: <span class="string">"follow-up"</span>,
+  <span class="attr">"subject"</span>: <span class="literal">null</span>,
+  <span class="attr">"replyToID"</span>: <span class="number">423</span>
+}
+</code></pre>
+<p>A message in your campaign such as a follow-up or a drip message.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replyToID</td>
+<td>Only for <code>follow-up</code> messages, this is the message that indicates the root of the reply chain. If 4 messages will be sent in one reply chain, they’ll all have the same <code>replyToID</code> value.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="MessageTypes"><a href="#MessageTypes" class="headerlink" title="MessageTypes"></a>MessageTypes</h3><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initial</td>
+<td>The first email in a campaign.</td>
+</tr>
+<tr>
+<td><div>follow-up</div></td>
+<td>Replies to the initial message sent only if the recipient doesn’t reply.</td>
+</tr>
+<tr>
+<td>drip</td>
+<td>Secondary emails that are not stopped by a recipient’s reply.</td>
+</tr>
+<tr>
+<td><div>on-click</div></td>
+<td>Email fired whenever the recipient clicks a specific link in any of the emails.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="CreatedLeads"><a href="#CreatedLeads" class="headerlink" title="CreatedLeads"></a>CreatedLeads</h2><pre><code class="json highlight">{
+  <span class="attr">"leads"</span>: [
+    {
+      <span class="attr">"recipientID"</span>: <span class="number">1</span>,
+      <span class="attr">"leadID"</span>: <span class="number">1</span>  
+    }
+  ],
+  <span class="attr">"emailsNotFound"</span>: [
+    <span class="string">"me@example.com"</span>
+  ],
+  <span class="attr">"recipientIDsNotFound"</span>: [<span class="number">2</span>, <span class="number">3</span>]
+}
+</code></pre>
+<p>The results of an attempt to create leads.</p>
+<h2 id="LeadStatus"><a href="#LeadStatus" class="headerlink" title="LeadStatus"></a>LeadStatus</h2><pre><code class="json highlight">{
+  <span class="attr">"status"</span>: <span class="string">"ignored"</span>,
+  <span class="attr">"leadID"</span>: <span class="number">1</span>
+}
+</code></pre>
+<p>The result of a status change of a lead. See <a href="#Lead-Statuses">Lead Statuses</a>.</p>
+<h2 id="SentMessage"><a href="#SentMessage" class="headerlink" title="SentMessage"></a>SentMessage</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"sent-message"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"actionDate"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+  <span class="attr">"recipient"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+    <span class="attr">"id"</span>: <span class="number">399</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"John"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+    <span class="attr">"fields"</span>: {
+      <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+    }
+  },
+  <span class="attr">"campaign"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+    <span class="attr">"id"</span>: <span class="number">248</span>,
+    <span class="attr">"title"</span>: <span class="string">"My Campaign"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>
+  },
+  <span class="attr">"type"</span>: <span class="string">"campaign-message"</span>,
+  <span class="attr">"message"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"message"</span>,
+    <span class="attr">"id"</span>: <span class="number">423</span>,
+    <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+    <span class="attr">"subject"</span>: <span class="string">"My subject"</span>
+  },
+  <span class="attr">"from"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"email-address"</span>,
+    <span class="attr">"address"</span>: <span class="string">"sally@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"Sally Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"Sally"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>
+  },
+  <span class="attr">"to"</span>: [
+    {
+      <span class="attr">"object"</span>: <span class="string">"email-address"</span>,
+      <span class="attr">"address"</span>: <span class="string">"john@doe.com"</span>,
+      <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+      <span class="attr">"first"</span>: <span class="string">"John"</span>,
+      <span class="attr">"last"</span>: <span class="string">"Doe"</span>
+    }
+  ],
+  <span class="attr">"subject"</span>: <span class="string">"This is my subject"</span>,
+  <span class="attr">"externalID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"externalRawMessageID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"externalConversationID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"rawBody"</span>: <span class="string">"..."</span>,
+  <span class="attr">"body"</span>: <span class="string">"..."</span>,
+  <span class="attr">"plainTextBody"</span>: <span class="string">"..."</span>
+}
+</code></pre>
+<p>An email that was sent via Mailshake. Most messages have a <code>messageType</code> of <code>campaign</code> which means they were sent as part of a campaign sequence. Messages with <code>one-off</code> were manual replies sent via Lead Catcher.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td>For <code>campaign</code> sent messages, this is the message inside your campaign’s sequence. <code>one-off</code> sent messages will omit this field.</td>
+</tr>
+<tr>
+<td>externalID</td>
+<td>The ID of the email on the mail account’s platform.</td>
+</tr>
+<tr>
+<td>externalRawMessageID</td>
+<td>The actual ID of the email message from the emails’ headers.</td>
+</tr>
+<tr>
+<td>externalConversationID</td>
+<td>The ID of the email thread on the mail account’s platform.</td>
+</tr>
+<tr>
+<td>rawBody</td>
+<td>The raw HTML. <aside class="warning">Usually this is not the field you want to use because it may have open tracking, link tracking, replies, etc in it.</aside></td>
+</tr>
+<tr>
+<td>body</td>
+<td>This is is the HTML with tracking and replies stripped out.</td>
+</tr>
+<tr>
+<td>plainTextBody</td>
+<td>A display-friendly version of the email body.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Message-Types"><a href="#Message-Types" class="headerlink" title="Message Types"></a>Message Types</h3><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one-off</td>
+<td>An email sent as a manual reply via Lead Catcher.</td>
+</tr>
+<tr>
+<td>campaign</td>
+<td>An email sent as part of a campaign sequence.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Open"><a href="#Open" class="headerlink" title="Open"></a>Open</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"open"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"actionDate"</span>: <span class="string">"2017-04-06T17:40:23.194Z"</span>,
+  <span class="attr">"isDuplicate"</span>: <span class="literal">false</span>,
+  <span class="attr">"recipient"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"John"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+    <span class="attr">"fields"</span>: {
+      <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+    }
+  },
+  <span class="attr">"campaign"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"title"</span>: <span class="string">"My Campaign"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:40:23.194Z"</span>
+  },
+  <span class="attr">"parent"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"sent-message"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"type"</span>: <span class="string">"campaign-message"</span>,
+    <span class="attr">"message"</span>: {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">1</span>,
+      <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>
+    }
+  }
+}
+</code></pre>
+<p>The result of a recipient opening one of your sent emails.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent</td>
+<td>An abbreviated version of the sent message that was opened. In most cases this is an email in your campaign sequence, but it could be a one-off email sent via Lead Catcher.</td>
+</tr>
+<tr>
+<td>isDuplicate</td>
+<td><code>true</code> if this recipient is opening the email for the second or nth time.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Click"><a href="#Click" class="headerlink" title="Click"></a>Click</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"click"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"link"</span>: <span class="string">"http://google.com"</span>,
+  <span class="attr">"actionDate"</span>: <span class="string">"2017-04-06T17:38:53.369Z"</span>,
+  <span class="attr">"isDuplicate"</span>: <span class="literal">false</span>,
+  <span class="attr">"recipient"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"John"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+    <span class="attr">"fields"</span>: {
+      <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+    }
+  },
+  <span class="attr">"campaign"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"title"</span>: <span class="string">"My Campaign"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:40:23.194Z"</span>
+  },
+  <span class="attr">"parent"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"sent-message"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"type"</span>: <span class="string">"campaign-message"</span>,
+    <span class="attr">"message"</span>: {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">1</span>,
+      <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>
+    }
+  }
+}
+</code></pre>
+<p>The result of a recipient clicking a link in one of your sent emails.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>link</td>
+<td>The full url that was clicked.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>An abbreviated version of the sent message that was opened. In most cases this is an email in your campaign sequence, but it could be a one-off email sent via Lead Catcher.</td>
+</tr>
+<tr>
+<td>isDuplicate</td>
+<td><code>true</code> if this recipient is clicking the link for the second or nth time.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Reply"><a href="#Reply" class="headerlink" title="Reply"></a>Reply</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"reply"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"actionDate"</span>: <span class="string">"2017-04-06T17:42:54.475Z"</span>,
+  <span class="attr">"recipient"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"John"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+    <span class="attr">"fields"</span>: {
+      <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+    }
+  },
+  <span class="attr">"campaign"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"title"</span>: <span class="string">"My Campaign"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:40:23.194Z"</span>
+  },
+  <span class="attr">"type"</span>: <span class="string">"out-of-office"</span>,
+  <span class="attr">"parent"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"sent-message"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"type"</span>: <span class="string">"campaign-message"</span>,
+    <span class="attr">"message"</span>: {
+      <span class="attr">"object"</span>: <span class="string">"message"</span>,
+      <span class="attr">"id"</span>: <span class="number">1</span>,
+      <span class="attr">"type"</span>: <span class="string">"initial"</span>,
+      <span class="attr">"subject"</span>: <span class="string">"My subject"</span>
+    }
+  },
+  <span class="attr">"subject"</span>: <span class="string">"Re: This is my subject"</span>,
+  <span class="attr">"externalID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"externalRawMessageID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"externalConversationID"</span>: <span class="string">"..."</span>,
+  <span class="attr">"rawBody"</span>: <span class="string">"..."</span>,
+  <span class="attr">"body"</span>: <span class="string">"..."</span>,
+  <span class="attr">"plainTextBody"</span>: <span class="string">"..."</span>
+}
+</code></pre>
+<p>Represents any kind of reply received from a recipient to one of your sent emails.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>The <a href="#ReplyType">type of reply</a>.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>An abbreviated version of the sent message that was opened. In most cases this is an email in your campaign sequence, but it could be a one-off email sent via Lead Catcher.</td>
+</tr>
+<tr>
+<td>externalID</td>
+<td>The ID of the email on the mail account’s platform.</td>
+</tr>
+<tr>
+<td>externalRawMessageID</td>
+<td>The actual ID of the email message from the emails’ headers.</td>
+</tr>
+<tr>
+<td>externalConversationID</td>
+<td>The ID of the email thread on the mail account’s platform.</td>
+</tr>
+<tr>
+<td>rawBody</td>
+<td>The raw HTML. <aside class="warning">Usually this is not the field you want to use because it may have open tracking, link tracking, etc in it.</aside></td>
+</tr>
+<tr>
+<td>body</td>
+<td>This is is the HTML with tracking and replies stripped out.</td>
+</tr>
+<tr>
+<td>plainTextBody</td>
+<td>A display-friendly version of the email body.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ReplyType"><a href="#ReplyType" class="headerlink" title="ReplyType"></a>ReplyType</h3><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reply</td>
+<td>A normal reply.</td>
+</tr>
+<tr>
+<td>bounce</td>
+<td>Information about why your email bounced.</td>
+</tr>
+<tr>
+<td>out-of-office</td>
+<td>An “I’m out of the office” reply. Follow-ups will still be sent to these folks unless you pause them.</td>
+</tr>
+<tr>
+<td>unsubscribe</td>
+<td>The user was unsubscribed because their reply requested us to do so.</td>
+</tr>
+<tr>
+<td>delay-notification</td>
+<td>Your mail account indicated that your original message is still trying to be sent.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Lead"><a href="#Lead" class="headerlink" title="Lead"></a>Lead</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"lead"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-04-11T16:13:51.956Z"</span>,
+  <span class="attr">"openedDate"</span>: <span class="string">"2017-04-11T16:13:51.955Z"</span>,
+  <span class="attr">"lastStatusChangeDate"</span>: <span class="literal">null</span>,
+  <span class="attr">"recipient"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"John"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+    <span class="attr">"fields"</span>: {
+      <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+    }
+  },
+  <span class="attr">"campaign"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"campaign"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"title"</span>: <span class="string">"My Campaign"</span>,
+    <span class="attr">"created"</span>: <span class="string">"2017-04-11T16:13:51.956Z"</span>,
+  },
+  <span class="attr">"status"</span>: <span class="string">"open"</span>,
+  <span class="attr">"assignedTo"</span>: {
+    <span class="attr">"object"</span>: <span class="string">"user"</span>,
+    <span class="attr">"id"</span>: <span class="number">1</span>,
+    <span class="attr">"emailAddress"</span>: <span class="string">"lucy@yourteam.com"</span>,
+    <span class="attr">"fullName"</span>: <span class="string">"Lucy Doe"</span>,
+    <span class="attr">"first"</span>: <span class="string">"Lucy"</span>,
+    <span class="attr">"last"</span>: <span class="string">"Doe"</span>
+  }
+}
+</code></pre>
+<p>A recipient that was (at least at one time) a prospect. Leads are created in the <code>open</code> status and can be set <code>closed</code> or <code>ignored</code>.</p>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>The <a href="#Lead-Statuses">current status of this lead</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Lead-Statuses"><a href="#Lead-Statuses" class="headerlink" title="Lead Statuses"></a>Lead Statuses</h3><table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>The lead is available for review.</td>
+</tr>
+<tr>
+<td>ignored</td>
+<td>The lead was classified as not going anywhere.</td>
+</tr>
+<tr>
+<td>closed</td>
+<td>The lead was considered a successful interaction.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Added-Recipients"><a href="#Added-Recipients" class="headerlink" title="Added Recipients"></a>Added Recipients</h2><pre><code class="json highlight">{
+  <span class="attr">"invalidEmails"</span>: [<span class="string">"one@example.com"</span>, <span class="string">"two@example.com"</span>],
+  <span class="attr">"isEmpty"</span>: <span class="literal">false</span>,
+  <span class="attr">"checkStatusID"</span>: <span class="number">1</span>
+}
+</code></pre>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invalidEmails</td>
+<td>A list of email addresses that were not imported because they did not pass validation.</td>
+</tr>
+<tr>
+<td>isEmpty</td>
+<td><code>true</code> if no email addresses were actually imported.</td>
+</tr>
+<tr>
+<td>checkStatusID</td>
+<td>An ID you can use to monitor the import.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Add-Status-Response"><a href="#Add-Status-Response" class="headerlink" title="Add Status Response"></a>Add Status Response</h2><pre><code class="json highlight">{
+  <span class="attr">"isFinished"</span>: <span class="literal">true</span>,
+  <span class="attr">"problems"</span>: {
+    <span class="attr">"unsubscribedEmails"</span>: [<span class="string">"one@example.com"</span>],
+    <span class="attr">"alreadyInCampaignEmails"</span>: [<span class="string">"two@example.com"</span>],
+    <span class="attr">"passedAccountLimitEmails"</span>: [<span class="string">"three@example.com"</span>],
+    <span class="attr">"hasProblems"</span>: <span class="literal">true</span>
+  }
+}
+</code></pre>
+<p>Describes the progress in adding a batch of recipients.</p>
+<p><strong>Notable fields for <code>problems</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unsubscribedEmails</td>
+<td>A list of email addresses that are on your unsubscribe list.</td>
+</tr>
+<tr>
+<td>alreadyInCampaignEmails</td>
+<td>A list of email addresses that were already part of this campaign.</td>
+</tr>
+<tr>
+<td>passedAccountLimitEmails</td>
+<td>A list of email addresses that could not be imported because your campaign exceeded the number of allowed recipients it can hold.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Recipient"><a href="#Recipient" class="headerlink" title="Recipient"></a>Recipient</h2><pre><code class="json highlight">{
+  <span class="attr">"object"</span>: <span class="string">"recipient"</span>,
+  <span class="attr">"id"</span>: <span class="number">1</span>,
+  <span class="attr">"emailAddress"</span>: <span class="string">"john@doe.com"</span>,
+  <span class="attr">"fullName"</span>: <span class="string">"John Doe"</span>,
+  <span class="attr">"first"</span>: <span class="string">"John"</span>,
+  <span class="attr">"last"</span>: <span class="string">"Doe"</span>,
+  <span class="attr">"created"</span>: <span class="string">"2017-04-06T17:45:07.188Z"</span>,
+  <span class="attr">"fields"</span>: {
+    <span class="attr">"favorite_color"</span>: <span class="string">"Red"</span>
+  }
+}
+</code></pre>
+<p><strong>Notable fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td>A simple JSON hash (not an array) of keys to values. Each field can be used as a text replacement.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h1><blockquote>
+<p>A raw error response looks like this:</p>
+</blockquote>
+<pre><code class="json highlight">{
+  <span class="attr">"code"</span>: <span class="string">"invalid_api_key"</span>,
+  <span class="attr">"error"</span>: <span class="string">"Invalid api key"</span>,
+  <span class="attr">"time"</span>: <span class="string">"2017-08-21T13:23:11.814Z"</span>
+}
+</code></pre>
+<p>Mailshake uses the following error codes:</p>
+<h2 id="General-errors"><a href="#General-errors" class="headerlink" title="General errors"></a>General errors</h2><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invalid_api_key</td>
+<td>The key you provided us was either missing or invalid.</td>
+</tr>
+<tr>
+<td>missing_team_admin</td>
+<td>Your team doesn’t have an active team administrator (check that your billing is up to date)</td>
+</tr>
+<tr>
+<td>missing_dependent_data</td>
+<td>The object on which you’re acting wasn’t found or you don’t have permission. An example would be trying to pause a campaign with an ID that doesn’t reference a campaign.</td>
+</tr>
+<tr>
+<td>missing_parameter</td>
+<td>Your request is missing a required parameter.</td>
+</tr>
+<tr>
+<td>invalid_parameter</td>
+<td>One of your request’s parameter is in an unsupported format.</td>
+</tr>
+<tr>
+<td>not_authorized</td>
+<td>Your credentials don’t allow you to execute this request.</td>
+</tr>
+<tr>
+<td>not_found</td>
+<td>A more semantically permissive version of <code>missing_dependent_data</code>. We’re splitting hairs a bit here, but generally speaking when this code is returned your application might just want to note the problem and carry on. Whereas if you encounter the <code>missing_dependent_data</code> error it’s more of a show-stopper.</td>
+</tr>
+<tr>
+<td>exceeds_monthly_recipients</td>
+<td>You can’t add this many recipients because you will pass your monthly quota allowance. You can contact us to request an increase.</td>
+</tr>
+<tr>
+<td>user_not_admin</td>
+<td>The user on file for your application must be an administrator of your team.</td>
+</tr>
+<tr>
+<td>user_is_disabled</td>
+<td>The user on file for your application must have an active account (check your billing)</td>
+</tr>
+<tr>
+<td>missing_subscription</td>
+<td>Your team must have an active and paid subscription to Mailshake.</td>
+</tr>
+<tr>
+<td>team_blocked</td>
+<td>Your team has been blocked while our compliance team runs a review of your usage of our platform.</td>
+</tr>
+<tr>
+<td>limit_reached</td>
+<td>Your application has exceeded it’s quota and must wait to make more requests, or you can contact us to request an increased quota. The message will indicate the next time you can try a request: <code>Please wait and try again after: 2017-08-21T15:16:15.207Z</code></td>
+</tr>
+<tr>
+<td>internal_error</td>
+<td>Something general went wrong with Mailshake. This may be a temporary issue or we may have a bug (if so <a href="mailto:support@mailshake.com">notify us</a>).</td>
+</tr>
+<tr>
+<td>unspecified_error</td>
+<td>Your request was probably rejected by some kind of validation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Specific-to-OAuth2"><a href="#Specific-to-OAuth2" class="headerlink" title="Specific to OAuth2"></a>Specific to OAuth2</h2><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unauthorized_request</td>
+<td>Your request is missing authentication.</td>
+</tr>
+<tr>
+<td>invalid_client</td>
+<td>Your <code>client_id</code> or <code>client_secret</code> parameter is wrong.</td>
+</tr>
+<tr>
+<td>invalid_grant</td>
+<td>Your request for authorization is malformed.</td>
+</tr>
+<tr>
+<td>app_not_approved</td>
+<td>Your application is not allowed to be used by other teams.</td>
+</tr>
+<tr>
+<td>invalid_token</td>
+<td>Your token has expired. Try using your refresh token to get another access token.</td>
+</tr>
+<tr>
+<td>missing_scope</td>
+<td>Your authentication request did not specify any scopes.</td>
+</tr>
+</tbody>
+</table>
+
+          
+              <h1 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h1><p>Based on your plan with us, you app will have a few limitations on your usage. If you’re interested in increasing your limits, use the “Contact Us” button on the <a href="https://mailshake.com/app/#/redirect/extensions/api" target="_blank">Extensions &gt; API page</a> inside Mailshake.</p>
+<h2 id="New-recipients-month"><a href="#New-recipients-month" class="headerlink" title="New recipients / month"></a>New recipients / month</h2><p>Each Mailshake campaign can hold up to 5,000 recipients. However, adding recipients through the Mailshake API is limited to a certain number per month. This isn’t a per-campaign limit, it’s accumulative across all campaigns. If your app attempts to exceed this limit, you’ll get the <code>exceeds_monthly_recipients</code> error back.</p>
+<p>The monthly window is aligned with the calendar year. Ergo on the 1st of each month your recipient limit will reset.</p>
+<h2 id="Rate-limits"><a href="#Rate-limits" class="headerlink" title="Rate limits"></a>Rate limits</h2><blockquote>
+<p>As an example of quota units work, check this out:</p>
+</blockquote>
+<pre><code class="highlight">// Quota units: 400
+mailshake.campaigns.pause(1)
+// Quota units: 395
+mailshake.campaigns.pause(2)
+mailshake.campaigns.pause(3)
+// Quota units: 385
+mailshake.recipients.add([ /* 32 recipients */ ])
+// This ^^ costs 20 + 32, or 52
+// Quota units: 343
+// ...an hour passes by ...
+// Quota units: 400
+</code></pre><p>Each call to our API costs a varying number of “quota units,” and you’re allowed X quota units per hour to limit how frequently you can make requests. If you hit a limit, you’ll get the error code <code>limit_reached</code>. The error message will indicate when you can try again (see <a href="#General-errors">our error codes</a>).</p>
+<aside class="notice">We’re still experimenting with these numbers, so they may change from time to time:</aside>
+
+<table>
+<thead>
+<tr>
+<th>Units</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Campaigns &gt; List</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Campaigns &gt; Pause</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Campaigns &gt; Unpause</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Leads &gt; Create</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Close</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Ignore</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leads &gt; Reopen</td>
+</tr>
+<tr>
+<td><div>20 + N</div></td>
+<td>Recipients &gt; Add <aside class="notice">20 units for this call plus one for each recipient being added</aside></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Recipients &gt; List</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Recipients &gt; Pause</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Recipients &gt; Unpause</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Recipients &gt; Unsubscribe</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Push &gt; Create</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Activity &gt; Clicks</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Activity &gt; Opens</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Activity &gt; Sent</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activity &gt; Replies</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Activity &gt; CreatedLeads</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Activity &gt; LeadStatusChanges</td>
+</tr>
+</tbody>
+</table>
+<aside class="notice">Any operation not listed above costs 1 unit</aside>
+
+          
+        
+      </div>
+      <div class="dark-box">
+        
+          <div class="lang-selector">
+            
+              
+                <a href="#" data-language-name="javascript">Node</a>
+              
+            
+              
+                <a href="#" data-language-name="shell">curl</a>
+              
+            
+          </div>
+        
+      </div>
+    </div>
+  </body>
+</html>
