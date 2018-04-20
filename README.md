@@ -67,9 +67,10 @@ For further documentation, read the [Slate Wiki](https://github.com/tripit/slate
 
 ### Documentations built with Whiteboard
 
-* [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com) 
-* [CommoPrices API Documentation](https://api.commoprices.com/docs/) from [commoprices.com](https://commoprices.com/) 
-* [TradeIt JSON API](https://www.trade.it/documentation/api) from [trade.it](https://www.trade.it/) 
+* [DISTRIBUTOR API Documentation](https://wifidistribution.com/docs) from [wifidistribution.com](https://wifidistribution.com)
+* [CommoPrices API Documentation](https://api.commoprices.com/docs/) from [commoprices.com](https://commoprices.com/)
+* [TradeIt JSON API](https://www.trade.it/documentation/api) from [trade.it](https://www.trade.it/)
+* [Hydro API](https://www.hydrogenplatform.com/docs/hydro/v1/) from [hydrogenplatform.com](https://www.hydrogenplatform.com/)
 
 Feel free to submit a PR with a link to your documentation.
 
