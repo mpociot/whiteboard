@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "whiteboard",
+            "script": "npm",
+            "args" : "start"
+        }
+    ]
+}
