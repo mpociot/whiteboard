@@ -28,6 +28,10 @@ Now go ahead and visit <http://localhost:4000> and you will be presented with a 
 
 Go ahead and modify the markdown file at `source/index.md` to suit your needs.
 
+### Integration with PM2
+
+Start the server: `pm2 start pm2.json`
+
 ### Publishing your API documentation
 
 The easiest way to publish your API documentation is using this command within your `whiteboard` directory:
