@@ -15,9 +15,9 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-tag": "^0.1.2",
     "hexo-renderer-ejs": "^0.1.0",
-    "hexo-renderer-marked": "^0.2.6",
-    "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2"
+    "hexo-renderer-marked": "^2.0.0",
+    "hexo-renderer-stylus": "^1.1.0",
+    "hexo-server": "^1.0.0"
   },
   "scripts": {
     "start": "hexo server",
