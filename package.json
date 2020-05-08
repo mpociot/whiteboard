@@ -9,7 +9,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "hexo": "^3.1.1",
-    "hexo-cli": "^0.2.0",
+    "hexo-cli": "^3.1.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-index": "^1.0.0",
