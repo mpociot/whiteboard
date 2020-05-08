@@ -4,10 +4,9 @@
   "license": "Apache-2.0",
   "main": "lib/whiteboard",
   "hexo": {
-    "version": "3.1.1"
+    "version": "3.9.0"
   },
   "dependencies": {
-    "bluebird": "^2.9.8",
     "cheerio": "^0.19.0",
     "hexo": "^3.1.1",
     "hexo-cli": "^0.2.0",
