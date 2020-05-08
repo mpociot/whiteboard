@@ -4,11 +4,11 @@
   "license": "Apache-2.0",
   "main": "lib/whiteboard",
   "hexo": {
-    "version": "3.9.0"
+    "version": "4.2.0"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "hexo": "^3.9.0",
+    "hexo": "^4.2.0",
     "hexo-cli": "^3.1.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
