@@ -4,7 +4,7 @@
 # Site
 title: API Documentation
 subtitle:
-description:
+description: A description
 author: John Doe
 language:
 timezone:
@@ -26,8 +26,8 @@ highlight:
   auto_detect: false
   tab_replace:
 
-# Whiteboard theme
-theme: whiteboard
+# Topboard theme
+theme: topboard
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

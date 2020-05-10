@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "hexo server",
-    "generate": "hexo generate"
+    "generate": "hexo generate",
+    "clean": "hexo clean"
   }
 }
