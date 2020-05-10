@@ -65,6 +65,7 @@ embossed-bg()
   background-color: $nav-bg
   font-size: 13px
   font-weight: bold
+  border-right: 1px solid #DDD;
   // language selector for mobile devices
   .lang-selector
     display: none
@@ -87,6 +88,20 @@ embossed-bg()
       outline: none
       color: $nav-text
       border-radius: 0
+      &::-webkit-input-placeholder {
+        color: $nav-text;  
+      }
+      &:-moz-placeholder {
+        opacity: 1
+        color: $nav-text;
+      }
+      &::-moz-placeholder {
+        opacity: 1
+        color: $nav-text;
+      }
+      &:-ms-input-placeholder {  
+        color: $nav-text;
+      }
       /* ios has a default border radius */
     &:before
       position: absolute
@@ -108,7 +123,6 @@ embossed-bg()
     &.visible
       height: 30%
       margin-bottom: 1em
-    embossed-bg()
     li
       margin: 1em $nav-padding
       line-height: 1
@@ -138,21 +152,19 @@ embossed-bg()
     transition-duration: 230ms
   // This is the currently selected ToC entry
   .tocify-focus
-    box-shadow: 0px 1px 0px $nav-active-shadow
     background-color: $nav-active-bg
     color: $nav-active-text
   // Subheaders are the submenus that slide open
   // in the table of contents.
   .tocify-subheader
     display: none
+    border-top: 1px solid #E4E4E4;
     // tocify will override this when needed
     background-color: $nav-subitem-bg
     font-weight: 500
     .tocify-item>a
       padding-left: ($nav-padding + $nav-indent)
       font-size: 12px
-    // for embossed look:
-    embossed-bg()
     & > li:last-child
       box-shadow: none
       // otherwise it'll overflow out of the subheader
@@ -165,7 +177,6 @@ embossed-bg()
         padding-left: ($nav-padding + $nav-indent + $nav-indent*3)
         font-size: 12px
         // for embossed look:
-        embossed-bg()
         & > li:last-child
           box-shadow: none
           // otherwise it'll overflow out of the subheader
@@ -178,7 +189,6 @@ embossed-bg()
           padding-left: ($nav-padding + $nav-indent + $nav-indent*5)
           font-size: 12px
           // for embossed look:
-          embossed-bg()
           & > li:last-child
             box-shadow: none
             // otherwise it'll overflow out of the subheader      
@@ -371,12 +381,13 @@ embossed-bg()
   aside.success:before
     @extend $icon-ok-sign
   .search-highlight
-    padding: 2px
+    padding: 2px 0px
     margin: -2px
     border-radius: 4px
     border: 1px solid #F7E633
+    background: #fffac9
+    color: #000
     text-shadow(1px 1px 0 #666666)
-    background: linear-gradient(to top left, #f7e633 0%, #f1d32f 100%)
 ////////////////////////////////////////////////////////////////////////////////
 // CODE SAMPLE STYLES
 ////////////////////////////////////////////////////////////////////////////////
