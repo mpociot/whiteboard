@@ -167,7 +167,6 @@ under the License.
       }
 
       var language = parent.find(".language-button").first().attr("data-language-name");
-      console.log("choosen language", language);
       var beforeCode = $(this);
       var els = [];
       while (parent.next().prop("tagName") === "PRE") {
