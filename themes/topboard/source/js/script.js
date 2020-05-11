@@ -230,11 +230,7 @@ under the License.
  */
 (function (global) {
   'use strict';
-
-  var closeToc = function() {
-    $(".tocify-wrapper").removeClass('open');
-    $("#nav-button").removeClass('open');
-  };
+  console.log("enter here 1");
 
   var makeToc = function() {
     global.toc = $("#toc").tocify({
@@ -252,15 +248,6 @@ under the License.
         return element.prop('id');
       }
     }).data('toc-tocify');
-
-    $("#nav-button").click(function() {
-      $(".tocify-wrapper").toggleClass('open');
-      $("#nav-button").toggleClass('open');
-      return false;
-    });
-
-    $(".page-wrapper").click(closeToc);
-    $(".tocify-item").click(closeToc);
   };
 
   // Hack to make already open sections to start opened,
@@ -315,7 +302,7 @@ under the License.
     content = $('.content');
     searchResults = $('.search-results');   
 
-    $('#input-search').on('keyup', search);
+    $('.input-search').on('keyup', search);
   }
 
   function search(event) {
