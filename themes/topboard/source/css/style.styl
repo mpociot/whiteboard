@@ -209,6 +209,8 @@ embossed-bg()
 #mobile-wrapper
   display: none
   position: fixed
+  justify-content: space-between
+  align-items: center
   z-index: 1000
   height: $mobile-menu-height
   background-color: $mobile-menu-bg
@@ -219,6 +221,10 @@ embossed-bg()
   -webkit-box-shadow: 0px 0px 8px 0px #bdbdbd
   -moz-box-shadow: 0px 0px 8px 0px #bdbdbd
   box-shadow: 0px 0px 8px 0px #bdbdbd
+  .select2
+    margin-left: 10px
+    .select2-selection
+      border: 0 none
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////
@@ -430,7 +436,7 @@ embossed-bg()
     margin-left: 0
     margin-top: $mobile-menu-height
   #mobile-wrapper
-    display: block
+    display: flex
   .tocify-wrapper .tocify-item > a
     padding-top: 0.3em
     padding-bottom: 0.3em

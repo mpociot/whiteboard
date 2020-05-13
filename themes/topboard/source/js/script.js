@@ -230,11 +230,11 @@ under the License.
  */
 (function (global) {
   'use strict';
-  console.log("enter here 1");
+  var querySelector = "h1, h2 , h3 , h4 , h5 , h6 ";
 
   var makeToc = function() {
     global.toc = $("#toc").tocify({
-      selectors: 'h1, h2 , h3 , h4 , h5 , h6 ',
+      selectors: querySelector,
       extendPage: false,
       theme: 'none',
       smoothScroll: false,
@@ -250,19 +250,63 @@ under the License.
     }).data('toc-tocify');
   };
 
+  var makeMobileToc = function() {
+    var els = $(querySelector);
+    var root = $("#toc-mobile");
+
+    els.each(function() {
+      var el = $(this);
+      root.append("<option value=\"" + el.attr("id") + "\">" + el.text() + "</option>");
+    });
+
+    root.select2({
+      minimumResultsForSearch: -1,
+      dropdownAutoWidth: true,
+      width: "auto"
+    });
+
+    /*
+    setTimeout(function() {
+      var children = $("#select2-toc-mobile-results").children();
+      console.log(children);
+      console.log($("#select2-toc-mobile-results"));
+      for (var i = 0, l = children.length - 1; i < l; ++i) {
+        if ($(els.get(i)).prop("tagName") === "H1" && $(els.get(i + 1)).prop("tagName") !== "H1") {
+          console.log($(children.get(i)));
+          $(children.get(i)).css("margin-top", "10px");
+        }
+        if ($(els.get(i)).prop("tagName") !== "H1" && $(els.get(i + 1)).prop("tagName") === "H1") {
+          $(children.get(i)).css("margin-bottom", "10px");
+        }
+      }
+    }, 250);
+    */
+  };
+
   // Hack to make already open sections to start opened,
   // instead of displaying an ugly animation
   function animate() {
     setTimeout(function() {
-      toc.setOption('showEffectSpeed', 180);
+      try {
+        global.toc.setOption('showEffectSpeed', 180);
+      } catch (e) { }
     }, 50);
   }
 
   $(function() {
-    makeToc();
-    animate();
-    $('.content').imagesLoaded( function() {
-      global.toc.calculateHeights();
+    try {
+      makeToc();
+    } catch (e) { }
+    try {
+      makeMobileToc();
+    } catch (e) { }
+    try {
+      animate();
+    } catch (e) { }
+    $('.content').imagesLoaded(function() {
+      if (global.toc && typeof global.toc.calculateHeights === "function") {
+        global.toc.calculateHeights();
+      }
     });
   });
 })(window);

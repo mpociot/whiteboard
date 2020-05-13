@@ -23,9 +23,10 @@
 			  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
 			  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
         crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <%- js([
-      'js/lib/energize',
       'js/lib/imagesloaded.min',
       'js/lib/jquery.highlight',
       'js/lib/jquery.tocify.js',
@@ -69,7 +70,7 @@
       <% } %>
     </div>
     <div id="mobile-wrapper">
-      <div id="toc-mobile"></div>
+      <select id="toc-mobile" name="toc-mobile"></select>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
