@@ -265,22 +265,29 @@ under the License.
       width: "auto"
     });
 
-    /*
-    setTimeout(function() {
-      var children = $("#select2-toc-mobile-results").children();
-      console.log(children);
-      console.log($("#select2-toc-mobile-results"));
-      for (var i = 0, l = children.length - 1; i < l; ++i) {
-        if ($(els.get(i)).prop("tagName") === "H1" && $(els.get(i + 1)).prop("tagName") !== "H1") {
-          console.log($(children.get(i)));
-          $(children.get(i)).css("margin-top", "10px");
-        }
-        if ($(els.get(i)).prop("tagName") !== "H1" && $(els.get(i + 1)).prop("tagName") === "H1") {
-          $(children.get(i)).css("margin-bottom", "10px");
+    // We update but we don't trigger the change
+    // as it's for only when selecting...
+    var previousHash;
+    setInterval(function() {
+      if (previousHash != window.location.hash) {
+        var hash = window.location.hash.substring(1);
+        // Sometimes the things get bad and select an non-toc id...
+        if ($("#" + hash).length > 0) {
+          $("#toc-mobile").val(hash).trigger("change");
+          previousHash = window.location.hash;
         }
       }
-    }, 250);
-    */
+    }, 150);
+
+    // On change update, scrolling to the right position
+    root.on("select2:select", function(e) {
+      var data = e.params.data;
+      $("html, body").animate({
+        "scrollTop": ($("#" + data.id).offset().top - 50) + "px"
+      }, {
+        "duration": 0
+      });
+    });
   };
 
   // Hack to make already open sections to start opened,
