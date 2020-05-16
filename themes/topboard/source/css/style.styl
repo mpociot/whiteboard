@@ -206,7 +206,7 @@ embossed-bg()
       line-height: 1.7
       text-decoration: none
 // button to show navigation on mobile devices
-#mobile-wrapper
+#mobile-wrapper, #mobile-search-wrapper
   display: none
   position: fixed
   justify-content: space-between
@@ -225,9 +225,27 @@ embossed-bg()
     margin-left: 10px
     .select2-selection
       border: 0 none
-  .button-search-mobile
+  .open-search-mobile
     margin-right: 16px
     cursor: pointer
+#mobile-search-wrapper
+  z-index: 1001
+  .search-close-container, .mobile-search
+    width: 100%
+    height: 100%
+    box-sizing: border-box
+  .search-close-container
+    position: relative
+    .close-search-mobile
+      position: absolute
+      top: 14px
+      right: 14px
+      font-size: 18px
+      cursor: pointer
+    .mobile-search
+      padding: 0 40px 0 10px
+      font-size: 22px
+      border: 0px none
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////

@@ -288,6 +288,15 @@ under the License.
         "duration": 0
       });
     });
+
+    // Search
+    $(".open-search-mobile").on("click", function() {
+      $("#mobile-search-wrapper").show();
+      $("#mobile-search-wrapper .mobile-search").focus();
+    });
+    $(".close-search-mobile").on("click", function() {
+      $("#mobile-search-wrapper").hide();
+    });
   };
 
   // Hack to make already open sections to start opened,
@@ -354,6 +363,33 @@ under the License.
     searchResults = $('.search-results');   
 
     $('.input-search').on('keyup', search);
+    $("#mobile-search-wrapper .mobile-search").on("keyup", searchMobile);
+  }
+
+  function searchMobile(event) {
+    unhighlight();
+    // ESC clears the field
+    if (event.keyCode === 27) {
+      this.value = '';
+      $(".close-search-mobile").trigger("click");
+      unhighlight();
+      return;
+    }
+    // Enter close but keep the search
+    if (event.keyCode === 13) {
+      $(".close-search-mobile").trigger("click");
+    }
+    if (this.value) {
+      var results = index.search(this.value).filter(function(r) {
+        return r.score > 0.0001;
+      });
+
+      if (results.length) {
+        highlight.call(this);
+      }
+    } else {
+      unhighlight();
+    }
   }
 
   function search(event) {
