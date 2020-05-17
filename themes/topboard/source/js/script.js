@@ -255,14 +255,29 @@ under the License.
     var root = $("#toc-mobile");
 
     els.each(function() {
-      var el = $(this);
-      root.append("<option value=\"" + el.attr("id") + "\">" + el.text() + "</option>");
+      var el = $(this),
+          spaceCount = 0;
+      try {
+        spaceCount = Math.abs((parseInt(el.prop("tagName").substr(1), 10) - 1) * 4);
+      } catch(e) { }
+      if (spaceCount > 0) {
+        root.append("<option value=\"" + el.attr("id") + "\">" + Array(spaceCount).join("&nbsp;") + el.text() + "</option>");
+      } else {
+        root.append("<option value=\"" + el.attr("id") + "\">" + el.text() + "</option>");
+      }
     });
 
     root.select2({
       minimumResultsForSearch: -1,
       dropdownAutoWidth: true,
-      width: "auto"
+      width: "auto",
+      templateSelection: function(e) {
+        try {
+          return e.text.trim();
+        } catch (e) {
+          return null;
+        }
+      }
     });
 
     // We update but we don't trigger the change
@@ -272,10 +287,12 @@ under the License.
       if (previousHash != window.location.hash) {
         var hash = window.location.hash.substring(1);
         // Sometimes the things get bad and select an non-toc id...
-        if ($("#" + hash).length > 0) {
-          $("#toc-mobile").val(hash).trigger("change");
-          previousHash = window.location.hash;
-        }
+        try {
+          if ($("#" + hash).length > 0) {
+            $("#toc-mobile").val(hash).trigger("change");
+            previousHash = window.location.hash;
+          }
+        } catch (e) { }
       }
     }, 150);
 
