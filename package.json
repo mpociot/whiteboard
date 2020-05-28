@@ -4,24 +4,24 @@
   "license": "Apache-2.0",
   "main": "lib/whiteboard",
   "hexo": {
-    "version": "3.1.1"
+    "version": "4.2.0"
   },
   "dependencies": {
-    "bluebird": "^2.9.8",
-    "cheerio": "^0.19.0",
-    "hexo": "^3.1.1",
-    "hexo-cli": "^0.2.0",
-    "hexo-generator-archive": "^0.1.3",
-    "hexo-generator-category": "^0.1.3",
-    "hexo-generator-index": "^0.2.0",
-    "hexo-generator-tag": "^0.1.2",
-    "hexo-renderer-ejs": "^0.1.0",
-    "hexo-renderer-marked": "^0.2.6",
-    "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2"
+    "cheerio": "^1.0.0-rc.3",
+    "hexo": "^4.2.0",
+    "hexo-cli": "^3.1.0",
+    "hexo-generator-archive": "^1.0.0",
+    "hexo-generator-category": "^1.0.0",
+    "hexo-generator-index": "^1.0.0",
+    "hexo-generator-tag": "^1.0.0",
+    "hexo-renderer-ejs": "^1.0.0",
+    "hexo-renderer-marked": "^2.0.0",
+    "hexo-renderer-stylus": "^1.1.0",
+    "hexo-server": "^1.0.0"
   },
   "scripts": {
     "start": "hexo server",
-    "generate": "hexo generate"
+    "generate": "hexo generate",
+    "clean": "hexo clean"
   }
 }
