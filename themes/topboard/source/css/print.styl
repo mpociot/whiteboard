@@ -2,10 +2,7 @@
 
 // Making sure the CSS takes the mobile version...
 .tocify-wrapper
-  left: -1 * $nav-width
-  border-right: 0 none
-  &.open
-    left: 0
+  display: none
 h1, h2
   border-top-width: 0 !important
 .before-code
@@ -17,23 +14,16 @@ pre
 .page-wrapper
   margin-left: 0
   margin-top: 0
+  width: 100% !important
 #mobile-wrapper
   display: none
-.tocify-wrapper .tocify-item > a
-  padding-top: 0.3em
-  padding-bottom: 0.3em
-@media (max-width: $phone-width)
-  .dark-box
-    display: none
-  .tocify-wrapper .lang-selector
-    display: block
-  .page-wrapper .lang-selector
-    display: none
-  .content
-    h1,h2,h3,h4,h5,h6,p,table,ul,ol,aside,dl
-      margin-right: 0
-      
-    pre, blockquote, div.before-code
-      float: none
-      width: auto@import '_variables'
+.dark-box
+  display: none
+.content
+  h1,h2,h3,h4,h5,h6,p,table,ul,ol,aside,dl
+    margin-right: 0
+    
+  pre, blockquote, div.before-code
+    float: none
+    width: auto
 
