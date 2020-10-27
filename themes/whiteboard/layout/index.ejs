@@ -43,7 +43,12 @@
       <% if (language_tabs){ %>
         <div class="lang-selector">
           <% for( var lang in language_tabs){ %>
+            <% if(typeof language_tabs[lang] === 'string'){ %>
               <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+            <% } %>
+            <% if(typeof language_tabs[lang] === 'object'){ %>
+              <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= Object.values(language_tabs[lang]) %></a>
+            <% } %> 
           <% } %>
         </div>
       <% } %>
@@ -77,7 +82,12 @@
         <% if (language_tabs){ %>
           <div class="lang-selector">
             <% for( var lang in language_tabs){ %>
+              <% if(typeof language_tabs[lang] === 'string'){ %>
                 <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
+              <% } %>
+              <% if(typeof language_tabs[lang] === 'object'){ %>
+                <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= Object.values(language_tabs[lang]) %></a>
+              <% } %> 
             <% } %>
           </div>
         <% } %>
