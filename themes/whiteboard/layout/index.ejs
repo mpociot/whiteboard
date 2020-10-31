@@ -47,7 +47,7 @@
               <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
             <% } %>
             <% if(typeof language_tabs[lang] === 'object'){ %>
-              <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= Object.values(language_tabs[lang]) %></a>
+              <a href="#" data-language-name="<%= Object.keys(language_tabs[lang])[0] %>"><%= Object.values(language_tabs[lang]) %></a>
             <% } %> 
           <% } %>
         </div>
@@ -86,7 +86,7 @@
                 <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= language_tabs[lang] %></a>
               <% } %>
               <% if(typeof language_tabs[lang] === 'object'){ %>
-                <a href="#" data-language-name="<%= language_tabs[lang] %>"><%= Object.values(language_tabs[lang]) %></a>
+                <a href="#" data-language-name="<%= Object.keys(language_tabs[lang])[0] %>"><%= Object.values(language_tabs[lang]) %></a>
               <% } %> 
             <% } %>
           </div>
